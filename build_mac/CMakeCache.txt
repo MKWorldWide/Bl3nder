@@ -279,6 +279,9 @@ WITH_ASSERT_ABORT:BOOL=ON
 //Build with asserts enabled even for non-debug configurations
 WITH_ASSERT_RELEASE:BOOL=OFF
 
+//No help, variable specified on the command line.
+WITH_ATHENAMIST_AI:UNINITIALIZED=ON
+
 //Build with blenders audio library (only disable if you know what
 // you're doing!)
 WITH_AUDASPACE:BOOL=ON

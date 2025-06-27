@@ -1,0 +1,114 @@
+#!/bin/bash
+
+# AthenaMist Blender Launcher
+# ===========================
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+NC='\033[0m'
+
+echo -e "${PURPLE}🎉 Welcome to AthenaMist Blender!${NC}"
+echo -e "${CYAN}====================================${NC}"
+echo ""
+
+# Get script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+RESOURCES_DIR="$(dirname "$SCRIPT_DIR")/Resources"
+
+# Check if Blender is installed
+BLENDER_PATHS=(
+    "/Applications/Blender.app"
+    "$HOME/Applications/Blender.app"
+)
+
+BLENDER_FOUND=false
+for path in "${BLENDER_PATHS[@]}"; do
+    if [[ -d "$path" ]]; then
+        BLENDER_PATH="$path"
+        BLENDER_FOUND=true
+        echo -e "${GREEN}✓ Found Blender at: $path${NC}"
+        break
+    fi
+done
+
+if [[ "$BLENDER_FOUND" == false ]]; then
+    echo -e "${RED}❌ Blender not found!${NC}"
+    echo -e "${YELLOW}Please install Blender first from: https://www.blender.org/download/${NC}"
+    echo ""
+    echo -e "${BLUE}🔧 Installing AthenaMist AI Agent as standalone...${NC}"
+    
+    # Install AthenaMist as standalone
+    STANDALONE_DIR="$HOME/AthenaMistBlender"
+    mkdir -p "$STANDALONE_DIR"
+    cp -R "$RESOURCES_DIR/athenamist_integration" "$STANDALONE_DIR/"
+    
+    echo -e "${GREEN}✓ AthenaMist installed to: $STANDALONE_DIR${NC}"
+    echo ""
+    echo -e "${CYAN}To run AthenaMist AI Agent:${NC}"
+    echo "cd $STANDALONE_DIR"
+    echo "python3 athenamist_integration/demo.py"
+    echo ""
+    read -p "Press Enter to continue..."
+    exit 0
+fi
+
+# Launch Blender with AthenaMist
+echo -e "${BLUE}🚀 Launching Blender with AthenaMist AI Agent...${NC}"
+
+# Copy AthenaMist to Blender's add-ons directory
+ADDONS_DIR="$HOME/Library/Application Support/Blender"
+if [[ ! -d "$ADDONS_DIR" ]]; then
+    mkdir -p "$ADDONS_DIR"
+fi
+
+# Find the most recent Blender version
+LATEST_VERSION=""
+for path in "${BLENDER_PATHS[@]}"; do
+    if [[ -d "$path" ]]; then
+        version=$(defaults read "$path/Contents/Info.plist" CFBundleShortVersionString 2>/dev/null || echo "0.0.0")
+        if [[ "$version" > "$LATEST_VERSION" ]]; then
+            LATEST_VERSION="$version"
+        fi
+    fi
+done
+
+VERSION_DIR=$(echo "$LATEST_VERSION" | cut -d. -f1-2)
+TARGET_DIR="$ADDONS_DIR/$VERSION_DIR/scripts/addons"
+
+echo -e "${GREEN}✓ Using Blender $LATEST_VERSION${NC}"
+echo -e "${GREEN}✓ Target directory: $TARGET_DIR${NC}"
+
+# Create target directory
+mkdir -p "$TARGET_DIR"
+
+# Copy AthenaMist
+cp -R "$RESOURCES_DIR/athenamist_integration" "$TARGET_DIR/"
+
+echo -e "${GREEN}✓ AthenaMist AI Agent installed!${NC}"
+
+# Launch Blender
+echo -e "${BLUE}🎬 Starting Blender...${NC}"
+open "$BLENDER_PATH"
+
+echo ""
+echo -e "${GREEN}🎉 AthenaMist Blender is ready!${NC}"
+echo ""
+echo -e "${CYAN}In Blender:${NC}"
+echo "1. Go to Edit > Preferences > Add-ons"
+echo "2. Search for 'AthenaMist'"
+echo "3. Enable the add-on"
+echo "4. Open the 3D Viewport sidebar (N key)"
+echo "5. Look for the 'AthenaMist' tab"
+echo "6. Start chatting with your AI assistant! 🤖"
+echo ""
+echo -e "${PURPLE}Enjoy your AI-powered 3D creation! 🚀✨${NC}"
+
+# Keep the window open
+read -p "Press Enter to exit..."
+
+exit 0
