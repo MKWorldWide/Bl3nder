@@ -1,0 +1,197 @@
+name: Community Management
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sundays
+  workflow_dispatch:
+
+jobs:
+  # Welcome new contributors
+  welcome-contributors:
+    name: Welcome New Contributors
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Welcome new contributors
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const { data: contributors } = await github.rest.repos.listContributors({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            per_page: 100
+          });
+          
+          // Find new contributors (first contribution in last 7 days)
+          const oneWeekAgo = new Date();
+          oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+          
+          for (const contributor of contributors) {
+            const { data: events } = await github.rest.activity.listPublicEventsForUser({
+              username: contributor.login,
+              per_page: 10
+            });
+            
+            const recentEvents = events.filter(event => 
+              new Date(event.created_at) > oneWeekAgo &&
+              event.repo?.name === context.repo.repo
+            );
+            
+            if (recentEvents.length > 0) {
+              console.log(`Welcoming new contributor: ${contributor.login}`);
+              // Could send welcome message or create issue
+            }
+          }
+          
+  # Update community metrics
+  update-metrics:
+    name: Update Community Metrics
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Generate community metrics
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const { data: repo } = await github.rest.repos.get({
+            owner: context.repo.owner,
+            repo: context.repo.repo
+          });
+          
+          const { data: contributors } = await github.rest.repos.listContributors({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            per_page: 100
+          });
+          
+          const { data: issues } = await github.rest.issues.listForRepo({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            state: 'open',
+            per_page: 100
+          });
+          
+          const { data: prs } = await github.rest.pulls.list({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            state: 'open',
+            per_page: 100
+          });
+          
+          const metrics = {
+            stars: repo.stargazers_count,
+            forks: repo.forks_count,
+            contributors: contributors.length,
+            open_issues: issues.length,
+            open_prs: prs.length,
+            last_updated: new Date().toISOString()
+          };
+          
+          // Write metrics to file
+          const fs = require('fs');
+          fs.writeFileSync('community-metrics.json', JSON.stringify(metrics, null, 2));
+          
+    - name: Commit metrics
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add community-metrics.json
+        git commit -m "Update community metrics" || exit 0
+        git push
+        
+  # Check documentation health
+  docs-health:
+    name: Documentation Health Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Check documentation links
+      run: |
+        pip install markdown-link-check
+        find docs/ -name "*.md" | xargs markdown-link-check || true
+        
+    - name: Check documentation formatting
+      run: |
+        pip install markdownlint
+        markdownlint docs/ README.md CONTRIBUTING.md || true
+        
+    - name: Generate documentation report
+      run: |
+        echo "# Documentation Health Report" > docs-health-report.md
+        echo "Generated: $(date)" >> docs-health-report.md
+        echo "" >> docs-health-report.md
+        echo "## Files Checked" >> docs-health-report.md
+        find docs/ -name "*.md" | wc -l >> docs-health-report.md
+        echo "" >> docs-health-report.md
+        echo "## Issues Found" >> docs-health-report.md
+        # Add actual issues found
+        
+    - name: Upload report
+      uses: actions/upload-artifact@v3
+      with:
+        name: docs-health-report
+        path: docs-health-report.md
+        
+  # Community engagement
+  community-engagement:
+    name: Community Engagement
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Analyze community activity
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const { data: issues } = await github.rest.issues.listForRepo({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            state: 'open',
+            per_page: 100
+          });
+          
+          const { data: discussions } = await github.rest.graphql(`
+            query {
+              repository(owner: "${context.repo.owner}", name: "${context.repo.repo}") {
+                discussions(first: 100) {
+                  nodes {
+                    title
+                    createdAt
+                    author {
+                      login
+                    }
+                  }
+                }
+              }
+            }
+          `);
+          
+          console.log(`Active issues: ${issues.length}`);
+          console.log(`Recent discussions: ${discussions.repository.discussions.nodes.length}`);
+          
+    - name: Create engagement report
+      run: |
+        echo "# Community Engagement Report" > engagement-report.md
+        echo "Generated: $(date)" >> engagement-report.md
+        echo "" >> engagement-report.md
+        echo "## Recent Activity" >> engagement-report.md
+        echo "- Issues opened in last week" >> engagement-report.md
+        echo "- Pull requests submitted" >> engagement-report.md
+        echo "- Discussions started" >> engagement-report.md
+        
+    - name: Upload engagement report
+      uses: actions/upload-artifact@v3
+      with:
+        name: engagement-report
+        path: engagement-report.md 

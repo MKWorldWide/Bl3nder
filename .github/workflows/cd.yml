@@ -1,0 +1,284 @@
+name: Continuous Deployment
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release'
+        required: true
+        default: '1.0.0'
+
+env:
+  BUILD_TYPE: Release
+  WITH_TESTS: OFF
+  WITH_DOCS: ON
+
+jobs:
+  # Build release artifacts
+  build-release:
+    name: Build Release Artifacts
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            artifact_name: bl3nder-linux-x64
+            build_script: |
+              sudo apt-get update
+              sudo apt-get install -y build-essential cmake git
+              sudo apt-get install -y libboost-all-dev libeigen3-dev libopenexr-dev
+              ./download_libs.sh
+              mkdir build && cd build
+              cmake .. -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} -DWITH_DOCS=${{ env.WITH_DOCS }}
+              make -j$(nproc)
+              make install DESTDIR=../install
+              cd .. && tar -czf ${{ matrix.artifact_name }}.tar.gz install/
+          - os: macos-latest
+            artifact_name: bl3nder-macos-x64
+            build_script: |
+              brew install cmake boost eigen openexr
+              ./download_libs.sh
+              mkdir build && cd build
+              cmake .. -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} -DWITH_DOCS=${{ env.WITH_DOCS }}
+              make -j$(sysctl -n hw.ncpu)
+              make install DESTDIR=../install
+              cd .. && tar -czf ${{ matrix.artifact_name }}.tar.gz install/
+          - os: windows-latest
+            artifact_name: bl3nder-windows-x64
+            build_script: |
+              ./download_libs.sh
+              mkdir build && cd build
+              cmake .. -G "Visual Studio 16 2019" -A x64 -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} -DWITH_DOCS=${{ env.WITH_DOCS }}
+              cmake --build . --config ${{ env.BUILD_TYPE }} --parallel
+              cmake --install . --prefix ../install
+              cd .. && tar -czf ${{ matrix.artifact_name }}.tar.gz install/
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10
+        
+    - name: Build ${{ matrix.artifact_name }}
+      run: ${{ matrix.build_script }}
+      
+    - name: Upload ${{ matrix.artifact_name }}
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ matrix.artifact_name }}
+        path: ${{ matrix.artifact_name }}.tar.gz
+        
+  # Create DMG for macOS
+  create-dmg:
+    name: Create macOS DMG
+    runs-on: macos-latest
+    needs: build-release
+    if: matrix.os == 'macos-latest'
+    
+    steps:
+    - name: Download macOS artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: bl3nder-macos-x64
+        
+    - name: Create DMG
+      run: |
+        # Create DMG using hdiutil
+        hdiutil create -volname "Bl3nder" -srcfolder install/ -ov -format UDZO bl3nder-macos.dmg
+        
+    - name: Upload DMG
+      uses: actions/upload-artifact@v3
+      with:
+        name: bl3nder-macos-dmg
+        path: bl3nder-macos.dmg
+        
+  # Create installer for Windows
+  create-installer:
+    name: Create Windows Installer
+    runs-on: windows-latest
+    needs: build-release
+    if: matrix.os == 'windows-latest'
+    
+    steps:
+    - name: Download Windows artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: bl3nder-windows-x64
+        
+    - name: Create installer
+      run: |
+        # Use NSIS or similar to create installer
+        # This is a placeholder - implement actual installer creation
+        echo "Creating Windows installer..."
+        
+    - name: Upload installer
+      uses: actions/upload-artifact@v3
+      with:
+        name: bl3nder-windows-installer
+        path: bl3nder-setup.exe
+        
+  # Create GitHub release
+  create-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: [build-release, create-dmg, create-installer]
+    if: startsWith(github.ref, 'refs/tags/')
+    
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v3
+      
+    - name: Get version
+      id: get_version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      
+    - name: Create Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.get_version.outputs.VERSION }}
+        release_name: Bl3nder ${{ steps.get_version.outputs.VERSION }}
+        body: |
+          ## 🚀 Bl3nder ${{ steps.get_version.outputs.VERSION }} Release
+          
+          ### 🎉 What's New
+          - AI-enhanced 3D creation capabilities
+          - Lilybear render engine with real-time progressive rendering
+          - Advanced AI integration and workflow automation
+          - Community-driven development and collaboration
+          
+          ### 📦 Downloads
+          - **macOS**: bl3nder-macos.dmg
+          - **Windows**: bl3nder-setup.exe
+          - **Linux**: bl3nder-linux-x64.tar.gz
+          
+          ### 🔧 Installation
+          1. Download the appropriate file for your platform
+          2. Extract/install the package
+          3. Launch Bl3nder and enable AI features
+          4. Start creating with AI-enhanced tools!
+          
+          ### 📚 Documentation
+          - [User Guide](docs/)
+          - [API Documentation](doc/python_api/)
+          - [Community Guide](docs/COMMUNITY.md)
+          - [Contributing Guide](CONTRIBUTING.md)
+          
+          ### 🤝 Community
+          - [GitHub Discussions](https://github.com/your-org/bl3nder/discussions)
+          - [Issue Tracker](https://github.com/your-org/bl3nder/issues)
+          - [Contributing](CONTRIBUTING.md)
+          
+          ### 🙏 Acknowledgments
+          Thank you to all contributors, the Blender Foundation, and the open source community!
+        draft: false
+        prerelease: false
+        
+    - name: Upload Release Assets
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./bl3nder-macos.dmg
+        asset_name: bl3nder-macos-${{ steps.get_version.outputs.VERSION }}.dmg
+        asset_content_type: application/octet-stream
+        
+    - name: Upload Windows Installer
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./bl3nder-setup.exe
+        asset_name: bl3nder-windows-${{ steps.get_version.outputs.VERSION }}.exe
+        asset_content_type: application/octet-stream
+        
+    - name: Upload Linux Archive
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./bl3nder-linux-x64.tar.gz
+        asset_name: bl3nder-linux-x64-${{ steps.get_version.outputs.VERSION }}.tar.gz
+        asset_content_type: application/gzip
+        
+  # Deploy documentation
+  deploy-docs:
+    name: Deploy Documentation
+    runs-on: ubuntu-latest
+    needs: build-release
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10
+        
+    - name: Install documentation tools
+      run: |
+        pip install mkdocs mkdocs-material
+        pip install mkdocs-awesome-pages-plugin
+        
+    - name: Build documentation
+      run: |
+        mkdocs build --site-dir ./docs-build
+        
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs-build
+        
+  # Notify community
+  notify-community:
+    name: Notify Community
+    runs-on: ubuntu-latest
+    needs: [create-release, deploy-docs]
+    if: startsWith(github.ref, 'refs/tags/')
+    
+    steps:
+    - name: Get version
+      id: get_version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      
+    - name: Create community announcement
+      run: |
+        echo "## 🎉 Bl3nder ${{ steps.get_version.outputs.VERSION }} Released!" > community-announcement.md
+        echo "" >> community-announcement.md
+        echo "We're excited to announce the release of Bl3nder ${{ steps.get_version.outputs.VERSION }}!" >> community-announcement.md
+        echo "" >> community-announcement.md
+        echo "### 🚀 What's New" >> community-announcement.md
+        echo "- AI-enhanced 3D creation capabilities" >> community-announcement.md
+        echo "- Lilybear render engine with real-time progressive rendering" >> community-announcement.md
+        echo "- Advanced AI integration and workflow automation" >> community-announcement.md
+        echo "- Community-driven development and collaboration" >> community-announcement.md
+        echo "" >> community-announcement.md
+        echo "### 📦 Download" >> community-announcement.md
+        echo "Download now: https://github.com/your-org/bl3nder/releases/tag/${{ steps.get_version.outputs.VERSION }}" >> community-announcement.md
+        echo "" >> community-announcement.md
+        echo "### 🤝 Join the Community" >> community-announcement.md
+        echo "- [GitHub Discussions](https://github.com/your-org/bl3nder/discussions)" >> community-announcement.md
+        echo "- [Contributing Guide](CONTRIBUTING.md)" >> community-announcement.md
+        echo "- [Documentation](docs/)" >> community-announcement.md
+        
+    - name: Upload announcement
+      uses: actions/upload-artifact@v3
+      with:
+        name: community-announcement
+        path: community-announcement.md 

@@ -1,0 +1,212 @@
+name: Performance Testing
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2 AM
+  workflow_dispatch:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'source/blender/render/**'
+      - 'source/blender/ai_agent/**'
+      - 'source/blender/athenamist_integration/**'
+
+jobs:
+  # Performance benchmarking
+  benchmark:
+    name: Performance Benchmark
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        render_engine: [cycles, eevee, lilybear]
+        scene: [simple, complex, ai_heavy]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10
+        
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake git
+        sudo apt-get install -y libboost-all-dev libeigen3-dev libopenexr-dev
+        
+    - name: Download libraries
+      run: ./download_libs.sh
+        
+    - name: Build Bl3nder
+      run: |
+        mkdir build && cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Release -DWITH_TESTS=ON
+        make -j$(nproc)
+        
+    - name: Run performance benchmarks
+      run: |
+        cd build
+        # Run benchmark tests for specific render engine and scene
+        ctest -R "benchmark_${matrix.render_engine}_${matrix.scene}" --output-on-failure
+        
+    - name: Collect benchmark results
+      run: |
+        cd build
+        # Collect and format benchmark results
+        find . -name "*.benchmark" -exec cat {} \; > benchmark-results-${matrix.render_engine}-${matrix.scene}.txt
+        
+    - name: Upload benchmark results
+      uses: actions/upload-artifact@v3
+      with:
+        name: benchmark-${matrix.render_engine}-${matrix.scene}
+        path: build/benchmark-results-${matrix.render_engine}-${matrix.scene}.txt
+        
+  # AI performance testing
+  ai-performance:
+    name: AI Performance Test
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10
+        
+    - name: Install AI dependencies
+      run: |
+        pip install torch torchvision torchaudio
+        pip install numpy scipy scikit-learn
+        pip install pytest pytest-benchmark
+        
+    - name: Run AI performance tests
+      run: |
+        cd source/blender/ai_agent
+        python -m pytest tests/test_performance.py --benchmark-only
+        
+    - name: Upload AI benchmark results
+      uses: actions/upload-artifact@v3
+      with:
+        name: ai-benchmark-results
+        path: source/blender/ai_agent/.pytest_cache/
+        
+  # Memory usage analysis
+  memory-analysis:
+    name: Memory Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10
+        
+    - name: Install memory profiling tools
+      run: |
+        pip install memory-profiler psutil
+        sudo apt-get update
+        sudo apt-get install -y valgrind
+        
+    - name: Build with memory profiling
+      run: |
+        mkdir build && cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Debug -DWITH_MEMORY_PROFILING=ON
+        make -j$(nproc)
+        
+    - name: Run memory profiling
+      run: |
+        cd build
+        # Run memory profiling on key components
+        valgrind --tool=massif --massif-out-file=massif.out ./bin/bl3nder --test-memory
+        ms_print massif.out > memory-report.txt
+        
+    - name: Upload memory report
+      uses: actions/upload-artifact@v3
+      with:
+        name: memory-analysis
+        path: build/memory-report.txt
+        
+  # GPU performance testing
+  gpu-performance:
+    name: GPU Performance Test
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10
+        
+    - name: Install GPU tools
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y nvidia-cuda-toolkit
+        pip install pycuda
+        
+    - name: Run GPU benchmarks
+      run: |
+        cd build
+        # Run GPU-specific performance tests
+        ./bin/bl3nder --test-gpu-performance > gpu-benchmark.txt
+        
+    - name: Upload GPU benchmark results
+      uses: actions/upload-artifact@v3
+      with:
+        name: gpu-benchmark
+        path: build/gpu-benchmark.txt
+        
+  # Performance regression detection
+  regression-detection:
+    name: Performance Regression Detection
+    runs-on: ubuntu-latest
+    needs: [benchmark, ai-performance, memory-analysis, gpu-performance]
+    
+    steps:
+    - name: Download all benchmark results
+      uses: actions/download-artifact@v3
+      
+    - name: Analyze performance trends
+      run: |
+        # Compare current results with historical data
+        python scripts/analyze_performance.py
+        
+    - name: Generate performance report
+      run: |
+        echo "# Performance Report" > performance-report.md
+        echo "Generated: $(date)" >> performance-report.md
+        echo "" >> performance-report.md
+        echo "## Summary" >> performance-report.md
+        echo "- Render engine performance" >> performance-report.md
+        echo "- AI processing performance" >> performance-report.md
+        echo "- Memory usage analysis" >> performance-report.md
+        echo "- GPU performance metrics" >> performance-report.md
+        
+    - name: Upload performance report
+      uses: actions/upload-artifact@v3
+      with:
+        name: performance-report
+        path: performance-report.md
+        
+    - name: Alert on regression
+      if: failure()
+      run: |
+        echo "Performance regression detected!"
+        # Could send notification to team 
