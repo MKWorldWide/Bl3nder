@@ -1,32 +1,80 @@
-# GitHub Actions workflow for automatically closing pull requests
-# This workflow is specific to Blender's GitHub mirror and directs contributors to the official development platform on blender.org
+# GitHub Actions workflow for managing stale issues and pull requests
+# This workflow helps maintain repository health by managing inactive issues and PRs
 
-name: Close GitHub Pull Requests
+name: Manage Stale Issues and PRs
 
-# Trigger this workflow every 12 hours.
+# Trigger this workflow every 24 hours
 on:
   schedule:
-    - cron: '* */12 * * *'
+    - cron: '0 0 * * *'
 
 jobs:
-  close_prs:
-    name: Close Pull Requests
+  stale:
+    name: Mark stale issues and pull requests
     runs-on: ubuntu-latest
-    # Only run this job in the read-only mirror repository.
-    if: github.repository == 'blender/blender' && contains(github.server_url, 'github.com')
-    # Permissions granted to the GitHub Actions bot.
     permissions:
+      issues: write
       pull-requests: write
     steps:
-      - uses: actions/stale@v9
+      - name: Mark stale issues and pull requests
+        uses: actions/stale@v9
         with:
-          # Number of days before a pull request is marked as stale.
-          days-before-pr-stale: 0
-          # Number of days before a pull request is closed.
-          days-before-pr-close: 0
-          # Message posted when closing a pull request.
+          # Number of days before an issue is marked as stale
+          days-before-issue-stale: 30
+          # Number of days before a stale issue is closed
+          days-before-issue-close: 7
+          # Number of days before a pull request is marked as stale
+          days-before-pr-stale: 30
+          # Number of days before a stale pull request is closed
+          days-before-pr-close: 7
+          # Message posted when marking an issue as stale
+          stale-issue-message: |
+            This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.
+            
+            If you'd like to keep this issue open, please:
+            - Add a comment with any updates
+            - Add the `keep-open` label
+            - Or simply respond to this message
+            
+            For more information, see our [Contributing Guide](CONTRIBUTING.md).
+          # Message posted when marking a pull request as stale
           stale-pr-message: |
-            This pull request has been automatically closed because this repository is a read-only mirror. Blender development happens on [projects.blender.org](https://projects.blender.org).
-
-            To contribute code, please read:
-            https://developer.blender.org/docs/handbook/contributing/
+            This pull request has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.
+            
+            If you'd like to keep this PR open, please:
+            - Add a comment with any updates
+            - Add the `keep-open` label
+            - Or simply respond to this message
+            
+            For more information, see our [Contributing Guide](CONTRIBUTING.md).
+          # Message posted when closing a stale issue
+          close-issue-message: |
+            This issue has been automatically closed due to inactivity. If you'd like to reopen it, please create a new issue and reference this one.
+            
+            Thank you for your contributions to Bl3nder!
+          # Message posted when closing a stale pull request
+          close-pr-message: |
+            This pull request has been automatically closed due to inactivity. If you'd like to reopen it, please create a new pull request and reference this one.
+            
+            Thank you for your contributions to Bl3nder!
+          # Labels to apply when marking as stale
+          stale-issue-label: stale
+          stale-pr-label: stale
+          # Labels that prevent issues/PRs from being marked as stale
+          exempt-issue-labels: |
+            pinned
+            keep-open
+            bug
+            enhancement
+            documentation
+            good first issue
+            help wanted
+          # Labels that prevent PRs from being marked as stale
+          exempt-pr-labels: |
+            pinned
+            keep-open
+            work in progress
+            ready for review
+            approved
+          # Repository to search for stale issues and PRs
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
