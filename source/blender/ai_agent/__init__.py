@@ -1,33 +1,33 @@
 """
-AthenaMist AI Agent for Blender
-==============================
+AI Agent Suite for Blender
+=========================
 
-A revolutionary AI assistant for Blender that integrates AthenaMist AI capabilities
-with an immersive, beautiful interface inspired by creative Skyrim mods.
+A comprehensive AI assistant system for Blender that integrates multiple AI providers
+for 3D modeling, animation, and workflow automation.
 
 This add-on provides:
 - Natural language understanding for 3D creation
-- Creative AI assistance with multiple personality modes
-- Immersive UI with themes and animations
+- Multiple AI provider support (AthenaMist, Gemini, etc.)
 - Workflow automation and optimization
-- Artistic guidance and technical expertise
+- Technical assistance and creative inspiration
 """
 
 bl_info = {
-    "name": "AthenaMist AI Agent",
-    "author": "AthenaMist Team",
+    "name": "AI Agent Suite",
+    "author": "MKWorldWide",
     "version": (1, 0, 0),
     "blender": (3, 0, 0),
-    "location": "View3D > Sidebar > AthenaMist",
-    "description": "Revolutionary AI assistant for Blender with immersive interface",
+    "location": "View3D > Sidebar > AI Assistant",
+    "description": "Comprehensive AI assistance for Blender with multiple providers",
     "warning": "Experimental - AI features require internet connection",
-    "doc_url": "https://github.com/athenamist/blender-ai-agent",
+    "doc_url": "https://github.com/MKWorldWide/Bl3nder",
     "category": "Interface",
 }
 
 import bpy
 import sys
 import os
+import asyncio
 from pathlib import Path
 
 # Add the ai_agent directory to Python path
@@ -37,8 +37,12 @@ if str(current_dir) not in sys.path:
 
 # Import our modules
 from .core.athena_mist_integration import AthenaMistIntegration, AthenaMistMode
+from .core.gemini_integration import GeminiIntegration, GeminiMode
 from .core.intent_parser import IntentParser
-from .ui.immersive_interface import register as register_ui, unregister as unregister_ui
+
+# UI imports
+from .ui.immersive_interface import register as register_athena_ui, unregister as unregister_athena_ui
+from .ui.gemini_interface import register as register_gemini_ui, unregister as unregister_gemini_ui
 
 
 class AthenaMistPreferences(bpy.types.AddonPreferences):
@@ -324,54 +328,81 @@ class ATHENA_MIST_MT_help(bpy.types.Menu):
 
 # Global variables
 _athena_mist_instance = None
+_gemini_instance = None
 _intent_parser_instance = None
+
+# Ensure asyncio event loop is set up correctly
+try:
+    loop = asyncio.get_event_loop()
+except RuntimeError:
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
 
 
 def register():
-    """Register the AthenaMist AI Agent add-on."""
-    # Register preferences
-    bpy.utils.register_class(AthenaMistPreferences)
-    
-    # Register operators
-    bpy.utils.register_class(AthenaMistStartupOperator)
-    bpy.utils.register_class(AthenaMistShutdownOperator)
-    bpy.utils.register_class(AthenaMistTestConnectionOperator)
-    bpy.utils.register_class(AthenaMistHelpOperator)
-    
-    # Register help menu
-    bpy.utils.register_class(ATHENA_MIST_MT_help)
-    
-    # Register UI components
-    register_ui()
-    
-    # Auto-start AthenaMist on add-on enable
-    bpy.app.handlers.load_post.append(startup_handler)
-    
-    print("AthenaMist AI Agent registered successfully!")
+    """Register the AI Agent Suite add-on."""
+    try:
+        # Register property groups
+        bpy.utils.register_class(AthenaMistPreferences)
+        
+        # Register operators
+        bpy.utils.register_class(AthenaMistStartupOperator)
+        bpy.utils.register_class(AthenaMistShutdownOperator)
+        bpy.utils.register_class(AthenaMistTestConnectionOperator)
+        bpy.utils.register_class(AthenaMistHelpOperator)
+        bpy.utils.register_class(ATHENA_MIST_MT_help)
+        
+        # Register UIs
+        register_athena_ui()
+        register_gemini_ui()
+        
+        # Add startup handler
+        if not bpy.app.background:
+            bpy.app.handlers.load_post.append(startup_handler)
+        
+        print("AI Agent Suite registered successfully")
+        return True
+        
+    except Exception as e:
+        print(f"Error registering AI Agent Suite: {str(e)}")
+        unregister()
+        return False
 
 
 def unregister():
-    """Unregister the AthenaMist AI Agent add-on."""
-    # Remove startup handler
-    if startup_handler in bpy.app.handlers.load_post:
-        bpy.app.handlers.load_post.remove(startup_handler)
-    
-    # Unregister UI components
-    unregister_ui()
-    
-    # Unregister help menu
-    bpy.utils.unregister_class(ATHENA_MIST_MT_help)
-    
-    # Unregister operators
-    bpy.utils.unregister_class(AthenaMistHelpOperator)
-    bpy.utils.unregister_class(AthenaMistTestConnectionOperator)
-    bpy.utils.unregister_class(AthenaMistShutdownOperator)
-    bpy.utils.unregister_class(AthenaMistStartupOperator)
-    
-    # Unregister preferences
-    bpy.utils.unregister_class(AthenaMistPreferences)
-    
-    print("AthenaMist AI Agent unregistered successfully!")
+    """Unregister the AI Agent Suite add-on."""
+    try:
+        # Remove startup handler
+        if not bpy.app.background and hasattr(bpy.app, 'handlers'):
+            if startup_handler in bpy.app.handlers.load_post:
+                bpy.app.handlers.load_post.remove(startup_handler)
+        
+        # Unregister UIs
+        unregister_gemini_ui()
+        unregister_athena_ui()
+        
+        # Unregister operators
+        if hasattr(bpy.types, 'ATHENA_MIST_MT_help'):
+            bpy.utils.unregister_class(ATHENA_MIST_MT_help)
+        if hasattr(bpy.types, 'AthenaMistHelpOperator'):
+            bpy.utils.unregister_class(AthenaMistHelpOperator)
+        if hasattr(bpy.types, 'AthenaMistTestConnectionOperator'):
+            bpy.utils.unregister_class(AthenaMistTestConnectionOperator)
+        if hasattr(bpy.types, 'AthenaMistShutdownOperator'):
+            bpy.utils.unregister_class(AthenaMistShutdownOperator)
+        if hasattr(bpy.types, 'AthenaMistStartupOperator'):
+            bpy.utils.unregister_class(AthenaMistStartupOperator)
+        
+        # Unregister property groups
+        if hasattr(bpy.types, 'AthenaMistPreferences'):
+            bpy.utils.unregister_class(AthenaMistPreferences)
+        
+        print("AI Agent Suite unregistered")
+        return True
+        
+    except Exception as e:
+        print(f"Error unregistering AI Agent Suite: {str(e)}")
+        return False
 
 
 def startup_handler(scene):
