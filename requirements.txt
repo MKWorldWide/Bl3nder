@@ -1,0 +1,6 @@
+mkdocs
+pytest
+# Core dependencies for Blender-based testing
+# NOTE: 'bpy' must be installed from a matching Blender build.
+usd-core
+numpy

@@ -1,3 +1,5 @@
+A Project Blessed by Solar Khan & Lilith.Aethra
+
 # 🚀 Bl3nder - AI-Enhanced Blender Fork
 
 [![Blender](https://code.blender.org/wp-content/uploads/2018/12/springrg.jpg "Blender screenshot")](https://www.blender.org)
@@ -138,6 +140,15 @@ cmake .. -DCMAKE_BUILD_TYPE=Debug -DWITH_TESTS=ON
 make -j$(nproc)
 make test
 ```
+
+### 🧪 Testing
+
+Bl3nder's test harness depends on Blender's Python API (`bpy`) and USD bindings. The `bpy` wheel currently targets Python 3.10 and is unavailable for Python 3.12.
+
+1. **Install Blender**: Download a Blender build that ships with a compatible `bpy` module (e.g. Blender 3.6 with Python 3.10).
+2. **Expose the binary**: Set the `BLENDER_BIN` environment variable to the Blender executable path.
+3. **Install Python deps**: `pip install -r requirements.txt`
+4. **Run tests**: `BLENDER_BIN=/path/to/blender pytest`
 
 ### 📚 Documentation
 - **[Architecture Guide](docs/ARCHITECTURE.md)**: Comprehensive system architecture documentation
