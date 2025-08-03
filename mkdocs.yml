@@ -1,0 +1,16 @@
+site_name: Bl3nder
+site_url: https://Bl3nder.SolarKhan.github.io
+nav:
+  - Home: index.md
+  - Divine Law: Divine_Law.md
+  - Guides:
+      - Architecture: ARCHITECTURE.md
+      - Build System: BUILD_SYSTEM.md
+      - CI/CD: CI_CD.md
+      - Developer Onboarding: DEVELOPER_ONBOARDING.md
+      - Debugging: DEBUGGING.md
+      - Testing: TESTING.md
+      - Community: COMMUNITY.md
+      - Public Release: PUBLIC_RELEASE.md
+theme:
+  name: mkdocs
