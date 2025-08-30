@@ -1,16 +1,167 @@
+# Project information
 site_name: Bl3nder
-site_url: https://Bl3nder.SolarKhan.github.io
+site_url: https://mkworldwide.github.io/Bl3nder/
+site_author: 'MK Worldwide'
+site_description: 'AI-Enhanced Blender Fork with advanced rendering and workflow automation'
+
+# Repository
+repo_name: 'MKWorldWide/Bl3nder'
+repo_url: 'https://github.com/MKWorldWide/Bl3nder'
+edit_uri: edit/main/docs/
+
+# Copyright
+copyright: '© 2025 MK Worldwide. All rights reserved.'
+
+# Theme
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.sections
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    - navigation.footer
+    - toc.integrate
+    - header.autohide
+    - search.highlight
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil
+  favicon: assets/favicon.ico
+
+# Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - toc:
+      permalink: true
+
+# Navigation
+theme.language: en
+theme.locale: en
+
+# Customization
+extra_css:
+  - css/extra.css
+
+extra_javascript:
+  - js/extra.js
+
+# Plugins
+plugins:
+  - search
+  - git-revision-date-localized:
+      type: timeago
+      fallback_to_build_date: true
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+
+# Navigation
 nav:
   - Home: index.md
-  - Divine Law: Divine_Law.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Configuration: getting-started/configuration.md
+      - Quick Start: getting-started/quick-start.md
+  - Features:
+      - AI Integration: features/ai-integration.md
+      - Render Engines: features/render-engines.md
+      - Performance: features/performance.md
   - Guides:
-      - Architecture: ARCHITECTURE.md
-      - Build System: BUILD_SYSTEM.md
-      - CI/CD: CI_CD.md
-      - Developer Onboarding: DEVELOPER_ONBOARDING.md
-      - Debugging: DEBUGGING.md
-      - Testing: TESTING.md
-      - Community: COMMUNITY.md
-      - Public Release: PUBLIC_RELEASE.md
-theme:
-  name: mkdocs
+      - Architecture: guides/architecture.md
+      - Build System: guides/build-system.md
+      - CI/CD: guides/ci-cd.md
+      - Testing: guides/testing.md
+      - Debugging: guides/debugging.md
+  - API Reference:
+      - Python API: api/python.md
+      - Node.js API: api/nodejs.md
+  - Community:
+      - Contributing: community/contributing.md
+      - Code of Conduct: community/code-of-conduct.md
+      - Changelog: community/changelog.md
+      - Roadmap: community/roadmap.md
+
+# Extra
+strict: true
+use_directory_urls: true
+
+# Build
+build:
+  use_directory_urls: true
+
+# Extras
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/MKWorldWide/Bl3nder
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/MKWorldWide
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/mkworldwide
+
+  analytics:
+    provider: google
+    property: UA-XXXXXXXXX-X
+
+  disqus: bl3nder
+
+# Sitemap
+sitemap:
+  hostname: https://mkworldwide.github.io/Bl3nder/
+  urlset: '{{ sitemap_urlset }}'
+  lastmod_format: '%Y-%m-%d'
+  filename: sitemap.xml
