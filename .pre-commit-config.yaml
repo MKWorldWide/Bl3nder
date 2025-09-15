@@ -1,0 +1,33 @@
+# Basic pre-commit configuration
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-added-large-files
+      - id: check-merge-conflict
+
+  # YAML Linting
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        name: yamllint
+        entry: yamllint
+        language: python
+        types: [yaml]
+        args: [--config-file=.yamllint.yaml]
+
+  # Markdown Linting
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.39.0
+    hooks:
+      - id: markdownlint
+        name: markdownlint
+        entry: markdownlint
+        language: node
+        types: [markdown]
+        args: [--config=.markdownlint.yaml]

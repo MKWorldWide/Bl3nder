@@ -1,0 +1,136 @@
+# Default state for all rules
+all: false
+
+# Enable specific rules with configurations
+rules:
+  # Line length (120 characters)
+  MD013:
+    line_length: 120
+    code_blocks: false
+    tables: false
+
+  # Multiple headers with the same content
+  MD024:
+    allow_different_nesting: true
+    siblings_only: true
+
+  # Unordered list indentation
+  MD007:
+    indent: 2
+    start_indented: false
+
+  # Ordered list item prefix
+  MD029:
+    style: one_or_ordered
+
+  # Multiple top-level headers in the same document
+  MD025: false
+
+  # Trailing spaces
+  MD009:
+    br_spaces: 2
+    strict: false
+    list_item_empty_lines: false
+    code_blocks: false
+
+  # Trailing punctuation in heading
+  MD026:
+    punctuation: ".,;:!?。，；：！？"
+
+  # Multiple spaces after blockquote symbol
+  MD027: true
+
+  # Spaces after list markers
+  MD030:
+    ul_single: 1
+    ol_single: 1
+    ul_multi: 1
+    ol_multi: 1
+
+  # Bare URLs
+  MD034: true
+
+  # Inline HTML
+  MD033:
+    allowed_elements:
+      - details
+      - summary
+      - div
+
+  # No duplicate headers
+  MD043: false
+
+  # First line in file should be a top level header
+  MD041: false
+
+  # First line should be a top level heading
+  MD002: false
+
+  # Files should end with a single newline character
+  MD047: true
+
+  # Code blocks should be fenced
+  MD046:
+    style: fenced
+
+  # Inline code should be surrounded by spaces
+  MD038: true
+
+  # No hard tabs
+  MD010:
+    code_blocks: false
+
+  # No spaces after link text
+  MD011: true
+
+  # No multiple consecutive blank lines
+  MD012:
+    maximum: 2
+
+  # No multiple spaces after hash on atx style header
+  MD018: true
+
+  # No space after hash on atx style header
+  MD019: true
+
+  # No space inside hashes on closed atx style header
+  MD020: true
+
+  # No multiple spaces inside hashes on closed atx style header
+  MD021: true
+
+  # Headers should be surrounded by blank lines
+  MD022: true
+
+  # Headers must start at the beginning of the line
+  MD023: true
+
+  # Unordered list style
+  MD004:
+    style: dash
+
+  # List items should be surrounded by blank lines
+  MD032: true
+
+  # Lists should be surrounded by blank lines
+  MD031: false
+
+# File ignores
+extend:
+  ignore:
+    - "**/node_modules/**"
+    - "**/build/**"
+    - "**/dist/**"
+    - "**/coverage/**"
+    - "**/__pycache__/**"
+    - "**/.git/**"
+    - "**/.github/**"
+    - "**/.vscode/**"
+    - "**/.idea/**"
+    - "**/.pytest_cache/**"
+    - "**/venv/**"
+    - "**/env/**"
+    - "**/target/**"
+    - "**/Cargo.lock"
+    - "**/package-lock.json"
+    - "**/yarn.lock"
