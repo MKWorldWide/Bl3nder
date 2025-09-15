@@ -24,7 +24,7 @@
 AUD_NAMESPACE_BEGIN
 Convolver::Convolver(std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::complex<sample_t>>>>> ir, int irLength, std::shared_ptr<ThreadPool> threadPool, std::shared_ptr<FFTPlan> plan) :
 	m_N(plan->getSize()), m_M(plan->getSize()/2), m_L(plan->getSize()/2), m_irBuffers(ir), m_numThreads(std::min(threadPool->getNumOfThreads(), static_cast<unsigned int>(m_irBuffers->size() - 1))), m_threadPool(threadPool), m_irLength(irLength), m_tailCounter(0), m_eos(false)
-	
+
 {
 	m_resetFlag = false;
 	m_futures.resize(m_numThreads);
@@ -75,7 +75,7 @@ void Convolver::getNext(sample_t* inBuffer, sample_t* outBuffer, int& length, bo
 	for(auto &fut : m_futures)
 		if(fut.valid())
 			fut.get();
-	
+
 	if(inBuffer != nullptr)
 		m_fftConvolvers[0]->getNextFDL(inBuffer, reinterpret_cast<std::complex<sample_t>*>(m_accBuffer), length, m_delayLine[0]);
 	else

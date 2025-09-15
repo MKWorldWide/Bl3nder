@@ -60,9 +60,9 @@
           #388: Add 'check' target.
           #401: Add contrib dir
           #389: Better version string setting in CMAKE
-          #433: Support shared library build    
+          #433: Support shared library build
           #416: Support testing with valgrind
-  
+
         * Doc improvements
 
           #395: SOURCE_BROWSER Doxygen switch is configurable from CMAKE

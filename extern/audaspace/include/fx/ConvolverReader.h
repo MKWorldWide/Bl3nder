@@ -55,7 +55,7 @@ private:
 	* The impulse response in the frequency domain.
 	*/
 	std::shared_ptr<ImpulseResponse> m_ir;
-	
+
 	/**
 	* The FFT size, given by the FFTPlan.
 	*/
@@ -90,7 +90,7 @@ private:
 	* Current position in which the m_outBuffer is being read.
 	*/
 	int m_outBufferPos;
-	
+
 	/**
 	* Effective length of the m_outBuffer.
 	*/
@@ -136,7 +136,7 @@ private:
 	*/
 	std::shared_ptr<ThreadPool> m_threadPool;
 
-	/** 
+	/**
 	* A vector of futures to sync tasks.
 	*/
 	std::vector<std::future<int>> m_futures;

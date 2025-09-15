@@ -5,4 +5,3 @@ Handle
 .. autoclass:: Handle
    :members:
    :noindex:
-

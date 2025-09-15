@@ -19,7 +19,7 @@ if(UNIX)
 	set(pystring_CXX_FLAGS "${pystring_CXX_FLAGS} -fPIC")
 endif()
 
-set_target_properties(${PROJECT_NAME} PROPERTIES 
+set_target_properties(${PROJECT_NAME} PROPERTIES
 	COMPILE_FLAGS "${PLATFORM_COMPILE_FLAGS} ${pystring_CXX_FLAGS}"
     PUBLIC_HEADER "${HEADERS}"
 )

@@ -25,7 +25,7 @@ index 355ee008246..a770bbee60c 100644
 +        std::allocator_traits<Allocator>::construct(allocator, &(values[id]), Value());
        }
      }
- 
+
 @@ -218,15 +218,15 @@ namespace lemon {
          for (nf->first(it); it != INVALID; nf->next(it)) {
            int jd = nf->id(it);;
@@ -43,7 +43,7 @@ index 355ee008246..a770bbee60c 100644
 -      allocator.construct(&(values[id]), Value());
 +      std::allocator_traits<Allocator>::construct(allocator, &(values[id]), Value());
      }
- 
+
      // \brief Adds more new keys to the map.
 @@ -260,8 +260,8 @@ namespace lemon {
              }
@@ -64,7 +64,7 @@ index 355ee008246..a770bbee60c 100644
 +        std::allocator_traits<Allocator>::construct(allocator, &(values[id]), Value());
        }
      }
- 
+
 @@ -279,7 +279,7 @@ namespace lemon {
      // and it overrides the erase() member function of the observer base.
      virtual void erase(const Key& key) {
@@ -72,7 +72,7 @@ index 355ee008246..a770bbee60c 100644
 -      allocator.destroy(&(values[id]));
 +      std::allocator_traits<Allocator>::destroy(allocator, &(values[id]));
      }
- 
+
      // \brief Erase more keys from the map.
 @@ -289,7 +289,7 @@ namespace lemon {
      virtual void erase(const std::vector<Key>& keys) {
@@ -82,7 +82,7 @@ index 355ee008246..a770bbee60c 100644
 +        std::allocator_traits<Allocator>::destroy(allocator, &(values[id]));
        }
      }
- 
+
 @@ -303,7 +303,7 @@ namespace lemon {
        Item it;
        for (nf->first(it); it != INVALID; nf->next(it)) {
@@ -91,7 +91,7 @@ index 355ee008246..a770bbee60c 100644
 +        std::allocator_traits<Allocator>::construct(allocator, &(values[id]), Value());
        }
      }
- 
+
 @@ -317,7 +317,7 @@ namespace lemon {
          Item it;
          for (nf->first(it); it != INVALID; nf->next(it)) {
@@ -108,12 +108,12 @@ index 6ccad33e68e..388e990ec3b 100644
 @@ -234,7 +234,7 @@ namespace lemon {
      int in_arc, join, u_in, v_in, u_out, v_out;
      Value delta;
- 
+
 -    const Value MAX;
 +    const Value MAX_VALUE;
- 
+
    public:
- 
+
 @@ -649,9 +649,9 @@ namespace lemon {
      NetworkSimplex(const GR& graph, bool arc_mixing = true) :
        _graph(graph), _node_id(graph), _arc_id(graph),
@@ -179,14 +179,14 @@ index 8de74ede8a9..f9861f39169 100644
 --- a/extern/quadriflow/3rd/lemon-1.3.1/lemon/random.h
 +++ b/extern/quadriflow/3rd/lemon-1.3.1/lemon/random.h
 @@ -249,8 +249,8 @@ namespace lemon {
- 
+
          current = state + length;
- 
+
 -        register Word *curr = state + length - 1;
 -        register long num;
 +        Word *curr = state + length - 1;
 +        long num;
- 
+
          num = length - shift;
          while (num--) {
 diff --git a/extern/quadriflow/src/hierarchy.cpp b/extern/quadriflow/src/hierarchy.cpp
@@ -215,7 +215,7 @@ index c333256a139..70a9628320f 100644
 -        MatrixXd& S = mS[l];
 +        // FIXME
 +        // MatrixXd& S = mS[l];
- 
+
          for (uint32_t i = 0; i != mV[l + 1].cols(); ++i) {
              Vector2i upper = toUpper.col(i);
 diff --git a/extern/quadriflow/src/loader.cpp b/extern/quadriflow/src/loader.cpp
@@ -223,16 +223,16 @@ index aa27066e6e4..5b9d717db71 100644
 --- a/extern/quadriflow/src/loader.cpp
 +++ b/extern/quadriflow/src/loader.cpp
 @@ -8,6 +8,7 @@
- 
+
  #include "loader.hpp"
- 
+
 +#include <cstdint>
  #include <fstream>
  #include <unordered_map>
- 
+
 @@ -69,7 +70,7 @@ void load(const char* filename, MatrixXd& V, MatrixXi& F)
  	};
- 
+
  	/// Hash function for obj_vertex
 -	struct obj_vertexHash : std::unary_function<obj_vertex, size_t> {
 +	struct obj_vertexHash {
@@ -245,7 +245,7 @@ index ab4a01c..a77f7ae 100644
 +++ b/extern/quadriflow/src/flow.hpp
 @@ -7,17 +7,12 @@
  #include <vector>
- 
+
  #include "config.hpp"
 -
 -#include <boost/graph/adjacency_list.hpp>
@@ -253,17 +253,17 @@ index ab4a01c..a77f7ae 100644
 -#include <boost/graph/edmonds_karp_max_flow.hpp>
 -#include <boost/graph/push_relabel_max_flow.hpp>
 +#include "../patches/boykov_kolmogorov_max_flow.hpp"
- 
+
  #include <lemon/network_simplex.h>
  #include <lemon/preflow.h>
  #include <lemon/smart_graph.h>
- 
+
 -using namespace boost;
  using namespace Eigen;
- 
+
  namespace qflow {
 @@ -34,78 +29,52 @@ class MaxFlowHelper {
- 
+
  class BoykovMaxFlowHelper : public MaxFlowHelper {
     public:
 -    typedef int EdgeWeightType;
@@ -362,7 +362,7 @@ index ab4a01c..a77f7ae 100644
 +            }
 +        }
      }
- 
+
     private:
 -    Graph g;
 -    property_map<Graph, edge_reverse_t>::type rev;
@@ -373,7 +373,7 @@ index ab4a01c..a77f7ae 100644
 +    int num_verts = 0;
 +    int num_edges = 0;
  };
- 
+
  class NetworkSimplexFlowHelper : public MaxFlowHelper {
 diff --git a/extern/quadriflow/src/main.cpp b/extern/quadriflow/src/main.cpp
 index 18bc4063c42..63c9e61b8c9 100644
@@ -396,9 +396,9 @@ index b85383566c9..3dbdc386eca 100644
 --- a/extern/quadriflow/src/parametrizer.cpp
 +++ b/extern/quadriflow/src/parametrizer.cpp
 @@ -18,7 +18,7 @@
- 
+
  namespace qflow {
- 
+
 -void Parametrizer::ComputeIndexMap(int with_scale) {
 +bool Parametrizer::ComputeIndexMap(int with_scale) {
      // build edge info
@@ -417,7 +417,7 @@ index b85383566c9..3dbdc386eca 100644
 +    {
 +      return false;
 +    }
- 
+
      allow_changes.clear();
      allow_changes.resize(edge_diff.size() * 2, 1);
 @@ -99,9 +102,12 @@ void Parametrizer::ComputeIndexMap(int with_scale) {
@@ -433,7 +433,7 @@ index b85383566c9..3dbdc386eca 100644
 +      return false;
 +    }
      FixFlipSat();
- 
+
  #ifdef LOG_OUTPUT
 @@ -242,6 +248,7 @@ void Parametrizer::ComputeIndexMap(int with_scale) {
      //    E2E_compact,
@@ -441,7 +441,7 @@ index b85383566c9..3dbdc386eca 100644
      //                            hierarchy.mScale, false);
 +    return true;
  }
- 
+
  }  // namespace qflow
 diff --git a/extern/quadriflow/src/parametrizer.hpp b/extern/quadriflow/src/parametrizer.hpp
 index 1f4a02be6c2..9703ebbfff6 100644
@@ -449,7 +449,7 @@ index 1f4a02be6c2..9703ebbfff6 100644
 +++ b/extern/quadriflow/src/parametrizer.hpp
 @@ -54,7 +54,8 @@ class Parametrizer {
      void ComputePositionSingularities();
- 
+
      // Integer Grid Map Pipeline
 -    void ComputeIndexMap(int with_scale = 0);
 +    // Return false when the solver fails.
@@ -478,7 +478,7 @@ index c408bbc6394..babff96ccb4 100644
 @@ -145,7 +145,7 @@ void subdivide(MatrixXi &F, MatrixXd &V, VectorXd& rho, VectorXi &V2E, VectorXi
      E2E.conservativeResize(nF * 3);
  }
- 
+
 -void subdivide_edgeDiff(MatrixXi &F, MatrixXd &V, MatrixXd &N, MatrixXd &Q, MatrixXd &O, MatrixXd* S,
 +bool subdivide_edgeDiff(MatrixXi &F, MatrixXd &V, MatrixXd &N, MatrixXd &Q, MatrixXd &O, MatrixXd* S,
                          VectorXi &V2E, VectorXi &E2E, VectorXi &boundary, VectorXi &nonmanifold,
@@ -505,7 +505,7 @@ index c408bbc6394..babff96ccb4 100644
      }
 +    return true;
  }
- 
+
  } // namespace qflow
 diff --git a/extern/quadriflow/src/subdivide.hpp b/extern/quadriflow/src/subdivide.hpp
 index a93c58ac2a7..8c682b6d9f2 100644
@@ -514,7 +514,7 @@ index a93c58ac2a7..8c682b6d9f2 100644
 @@ -9,7 +9,8 @@ namespace qflow {
  void subdivide(MatrixXi &F, MatrixXd &V, VectorXd& rho, VectorXi &V2E, VectorXi &E2E, VectorXi &boundary,
                 VectorXi &nonmanifold, double maxLength);
- 
+
 -void subdivide_edgeDiff(MatrixXi &F, MatrixXd &V, MatrixXd &N, MatrixXd &Q, MatrixXd &O, MatrixXd* S,
 +// Return false when solving fails.
 +bool subdivide_edgeDiff(MatrixXi &F, MatrixXd &V, MatrixXd &N, MatrixXd &Q, MatrixXd &O, MatrixXd* S,
@@ -533,6 +533,6 @@ index 1c59ad0f70c..f8836ed0d0e 100644
 +            /* This used to be arc_ids.size() which is wrong, the loop below adds
 +             * exactly arcs.size() edges. */
 +            solver->resize(initial.size() + 2, arcs.size());
- 
+
              std::set<int> ids;
              for (int i = 0; i < arcs.size(); ++i) {

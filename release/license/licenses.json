@@ -44,7 +44,7 @@
   "SPDX:FTL": {
     "name": "Freetype Project License",
     "url": "https://spdx.org/licenses/FTL.html"
-  },  
+  },
   "SPDX:GPL-2.0-or-later": {
     "name": "GNU General Public License v2.0 or later",
     "url": "https://spdx.org/licenses/GPL-2.0-or-later.html"

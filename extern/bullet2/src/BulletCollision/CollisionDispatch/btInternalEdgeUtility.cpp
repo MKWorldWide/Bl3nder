@@ -298,7 +298,7 @@ struct b3ProcessAllTrianglesHeightfield: public btTriangleCallback
 {
 	btHeightfieldTerrainShape* m_heightfieldShape;
 	btTriangleInfoMap* m_triangleInfoMap;
-	
+
 
 	b3ProcessAllTrianglesHeightfield(btHeightfieldTerrainShape* heightFieldShape, btTriangleInfoMap* triangleInfoMap)
 		:m_heightfieldShape(heightFieldShape),
@@ -489,7 +489,7 @@ void btAdjustInternalEdgeContacts(btManifoldPoint& cp, const btCollisionObjectWr
 	if (colObj0Wrap->getCollisionShape()->getShapeType() != TRIANGLE_SHAPE_PROXYTYPE)
 		return;
 
-	
+
 	btTriangleInfoMap* triangleInfoMapPtr = 0;
 
 	if (colObj0Wrap->getCollisionObject()->getCollisionShape()->getShapeType() == TERRAIN_SHAPE_PROXYTYPE)
@@ -532,8 +532,8 @@ void btAdjustInternalEdgeContacts(btManifoldPoint& cp, const btCollisionObjectWr
 	{
 		triangleInfoMapPtr = (btTriangleInfoMap*)trimesh->getTriangleInfoMap();
 	}
-	
-	
+
+
 	if (!triangleInfoMapPtr)
 		return;
 

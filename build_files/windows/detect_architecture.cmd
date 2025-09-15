@@ -20,5 +20,5 @@ if "%BUILD_ARCH%"=="" (
 )
 :EOF
 exit /b 0
-:ERR 
+:ERR
 exit /b 1

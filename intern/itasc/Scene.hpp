@@ -22,7 +22,7 @@ namespace iTaSC {
 class SceneLock;
 
 class Scene {
-	friend class SceneLock;	
+	friend class SceneLock;
 public:
 	enum SceneParam {
 		MIN_TIMESTEP	= 0,
@@ -66,7 +66,7 @@ private:
         Range constraintrange;
         Range jointrange;
 		Range coordinaterange;	// Xu range of base when object is controlled
-										// Xu range of object when object is uncontrolled 
+										// Xu range of object when object is uncontrolled
 
         Object_struct(Object* _object,UncontrolledObject* _base,unsigned int _baseFrameIndex,Range nq_range,Range nc_range,Range nu_range):
             object(_object),base(_base),baseFrameIndex(_baseFrameIndex),constraintrange(nc_range),jointrange(nq_range),coordinaterange(nu_range)

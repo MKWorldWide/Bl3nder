@@ -10,7 +10,7 @@ index cdf400222f..e780d7343b 100644
  {
      _Init(drawItemInstance);
  }
- 
+
 -HdSt_IndirectDrawBatch::~HdSt_IndirectDrawBatch() = default;
 +HdSt_IndirectDrawBatch::~HdSt_IndirectDrawBatch()
 +{
@@ -18,13 +18,13 @@ index cdf400222f..e780d7343b 100644
 +        glDeleteVertexArrays(1, &_vao);
 +    }
 +}
- 
+
  /*virtual*/
  void
 @@ -1199,6 +1205,14 @@ HdSt_IndirectDrawBatch::_ExecuteDraw(
                                 state.instancePrimvarBars);
      }
- 
+
 +    // OpenGL core profile requries a VAO for binding buffers.
 +    if (capabilities->GetCoreProfile()) {
 +        if (!_vao) {
@@ -34,11 +34,11 @@ index cdf400222f..e780d7343b 100644
 +    }
 +
      state.BindResourcesForDrawing(renderPassState, *capabilities);
- 
+
      HdSt_GeometricShaderSharedPtr geometricShader = state.geometricShader;
 @@ -1455,6 +1469,15 @@ HdSt_IndirectDrawBatch::_ExecuteFrustumCull(
              cullingProgram.GetGeometricShader());
- 
+
      Hgi * hgi = resourceRegistry->GetHgi();
 +    HgiCapabilities const *capabilities = hgi->GetCapabilities();
 +
@@ -49,7 +49,7 @@ index cdf400222f..e780d7343b 100644
 +        }
 +        glBindVertexArray(_vao);
 +    }
- 
+
      HgiGraphicsPipelineSharedPtr const & pso =
          _GetCullPipeline(resourceRegistry,
 diff --git a/pxr/imaging/hdSt/indirectDrawBatch.h b/pxr/imaging/hdSt/indirectDrawBatch.h
@@ -58,19 +58,19 @@ index 13da3917b0..84f013d310 100644
 +++ b/pxr/imaging/hdSt/indirectDrawBatch.h
 @@ -201,6 +201,8 @@ class HdSt_IndirectDrawBatch : public HdSt_DrawBatch
      int _cullInstanceCountOffset;
- 
+
      bool _needsTextureResourceRebinding;
 +
 +    uint32_t _vao;
  };
- 
- 
+
+
 diff --git a/pxr/imaging/hdSt/renderPassState.cpp b/pxr/imaging/hdSt/renderPassState.cpp
 index 5c4d2fac07..908a49f310 100644
 --- a/pxr/imaging/hdSt/renderPassState.cpp
 +++ b/pxr/imaging/hdSt/renderPassState.cpp
 @@ -760,7 +760,9 @@ HdStRenderPassState::Bind(HgiCapabilities const &hgiCapabilities)
-         // If not using GL_MULTISAMPLE, use GL_POINT_SMOOTH to render points as 
+         // If not using GL_MULTISAMPLE, use GL_POINT_SMOOTH to render points as
          // circles instead of square.
          // XXX Switch points rendering to emit quad with FS that draws circle.
 -        glEnable(GL_POINT_SMOOTH);
@@ -79,17 +79,17 @@ index 5c4d2fac07..908a49f310 100644
 +        }
      }
  }
- 
+
 @@ -804,7 +806,9 @@ HdStRenderPassState::Unbind(HgiCapabilities const &hgiCapabilities)
      }
- 
+
      glEnable(GL_MULTISAMPLE);
 -    glDisable(GL_POINT_SMOOTH);
 +    if (!hgiCapabilities.GetCoreProfile()) {
 +        glDisable(GL_POINT_SMOOTH);
 +    }
  }
- 
+
  void
 diff --git a/pxr/imaging/hgi/capabilities.h b/pxr/imaging/hgi/capabilities.h
 index ae2ecb4e5b..c86afcb387 100644
@@ -98,7 +98,7 @@ index ae2ecb4e5b..c86afcb387 100644
 @@ -52,6 +52,11 @@ class HgiCapabilities
      HGI_API
      virtual int GetShaderVersion() const = 0;
- 
+
 +    HGI_API
 +    virtual bool GetCoreProfile() const {
 +        return false;
@@ -117,7 +117,7 @@ index ce62f41a51..20888a1109 100644
      // not set and restore all relevant gl state.
 -    HgiGL_ScopedStateHolder openglStateGuard;
 +    HgiGL_ScopedStateHolder openglStateGuard(*hgi->GetCapabilities());
- 
+
      HgiGL* hgiGL = static_cast<HgiGL*>(hgi);
      HgiGLDevice* device = hgiGL->GetPrimaryDevice();
 diff --git a/pxr/imaging/hgiGL/capabilities.cpp b/pxr/imaging/hgiGL/capabilities.cpp
@@ -147,7 +147,7 @@ index 920f9cdff4..9941bef7b2 100644
 @@ -259,4 +265,9 @@ HgiGLCapabilities::GetShaderVersion() const {
      return _glslVersion;
  }
- 
+
 +bool
 +HgiGLCapabilities::GetCoreProfile() const {
 +    return _coreProfile;
@@ -161,22 +161,22 @@ index 3c8f026426..2f25b44936 100644
 @@ -52,6 +52,9 @@ class HgiGLCapabilities final : public HgiCapabilities
      HGIGL_API
      int GetShaderVersion() const override;
- 
+
 +    HGIGL_API
 +    bool GetCoreProfile() const override;
 +
  private:
      void _LoadCapabilities();
- 
+
 @@ -60,6 +63,9 @@ class HgiGLCapabilities final : public HgiCapabilities
-     
-     // GLSL version 
+
+     // GLSL version
      int _glslVersion; // 400, 410, ...
 +
 +    // Core Profile
 +    bool _coreProfile;
  };
- 
+
  PXR_NAMESPACE_CLOSE_SCOPE
 diff --git a/pxr/imaging/hgiGL/graphicsCmds.cpp b/pxr/imaging/hgiGL/graphicsCmds.cpp
 index 5e174165d7..e59ae3502f 100644
@@ -188,7 +188,7 @@ index 5e174165d7..e59ae3502f 100644
      // not set and restore all relevant gl state.
 -    HgiGL_ScopedStateHolder openglStateGuard;
 +    HgiGL_ScopedStateHolder openglStateGuard(*hgi->GetCapabilities());
- 
+
      // Resolve multisample textures
      HgiGL* hgiGL = static_cast<HgiGL*>(hgi);
 diff --git a/pxr/imaging/hgiGL/graphicsPipeline.cpp b/pxr/imaging/hgiGL/graphicsPipeline.cpp
@@ -198,7 +198,7 @@ index 6983dd11e9..a1c7af754e 100644
 @@ -42,7 +42,12 @@ HgiGLGraphicsPipeline::HgiGLGraphicsPipeline(
  {
  }
- 
+
 -HgiGLGraphicsPipeline::~HgiGLGraphicsPipeline() = default;
 +HgiGLGraphicsPipeline::~HgiGLGraphicsPipeline()
 +{
@@ -206,7 +206,7 @@ index 6983dd11e9..a1c7af754e 100644
 +        glDeleteVertexArrays(1, &_vao);
 +    }
 +}
- 
+
  void
  HgiGLGraphicsPipeline::BindPipeline()
 @@ -50,6 +55,7 @@ HgiGLGraphicsPipeline::BindPipeline()
@@ -215,19 +215,19 @@ index 6983dd11e9..a1c7af754e 100644
          glDeleteVertexArrays(1, &_vao);
 +        _vao = 0;
      }
- 
+
      if (!_descriptor.vertexBuffers.empty()) {
 @@ -108,6 +114,8 @@ HgiGLGraphicsPipeline::BindPipeline()
          glBindVertexArray(_vao);
      }
- 
+
 +    const bool coreProfile = _hgi->GetCapabilities()->GetCoreProfile();
 +
      //
      // Depth Stencil State
      //
 @@ -172,7 +180,9 @@ HgiGLGraphicsPipeline::BindPipeline()
-         // If not using GL_MULTISAMPLE, use GL_POINT_SMOOTH to render points as 
+         // If not using GL_MULTISAMPLE, use GL_POINT_SMOOTH to render points as
          // circles instead of square.
          // XXX Switch points rendering to emit quad with FS that draws circle.
 -        glEnable(GL_POINT_SMOOTH);
@@ -240,12 +240,12 @@ index 6983dd11e9..a1c7af754e 100644
 @@ -207,7 +217,7 @@ HgiGLGraphicsPipeline::BindPipeline()
          glFrontFace(GL_CCW);
      }
- 
+
 -    if (_descriptor.rasterizationState.lineWidth != 1.0f) {
 +    if (!coreProfile && _descriptor.rasterizationState.lineWidth != 1.0f) {
          glLineWidth(_descriptor.rasterizationState.lineWidth);
      }
- 
+
 diff --git a/pxr/imaging/hgiGL/scopedStateHolder.cpp b/pxr/imaging/hgiGL/scopedStateHolder.cpp
 index 89cd0ac224..5c6575330b 100644
 --- a/pxr/imaging/hgiGL/scopedStateHolder.cpp
@@ -255,13 +255,13 @@ index 89cd0ac224..5c6575330b 100644
  #include "pxr/imaging/hgiGL/conversions.h"
  #include "pxr/imaging/hgiGL/diagnostic.h"
 +#include "pxr/imaging/hgiGL/hgi.h"
- 
+
  #include "pxr/base/trace/trace.h"
  #include "pxr/base/tf/diagnostic.h"
 @@ -33,8 +34,10 @@
- 
+
  PXR_NAMESPACE_OPEN_SCOPE
- 
+
 -HgiGL_ScopedStateHolder::HgiGL_ScopedStateHolder()
 -    : _restoreRenderBuffer(0)
 +HgiGL_ScopedStateHolder::HgiGL_ScopedStateHolder(
@@ -284,13 +284,13 @@ index 89cd0ac224..5c6575330b 100644
      glGetIntegerv(GL_FRONT_FACE, &_frontFace);
 @@ -139,7 +144,9 @@ HgiGL_ScopedStateHolder::HgiGL_ScopedStateHolder()
      }
- 
+
      glGetBooleanv(GL_MULTISAMPLE, (GLboolean*)&_restoreMultiSample);
 -    glGetBooleanv(GL_POINT_SMOOTH, (GLboolean*)&_restorePointSmooth);
 +    if (!_coreProfile) {
 +        glGetBooleanv(GL_POINT_SMOOTH, (GLboolean*)&_restorePointSmooth);
 +    }
- 
+
      HGIGL_POST_PENDING_GL_ERRORS();
      #if defined(GL_KHR_debug)
 @@ -235,7 +242,9 @@ HgiGL_ScopedStateHolder::~HgiGL_ScopedStateHolder()
@@ -307,7 +307,7 @@ index 89cd0ac224..5c6575330b 100644
 @@ -285,10 +294,12 @@ HgiGL_ScopedStateHolder::~HgiGL_ScopedStateHolder()
          glDisable(GL_MULTISAMPLE);
      }
- 
+
 -    if (_restorePointSmooth) {
 -        glEnable(GL_POINT_SMOOTH);
 -    } else {
@@ -319,18 +319,18 @@ index 89cd0ac224..5c6575330b 100644
 +            glDisable(GL_POINT_SMOOTH);
 +        }
      }
- 
+
      static const GLuint samplers[8] = {0};
 diff --git a/pxr/imaging/hgiGL/scopedStateHolder.h b/pxr/imaging/hgiGL/scopedStateHolder.h
 index d006480b9b..be6698e04c 100644
 --- a/pxr/imaging/hgiGL/scopedStateHolder.h
 +++ b/pxr/imaging/hgiGL/scopedStateHolder.h
 @@ -32,6 +32,7 @@
- 
+
  PXR_NAMESPACE_OPEN_SCOPE
- 
+
 +class HgiCapabilities;
- 
+
  /// \class HgiGLScopedStateHolder
  ///
 @@ -50,7 +51,7 @@ class HgiGL_ScopedStateHolder final
@@ -339,18 +339,18 @@ index d006480b9b..be6698e04c 100644
      HGIGL_API
 -    HgiGL_ScopedStateHolder();
 +    HgiGL_ScopedStateHolder(HgiCapabilities const& capabilities);
- 
+
      HGIGL_API
      ~HgiGL_ScopedStateHolder();
 @@ -59,6 +60,8 @@ class HgiGL_ScopedStateHolder final
      HgiGL_ScopedStateHolder& operator=(const HgiGL_ScopedStateHolder&) = delete;
      HgiGL_ScopedStateHolder(const HgiGL_ScopedStateHolder&) = delete;
- 
+
 +    bool _coreProfile;
 +
      int32_t _restoreRenderBuffer;
      int32_t _restoreVao;
- 
+
 diff --git a/pxr/imaging/hgiInterop/opengl.cpp b/pxr/imaging/hgiInterop/opengl.cpp
 index 95736721f1..4f970ed608 100644
 --- a/pxr/imaging/hgiInterop/opengl.cpp
@@ -378,16 +378,16 @@ index 95736721f1..4f970ed608 100644
 +    glDeleteVertexArrays(1, &_vao);
      TF_VERIFY(glGetError() == GL_NO_ERROR);
  }
- 
+
 @@ -202,10 +205,13 @@ HgiInteropOpenGL::CompositeToInterop(
      }
- 
+
      // Get the current array buffer binding state
 +    GLint restoreVao = 0;
 +    glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &restoreVao);
      GLint restoreArrayBuffer = 0;
      glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &restoreArrayBuffer);
- 
+
      // Vertex attributes
 +    glBindVertexArray(_vao);
      const GLint locPosition = glGetAttribLocation(prg, "position");
@@ -398,7 +398,7 @@ index 95736721f1..4f970ed608 100644
      glDisableVertexAttribArray(locUv);
      glBindBuffer(GL_ARRAY_BUFFER, restoreArrayBuffer);
 +    glBindVertexArray(restoreVao);
-     
+
      if (!blendEnabled) {
          glDisable(GL_BLEND);
 diff --git a/pxr/imaging/hgiInterop/opengl.h b/pxr/imaging/hgiInterop/opengl.h
@@ -412,4 +412,3 @@ index 18840a92bd..27434ac36f 100644
 +    uint32_t _vao;
      uint32_t _vertexBuffer;
  };
- 

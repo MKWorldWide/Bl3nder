@@ -244,4 +244,4 @@ Each entry follows this structure:
 
 **Last Updated**: 2024-12-19
 **Version**: 1.0 (Public Release)
-**Maintainer**: Blender Documentation Team & Community 
+**Maintainer**: Blender Documentation Team & Community

@@ -15,17 +15,17 @@ index 521ecfc760..e4bd7bb4d5 100644
 @@ -463,17 +463,17 @@ void btPolyhedralConvexShape::calculateLocalInertia(btScalar mass, btVector3& in
  #ifndef __SPU__
  	//not yet, return box inertia
- 
+
 -	btScalar margin = getMargin();
 +	//btScalar margin = getMargin();
- 
+
  	btTransform ident;
  	ident.setIdentity();
  	btVector3 aabbMin, aabbMax;
 -	getAabb(ident, aabbMin, aabbMax);
 +	getAabb(ident, aabbMin, aabbMax);  // This already contains the margin
  	btVector3 halfExtents = (aabbMax - aabbMin) * btScalar(0.5);
- 
+
 -	btScalar lx = btScalar(2.) * (halfExtents.x() + margin);
 -	btScalar ly = btScalar(2.) * (halfExtents.y() + margin);
 -	btScalar lz = btScalar(2.) * (halfExtents.z() + margin);
@@ -36,7 +36,7 @@ index 521ecfc760..e4bd7bb4d5 100644
  	const btScalar y2 = ly * ly;
  	const btScalar z2 = lz * lz;
 @@ -529,8 +529,8 @@ void btPolyhedralConvexAabbCachingShape::recalcLocalAabb()
- 
+
  	for (int i = 0; i < 3; ++i)
  	{
 -		m_localAabbMax[i] = _supporting[i][i] + m_collisionMargin;
@@ -44,7 +44,7 @@ index 521ecfc760..e4bd7bb4d5 100644
 +		m_localAabbMax[i] = _supporting[i][i];
 +		m_localAabbMin[i] = _supporting[i + 3][i];
  	}
- 
+
  #else
 
 From 4b9a201d4c1b8cacbcdd68f9cdb55745caa6adc4 Mon Sep 17 00:00:00 2001
@@ -68,10 +68,10 @@ index 49f26bc4e5..ee6786c807 100644
  		identity.setIdentity();
  		btVector3 aabbMin, aabbMax;
 -		getAabb(identity, aabbMin, aabbMax);
- 
+
 +		getAabb(identity, aabbMin, aabbMax);  // This already contains the margin
  		btVector3 halfExtents = (aabbMax - aabbMin) * btScalar(0.5);
- 
+
 -		btScalar margin = getMargin();
 -
 -		btScalar lx = btScalar(2.) * (halfExtents.x() + margin);
@@ -88,7 +88,7 @@ index 4d598b1aa2..b847f8f40f 100644
 --- a/src/BulletCollision/CollisionShapes/btConvexInternalShape.cpp
 +++ b/src/BulletCollision/CollisionShapes/btConvexInternalShape.cpp
 @@ -117,8 +117,8 @@ void btConvexInternalAabbCachingShape::recalcLocalAabb()
- 
+
  	for (int i = 0; i < 3; ++i)
  	{
 -		m_localAabbMax[i] = _supporting[i][i] + m_collisionMargin;
@@ -96,7 +96,7 @@ index 4d598b1aa2..b847f8f40f 100644
 +		m_localAabbMax[i] = _supporting[i][i];
 +		m_localAabbMin[i] = _supporting[i + 3][i];
  	}
- 
+
  #else
 @@ -128,10 +128,10 @@ void btConvexInternalAabbCachingShape::recalcLocalAabb()
  		btVector3 vec(btScalar(0.), btScalar(0.), btScalar(0.));

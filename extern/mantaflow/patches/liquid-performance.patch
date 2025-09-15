@@ -23,7 +23,7 @@ index 31e43483b49..9856d84a8b1 100644
 +                                Vec3i(i, j, k+1),
 +                                Vec3i(i, j, k-1)};
 +    const int dim = (vel.is3D() ? 3 : 2);
- 
+
      // copy from initialized neighbors
      Vec3i p(i, j, k);
      int nbs = 0;
@@ -58,7 +58,7 @@ index 31e43483b49..9856d84a8b1 100644
 +                                Vec3i(i, j, k+1),
 +                                Vec3i(i, j, k-1)};
 +    const int dim = (vel.is3D() ? 3 : 2);
- 
+
      // copy from initialized neighbors
      Vec3i p(i, j, k);
      int nbs = 0;

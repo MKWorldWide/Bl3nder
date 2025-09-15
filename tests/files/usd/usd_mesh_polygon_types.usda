@@ -104,4 +104,3 @@ def Xform "triangles"
         uniform token subdivisionScheme = "none"
     }
 }
-

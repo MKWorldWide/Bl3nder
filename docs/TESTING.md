@@ -74,7 +74,7 @@ class MathTest : public ::testing::Test {
   void SetUp() override {
     // Setup code before each test
   }
-  
+
   void TearDown() override {
     // Cleanup code after each test
   }
@@ -84,7 +84,7 @@ TEST_F(MathTest, VectorAddition) {
   float3 a(1.0f, 2.0f, 3.0f);
   float3 b(4.0f, 5.0f, 6.0f);
   float3 result = a + b;
-  
+
   EXPECT_FLOAT_EQ(result.x, 5.0f);
   EXPECT_FLOAT_EQ(result.y, 7.0f);
   EXPECT_FLOAT_EQ(result.z, 9.0f);
@@ -93,7 +93,7 @@ TEST_F(MathTest, VectorAddition) {
 TEST_F(MathTest, VectorNormalization) {
   float3 vec(3.0f, 4.0f, 0.0f);
   float3 normalized = normalize(vec);
-  
+
   EXPECT_NEAR(length(normalized), 1.0f, 1e-6f);
 }
 ```
@@ -142,39 +142,39 @@ class MeshTest(unittest.TestCase):
     def setUp(self):
         """Set up test environment before each test."""
         bpy.ops.wm.read_homefile(use_empty=True)
-    
+
     def tearDown(self):
         """Clean up after each test."""
         bpy.ops.wm.read_homefile(use_empty=True)
-    
+
     def test_cube_creation(self):
         """Test that a cube can be created successfully."""
         bpy.ops.mesh.primitive_cube_add(location=(0, 0, 0))
         obj = bpy.context.active_object
-        
+
         self.assertIsNotNone(obj)
         self.assertEqual(obj.type, 'MESH')
         self.assertEqual(len(obj.data.vertices), 8)
         self.assertEqual(len(obj.data.polygons), 6)
-    
+
     def test_mesh_boolean_union(self):
         """Test boolean union operation."""
         # Create two cubes
         bpy.ops.mesh.primitive_cube_add(location=(0, 0, 0))
         cube1 = bpy.context.active_object
-        
+
         bpy.ops.mesh.primitive_cube_add(location=(1, 0, 0))
         cube2 = bpy.context.active_object
-        
+
         # Perform boolean union
         bool_mod = cube1.modifiers.new(name="Boolean", type='BOOLEAN')
         bool_mod.object = cube2
         bool_mod.operation = 'UNION'
-        
+
         # Apply modifier
         bpy.context.view_layer.objects.active = cube1
         bpy.ops.object.modifier_apply(modifier="Boolean")
-        
+
         # Verify result
         self.assertGreater(len(cube1.data.vertices), 8)
 ```
@@ -207,26 +207,26 @@ import bpy
 class SceneIntegrationTest(unittest.TestCase):
     def setUp(self):
         bpy.ops.wm.read_homefile(use_empty=True)
-    
+
     def test_object_creation_and_modification(self):
         """Test complete workflow of object creation and modification."""
         # Create object
         bpy.ops.mesh.primitive_cube_add(location=(0, 0, 0))
         obj = bpy.context.active_object
-        
+
         # Add modifier
         subsurf = obj.modifiers.new(name="Subsurf", type='SUBSURF')
         subsurf.levels = 2
-        
+
         # Add material
         mat = bpy.data.materials.new(name="TestMaterial")
         obj.data.materials.append(mat)
-        
+
         # Add animation
         obj.keyframe_insert(data_path="location", frame=1)
         obj.location = (1, 1, 1)
         obj.keyframe_insert(data_path="location", frame=10)
-        
+
         # Verify integration
         self.assertIsNotNone(obj.modifiers.get("Subsurf"))
         self.assertIsNotNone(obj.data.materials[0])
@@ -245,16 +245,16 @@ class RenderIntegrationTest(unittest.TestCase):
         # Set up scene
         bpy.context.scene.render.engine = 'CYCLES'
         bpy.context.scene.cycles.device = 'GPU'
-        
+
         # Create test scene
         bpy.ops.mesh.primitive_cube_add(location=(0, 0, 0))
         bpy.ops.mesh.primitive_light_add(location=(5, 5, 5))
-        
+
         # Set render settings
         bpy.context.scene.render.resolution_x = 64
         bpy.context.scene.render.resolution_y = 64
         bpy.context.scene.cycles.samples = 1
-        
+
         # Test render
         result = bpy.ops.render.render(write_still=False)
         self.assertEqual(result, {'FINISHED'})
@@ -275,17 +275,17 @@ class FileIOIntegrationTest(unittest.TestCase):
         # Create test scene
         bpy.ops.mesh.primitive_cube_add(location=(0, 0, 0))
         original_obj = bpy.context.active_object
-        
+
         # Save to temporary file
         with tempfile.NamedTemporaryFile(suffix='.blend', delete=False) as tmp:
             bpy.ops.wm.save_as_mainfile(filepath=tmp.name)
             filepath = tmp.name
-        
+
         try:
             # Load file
             bpy.ops.wm.read_homefile(use_empty=True)
             bpy.ops.wm.open_mainfile(filepath=filepath)
-            
+
             # Verify data integrity
             loaded_obj = bpy.context.scene.objects[0]
             self.assertEqual(loaded_obj.name, original_obj.name)
@@ -310,35 +310,35 @@ class PerformanceTest(unittest.TestCase):
     def test_mesh_creation_performance(self):
         """Test performance of mesh creation operations."""
         start_time = time.time()
-        
+
         # Create many objects
         for i in range(1000):
             bpy.ops.mesh.primitive_cube_add(location=(i, 0, 0))
-        
+
         end_time = time.time()
         duration = end_time - start_time
-        
+
         # Performance assertion (should complete within 5 seconds)
         self.assertLess(duration, 5.0, f"Mesh creation took {duration:.2f} seconds")
-    
+
     def test_modifier_performance(self):
         """Test performance of modifier operations."""
         # Create test mesh
         bpy.ops.mesh.primitive_cube_add(location=(0, 0, 0))
         obj = bpy.context.active_object
-        
+
         # Add subdivision surface modifier
         subsurf = obj.modifiers.new(name="Subsurf", type='SUBSURF')
         subsurf.levels = 6
-        
+
         start_time = time.time()
-        
+
         # Apply modifier
         bpy.ops.object.modifier_apply(modifier="Subsurf")
-        
+
         end_time = time.time()
         duration = end_time - start_time
-        
+
         # Performance assertion
         self.assertLess(duration, 2.0, f"Modifier application took {duration:.2f} seconds")
 ```
@@ -356,24 +356,24 @@ class MemoryUsageTest(unittest.TestCase):
         """Test memory usage under heavy load."""
         process = psutil.Process(os.getpid())
         initial_memory = process.memory_info().rss
-        
+
         # Create heavy load
         for i in range(100):
             bpy.ops.mesh.primitive_cube_add(location=(i, 0, 0))
             obj = bpy.context.active_object
-            
+
             # Add complex modifiers
             subsurf = obj.modifiers.new(name="Subsurf", type='SUBSURF')
             subsurf.levels = 4
-            
+
             array_mod = obj.modifiers.new(name="Array", type='ARRAY')
             array_mod.count = 10
-        
+
         final_memory = process.memory_info().rss
         memory_increase = final_memory - initial_memory
-        
+
         # Memory usage assertion (should not exceed 500MB)
-        self.assertLess(memory_increase, 500 * 1024 * 1024, 
+        self.assertLess(memory_increase, 500 * 1024 * 1024,
                        f"Memory usage increased by {memory_increase / 1024 / 1024:.1f}MB")
 ```
 
@@ -407,13 +407,13 @@ class TestDataManager:
         """Get path to test file."""
         test_dir = os.path.join(os.path.dirname(__file__), "files")
         return os.path.join(test_dir, filename)
-    
+
     @staticmethod
     def load_test_scene(filename):
         """Load test scene from file."""
         filepath = TestDataManager.get_test_file_path(filename)
         bpy.ops.wm.open_mainfile(filepath=filepath)
-    
+
     @staticmethod
     def save_test_result(filename):
         """Save current scene as test result."""
@@ -435,32 +435,32 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v2
-    
+
     - name: Install dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y cmake build-essential python3-dev
-    
+
     - name: Build Blender
       run: |
         mkdir build
         cd build
         cmake .. -DCMAKE_BUILD_TYPE=Release
         make -j$(nproc)
-    
+
     - name: Run C++ tests
       run: |
         cd build
         make test
-    
+
     - name: Run Python tests
       run: |
         cd build
         make test_python
-    
+
     - name: Run performance tests
       run: |
         cd build
@@ -486,26 +486,26 @@ class TestReporter:
             'duration': 0,
             'details': []
         }
-    
+
     def record_test(self, test_name, status, duration, error=None):
         """Record test result."""
         self.results['total_tests'] += 1
         self.results['duration'] += duration
-        
+
         if status == 'passed':
             self.results['passed'] += 1
         elif status == 'failed':
             self.results['failed'] += 1
         elif status == 'skipped':
             self.results['skipped'] += 1
-        
+
         self.results['details'].append({
             'name': test_name,
             'status': status,
             'duration': duration,
             'error': str(error) if error else None
         })
-    
+
     def generate_report(self, output_file):
         """Generate test report."""
         with open(output_file, 'w') as f:
@@ -535,34 +535,34 @@ class ComprehensiveTest(unittest.TestCase):
     def setUp(self):
         """Set up test environment."""
         bpy.ops.wm.read_homefile(use_empty=True)
-    
+
     def test_basic_functionality(self):
         """Test basic functionality."""
         # Arrange
         expected_result = 42
-        
+
         # Act
         actual_result = function_under_test()
-        
+
         # Assert
         self.assertEqual(actual_result, expected_result)
-    
+
     def test_edge_cases(self):
         """Test edge cases and error conditions."""
         # Test with empty input
         with self.assertRaises(ValueError):
             function_under_test("")
-        
+
         # Test with None input
         with self.assertRaises(TypeError):
             function_under_test(None)
-    
+
     def test_performance_requirements(self):
         """Test performance requirements."""
         start_time = time.time()
         function_under_test()
         duration = time.time() - start_time
-        
+
         self.assertLess(duration, 1.0, "Function took too long")
 ```
 
@@ -573,12 +573,12 @@ class ComprehensiveTest(unittest.TestCase):
 # Add debug output
 def test_complex_operation(self):
     print(f"Debug: Starting test with {len(bpy.data.objects)} objects")
-    
+
     # Perform operation
     result = complex_operation()
-    
+
     print(f"Debug: Operation result: {result}")
-    
+
     # Assertions
     self.assertIsNotNone(result)
 
@@ -598,7 +598,7 @@ class IsolatedTest(unittest.TestCase):
         bpy.data.objects.clear()
         bpy.data.meshes.clear()
         bpy.data.materials.clear()
-    
+
     def tearDown(self):
         """Clean up after each test."""
         bpy.ops.wm.read_homefile(use_empty=True)
@@ -623,4 +623,4 @@ class IsolatedTest(unittest.TestCase):
 *Comprehensive testing is essential for maintaining Blender's quality and reliability. Follow these guidelines to write effective, maintainable tests.*
 
 **Last Updated**: 2024-12-19
-**Version**: 1.0 
+**Version**: 1.0

@@ -44,7 +44,7 @@ namespace KDL {
 
     private:
         const Tree tree;
-        
+
         Frame recursiveFk(const JntArray& q_in, SegmentMap::value_type const* it, SegmentMap::value_type const* baseit);
     };
 

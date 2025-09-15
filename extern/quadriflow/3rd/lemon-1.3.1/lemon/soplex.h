@@ -155,4 +155,3 @@ namespace lemon {
 } //END OF NAMESPACE LEMON
 
 #endif //LEMON_SOPLEX_H
-

@@ -16,4 +16,3 @@ while time.time() - start < 10:
 	angle = time.time() - start
 
 	handle.location = [math.sin(angle), 0, -math.cos(angle)]
-

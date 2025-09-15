@@ -68,4 +68,3 @@ namespace KDL {
         return (f.M*joint.twist(qdot, dof)).RefPoint(f.p);
     }
 }//end of namespace KDL
-

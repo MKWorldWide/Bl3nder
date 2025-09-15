@@ -125,7 +125,7 @@ int DynamicMusic::getScene()
 
 bool DynamicMusic::addTransition(int init, int end, std::shared_ptr<ISound> sound)
 {
-	if(init != end && init < m_scenes.size() && end < m_scenes.size() && init >= 0 && end >= 0) 
+	if(init != end && init < m_scenes.size() && end < m_scenes.size() && init >= 0 && end >= 0)
 	{
 		m_scenes[init][end] = sound;
 		return true;
@@ -173,7 +173,7 @@ bool DynamicMusic::seek(double position)
 {
 	bool result = false;
 
-	if(m_currentHandle != nullptr) 
+	if(m_currentHandle != nullptr)
 	{
 		result = m_currentHandle->seek(position);
 		if(m_transitionHandle != nullptr && result == true)
@@ -255,7 +255,7 @@ void DynamicMusic::transitionCallback(void* player)
 	dat->m_currentHandle = dat->m_device->play(dat->m_scenes[dat->m_id][dat->m_soundTarget]);
 	dat->m_currentHandle->setVolume(dat->m_volume);
 	if(dat->m_scenes[dat->m_soundTarget][dat->m_soundTarget] != nullptr)
-		dat->m_currentHandle->setStopCallback(sceneCallback, player);	
+		dat->m_currentHandle->setStopCallback(sceneCallback, player);
 	dat->m_device->unlock();
 }
 

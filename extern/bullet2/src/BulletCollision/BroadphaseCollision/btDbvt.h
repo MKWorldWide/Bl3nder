@@ -4,8 +4,8 @@ Copyright (c) 2003-2007 Erwin Coumans  http://continuousphysics.com/Bullet/
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
-Permission is granted to anyone to use this software for any purpose, 
-including commercial applications, and to alter it and redistribute it freely, 
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
 subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
@@ -210,7 +210,7 @@ struct btDbvntNode
         childs[0] = 0;
         childs[1] = 0;
     }
-    
+
     ~btDbvntNode()
     {
         if (childs[0])
@@ -255,7 +255,7 @@ struct btDbvt
 		btDbvtNode* parent;
 		sStkCLN(const btDbvtNode* n, btDbvtNode* p) : node(n), parent(p) {}
 	};
-    
+
     struct sStknNN
     {
         const btDbvntNode* a;
@@ -714,7 +714,7 @@ DBVT_INLINE int Select(const btDbvtAabbMm& o,
 			mov		edx,b
 			movaps	xmm0,[eax]
 		movaps	xmm5,mask
-			addps	xmm0,[eax+16]	
+			addps	xmm0,[eax+16]
 		movaps	xmm1,[ecx]
 		movaps	xmm2,[edx]
 		addps	xmm1,[ecx+16]
@@ -1103,7 +1103,7 @@ inline void		btDbvt::collideTT(	const btDbvtNode* root0,
 					if(p.a->isinternal())
 					{
 						if(p.b->isinternal())
-						{					
+						{
 							stkStack[depth++]=sStkNN(p.a->childs[0],p.b->childs[0]);
 							stkStack[depth++]=sStkNN(p.a->childs[1],p.b->childs[0]);
 							stkStack[depth++]=sStkNN(p.a->childs[0],p.b->childs[1]);

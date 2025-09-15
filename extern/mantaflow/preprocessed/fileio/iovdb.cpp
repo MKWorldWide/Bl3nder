@@ -54,7 +54,7 @@ template<class GridType, class T> void importVDB(typename GridType::Ptr from, Gr
   using ValueT = typename GridType::ValueType;
 
   // Check if current grid is to be read as a sparse grid, active voxels (only) will be copied
-  
+
   if (to->saveSparse()) {
     to->clear();  // Ensure that destination grid is empty before writing
     for (typename GridType::ValueOnCIter iter = from->cbeginValueOn(); iter.test(); ++iter) {

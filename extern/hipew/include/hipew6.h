@@ -55,7 +55,7 @@ typedef enum hipMemcpyKind {
 } hipMemcpyKind;
 
 
-typedef enum hipMemoryType {  
+typedef enum hipMemoryType {
     hipMemoryTypeUnregistered = 0,
     hipMemoryTypeHost         = 1,
     hipMemoryTypeDevice       = 2,
@@ -79,7 +79,7 @@ typedef enum hipDeviceAttribute_t {
   hipDeviceAttributeConcurrentManagedAccess,          ///< Device can coherently access managed memory concurrently with the CPU
   hipDeviceAttributeCooperativeLaunch,                ///< Support cooperative launch
   hipDeviceAttributeCooperativeMultiDeviceLaunch,     ///< Support cooperative launch on multiple devices
-  hipDeviceAttributeDeviceOverlap,               ///< Cuda only. Device can concurrently copy memory and execute a kernel.  
+  hipDeviceAttributeDeviceOverlap,               ///< Cuda only. Device can concurrently copy memory and execute a kernel.
                                                       ///< Deprecated. Use instead asyncEngineCount.
   hipDeviceAttributeDirectManagedMemAccessFromHost,   ///< Host can directly access managed memory on
                                                       ///< the device without migration

@@ -6,7 +6,7 @@
 )
 def SkelRoot "Model"(
     prepend apiSchemas = ["SkelBindingAPI"]
-) 
+)
 {
     def Skeleton "Skel"(
         prepend apiSchemas = ["SkelBindingAPI"]
@@ -25,7 +25,7 @@ def SkelRoot "Model"(
         ]
         def SkelAnimation "Anim1" {
             uniform token[] joints = ["Shoulder/Elbow"]
-        
+
             float3[] translations = [(0,0,2)]
             quatf[] rotations.timeSamples = {
                 1: [(1,0,0,0)],
@@ -33,7 +33,7 @@ def SkelRoot "Model"(
             }
             half3[] scales = [(1,1,1)]
         }
-        
+
         rel skel:animationSource = <Anim1>
     }
     rel skel:skeleton = </Model/Skel>
@@ -91,7 +91,7 @@ def SkelRoot "Model"(
         prepend apiSchemas = ["SkelBindingAPI"]
     )
     {
- 
+
         point3f[] points = [
             (0.5, -0.5, 4), (-0.5, -0.5, 4), (0.5, 0.5, 4), (-0.5, 0.5, 4),
             (-0.5, -0.5, 0), (0.5, -0.5, 0), (-0.5, 0.5, 0), (0.5, 0.5, 0),

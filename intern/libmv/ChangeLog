@@ -3,7 +3,7 @@ Author: Lazydodo <github@lazydodo.com>
 Date:   Wed Aug 21 10:38:33 2019 -0600
 
     Cleanup: Fix build error with MSVC
-    
+
     Previously eigens internal include order somehow implicitly provided
     M_PI and friends. The recent eigen version bump broke this implicit
     behaviour, better to be explicit that we need the math defines for MSVC.
@@ -25,13 +25,13 @@ Author: Campbell Barton <ideasman42@gmail.com>
 Date:   Tue Jul 13 21:58:45 2021 +1000
 
     Fix x/y mismatch in retract region tracker
-    
+
     Correct X/Y mismatch in RetrackRegionTracker.
-    
+
     NOTE: This isn't used at the moment.
-    
+
     Reviewed By: sergey
-    
+
     Ref D11895
 
 commit cfcfc803cf599c3bd7bbfa3bac7d5e9c8bca284b
@@ -39,9 +39,9 @@ Author: Jesse Yurkovich <jesse.y@gmail.com>
 Date:   Mon Jul 12 21:01:18 2021 -0700
 
     Cleanup: Use correct _WIN32/64 defines for MSVC
-    
+
     Docs: https://docs.microsoft.com/en-us/cpp/preprocessor/predefined-macros
-    
+
     Differential Revision: https://developer.blender.org/D11460
 
 commit ad8dfd41958b0e4cb90c7c4e5cc20f93c0832e73
@@ -61,18 +61,18 @@ Author: Sergey Sharybin <sergey@blender.org>
 Date:   Mon Mar 22 15:16:07 2021 +0100
 
     Fix T86591: Tracking backwards is slower
-    
+
     The root of the issue was caused by the PredictMarkerPosition()
     always returning false when tracking backwards. This was making
     it so tracker always had to run brute initialization, which is
     an expensive operation.
-    
+
     From own timing here:
-    
+
     - Tracking forward takes 0.667637 seconds
     - Tracking backward used to take 2.591856 seconds
     - Tracking backward now takes 0.827724 seconds
-    
+
     This is a very nice speedup, although the tracking backwards is
     still somewhat slower. Will be investigated further as part of
     a regular development.
@@ -82,7 +82,7 @@ Author: Sergey Sharybin <sergey@blender.org>
 Date:   Mon Mar 15 15:48:15 2021 +0100
 
     Fix T86262: Tracking backwards fails after gap in track
-    
+
     The issue was caused by a prediction algorithm detecting tracking the
     wrong way. Solved by passing tracking direction explicitly, so that
     prediction will always happen correctly regardless of the state of the
@@ -93,26 +93,26 @@ Author: Sergey Sharybin <sergey@blender.org>
 Date:   Thu Oct 21 11:18:10 2021 +0200
 
     Cleanup: clang-format
-    
+
     Is based on Google style which was used in the Libmv project before,
     but is now consistently applied for the sources of the library itself
     and to C-API. With some time C-API will likely be removed, and it
     makes it easier to make it follow Libmv style, hence the diversion
     from Blender's style.
-    
+
     There are quite some exceptions (clang-format off) in the code around
     Eigen matrix initialization. It is rather annoying, and there could be
     some neat way to make initialization readable without such exception.
-    
+
     Could be some places where loss of readability in matrix initialization
     got lost as the change is quite big. If this has happened it is easier
     to address readability once actually working on the code.
-    
+
     This change allowed to spot some missing header guards, so that's nice.
-    
+
     Doing it in bundled version, as the upstream library needs to have some
     of the recent development ported over from bundle to upstream.
-    
+
     There should be no functional changes.
 
 commit c4de0ccd5aede3bb90ac6ad1039a83c2260fbefd
@@ -120,7 +120,7 @@ Author: Sergey Sharybin <sergey@blender.org>
 Date:   Tue Feb 23 16:43:01 2021 +0100
 
     Avoid use of LOG(INFO) in solver
-    
+
     Usage of LOG(INFO) actually went against own guidelines in the
     logging.h: the INFO is for messages which are to be printed
     regardless of debug/verbosity settings.
@@ -136,12 +136,12 @@ Author: Sergey Sharybin <sergey@blender.org>
 Date:   Tue Dec 1 14:52:08 2020 +0100
 
     Tweak default logging verbosity level
-    
+
     Log to verbosity level 1 rather than INFO severity.
-    
+
     Avoids a lot of overhead coming from construction of the INFO stream
     and improves performance and threadability of code which uses logging.
-    
+
     This makes tracking of 250 frames of a track of default settings to
     drop down from 0.6sec to 0.4sec.
 
@@ -150,7 +150,7 @@ Author: Sergey Sharybin <sergey@blender.org>
 Date:   Tue Dec 1 14:46:35 2020 +0100
 
     Cleanup, remove unused logging macros
-    
+
     Unused and was not entirely happy with such short abbreviations.
 
 commit 1dc2ab9847ce6cc84ab6c8e3e8613687480d735d
@@ -158,10 +158,10 @@ Author: Sergey Sharybin <sergey@blender.org>
 Date:   Fri Nov 27 15:58:55 2020 +0100
 
     Add threading primitives
-    
+
     Allows to use mutex, scoped_lock, and conditional_variable from within
     the libmv namespace.
-    
+
     Implementation is coming from C++11. Other configurations are easy to
     implement, but currently C++11 is the way to go.
 
@@ -170,7 +170,7 @@ Author: Sergey Sharybin <sergey@blender.org>
 Date:   Fri Nov 27 15:43:44 2020 +0100
 
     Add build configuration header
-    
+
     Allows to easily access build platform information, such as bitness,
     compiler, supported C++ version and so on.
 
@@ -191,9 +191,9 @@ Author: Ivan Perevala <ivpe>
 Date:   Thu Oct 29 10:19:06 2020 +0100
 
     Fix clang inconsistent-missing-override warnings.
-    
+
     Reviewed By: sergey, ankitm
-    
+
     Differential Revision: https://developer.blender.org/D9377
 
 commit 020fc13a5336c872c3251e45d28cc02584094f33
@@ -201,20 +201,20 @@ Author: Sergey Sharybin <sergey@blender.org>
 Date:   Wed Oct 21 10:53:13 2020 +0200
 
     Simplify configuration of intrinsics to refine
-    
+
     Previously, only predefined and limited set of intrinsics combinations
     could have been refined. This was caused by a bundle adjustment library
     used in the early days of the solver.
-    
+
     Now it is possible to fully customize which intrinsics are to be refined
     during camera solving. Internally solver supports per-parameter settings
     but in the interface they are grouped as following:
-    
+
     * Focal length
     * Optical center
     * Radial distortion coefficients (which includes k1, k2, k3, k4)
     * Tangential distortion coefficients (which includes p1, p2)
-    
+
     Differential Revision: https://developer.blender.org/D9294
 
 commit 5ef3c2c41854a2e634ba692e9b63194aa74b928d
@@ -222,7 +222,7 @@ Author: Sergey Sharybin <sergey@blender.org>
 Date:   Wed Oct 21 10:48:13 2020 +0200
 
     Fix typo in packed intrinsics
-    
+
     Was using doing an implicit cast of floating point value to boolean.
     Was not noticed before because the boolean value was never never used.
 
@@ -231,14 +231,14 @@ Author: Sergey Sharybin <sergey@blender.org>
 Date:   Tue Oct 13 11:34:05 2020 +0200
 
     Refactor camera intrinsics parameter block
-    
+
     Use the newly introduced packed intrinsics, which allows to remove
     code which was initializing parameters block based on distortion
     model type.
-    
+
     Now such initialization is done by a particular implementation of
     a distortion model.
-    
+
     Differential Revision: https://developer.blender.org/D9192
 
 commit 60780e30a8aec37f53d4e952375ffc8d720341c6
@@ -246,10 +246,10 @@ Author: Sergey Sharybin <sergey@blender.org>
 Date:   Tue Oct 13 11:32:35 2020 +0200
 
     Add generic class for packed intrinsics
-    
+
     This is a common class which can be used in all sort of minimization
     problems which needs camera intrinsics as a parameter block.
-    
+
     Currently unused, but will replace a lot of hard-coded logic in the
     bundle adjustment code.
 
@@ -264,7 +264,7 @@ Author: Sebastian Parborg <darkdefende@gmail.com>
 Date:   Tue Oct 20 14:45:54 2020 +0200
 
     Fix test on windows
-    
+
     There is no point in testing std::vector capacity as it can differ
     between std implementations.
 
@@ -273,11 +273,11 @@ Author: Harley Acheson <harley.acheson@gmail.com>
 Date:   Mon Oct 19 08:51:50 2020 -0700
 
     Spelling: Miscellaneous
-    
+
     Corrects 34 miscellaneous misspelled words.
-    
+
     Differential Revision: https://developer.blender.org/D9248
-    
+
     Reviewed by Campbell Barton
 
 commit 91cd0310d6762fdcc7253303bec7f0453cf1f18f
@@ -285,11 +285,11 @@ Author: Harley Acheson <harley.acheson@gmail.com>
 Date:   Mon Oct 19 08:12:33 2020 -0700
 
     Spelling: It's Versus Its
-    
+
     Corrects incorrect usage of contraction for 'it is', when possessive 'its' was required.
-    
+
     Differential Revision: https://developer.blender.org/D9250
-    
+
     Reviewed by Campbell Barton
 
 commit 788ed5fa8ace0df951fe8f03e6510187ed694044
@@ -297,16 +297,16 @@ Author: Sebastian Parborg <darkdefende@gmail.com>
 Date:   Mon Oct 19 13:03:06 2020 +0200
 
     Fix alignment issues when compiling with AVX support
-    
+
     There would be eigen alignment issues with the custom libmv vector
     class when compiling with AVX optimizations. This would lead to
     segfaults.
-    
+
     Simply use the std::vector base class as suggested by the old TODO in
     the class header.
-    
+
     Reviewed By: Sergey
-    
+
     Differential Revision: http://developer.blender.org/D8968
 
 commit 21a114476eaafec4b25c0ea19eaccdd9e870160d
@@ -314,7 +314,7 @@ Author: Sergey Sharybin <sergey@blender.org>
 Date:   Mon Oct 12 14:59:18 2020 +0200
 
     Remove array access from camera intrinsics
-    
+
     That was a suboptimal decision from back in the days, which ended up
     being problematic. It is no longer used, so remove it from API making
     it so new code does not depend on this weak concept.
@@ -324,12 +324,12 @@ Author: Sergey Sharybin <sergey@blender.org>
 Date:   Mon Oct 12 12:17:55 2020 +0200
 
     Fix wrong packing order of intrinsics for BA step
-    
+
     The order got broken when Brown distortion model has been added.
     Made it so the indexing of parameters is strictly defined in the
     parameter block, matching how parameters are used in the cost
     function.
-    
+
     There is some duplication going on accessing parameters. This can
     be refactored in the future, by either moving common parts packing
     and cost function to an utility function in bundle.cc.
@@ -337,13 +337,13 @@ Date:   Mon Oct 12 12:17:55 2020 +0200
     will contain a continuous block of parameters, and each of the
     camera models will have API to be initialized from packed form and
     to create this packed form.
-    
+
     The benefit of this approach over alternative solutions previously
     made in the master branch or suggested in D9116 is that the specific
     implementation of BA does not dictate the way how public classes need
     to be organized. It is API which needs to define how implementation
     goes, not the other way around.
-    
+
     Thanks Bastien and Ivan for the investigation!
 
 commit 595d4a45db2f1d68bc6091b6fad3580411a10e40
@@ -351,11 +351,11 @@ Author: Sergey Sharybin <sergey@blender.org>
 Date:   Mon Oct 12 10:46:31 2020 +0200
 
     Fix memory leak in modal solver
-    
+
     The leak was happening when problem did not have any parameters blocks
     defined. This happens, for example, if there are no 3D points at all,
     or when all markers are set to 0 weight.
-    
+
     Was noticeable in libmv_modal_solver_test when building with LSAN
     enabled.
 
@@ -364,7 +364,7 @@ Author: Sergey Sharybin <sergey@blender.org>
 Date:   Mon Oct 12 10:44:57 2020 +0200
 
     Cleanup, spelling in function name
-    
+
     Is a local function, not affecting API.
 
 commit 2a712777076c076fcf8aae9b9657089d81fd129f
@@ -372,22 +372,22 @@ Author: Ivan Perevala <ivpe>
 Date:   Wed Sep 30 15:12:14 2020 +0200
 
     Implement Brown-Conrady distortion model
-    
+
     Implemented Brown-Conrady lens distortion model with 4 radial and
     2 tangential coefficients to improve compatibility with other software,
     such as Agisoft Photoscan/Metashapes, 3DF Zephir, RealityCapture,
     Bentley ContextCapture, Alisevision Meshroom(opensource).
-    
+
     Also older programs: Bundler, CPMVS.
     In general terms, most photogrammetric software.
-    
+
     The new model is available under the distortion model menu in Lens
     settings.
-    
+
     For tests and demos check the original patch.
-    
+
     Reviewed By: sergey
-    
+
     Differential Revision: https://developer.blender.org/D9037
 
 commit e4e2b8c382f9bb2490318cd621a438ccb4dd7327
@@ -395,11 +395,11 @@ Author: Ivan <vanyOk>
 Date:   Mon Sep 28 09:57:03 2020 +0200
 
     Fix NukeCameraIntrinsics copy constructor
-    
+
     Copy the appropriate parameter
-    
+
     Reviewed By: sergey
-    
+
     Differential Revision: https://developer.blender.org/D9014
 
 commit 1e5deb138ad1ef79204b118f4dc741f96bd0e650
@@ -407,14 +407,14 @@ Author: Johan Walles <walles>
 Date:   Tue Jul 7 11:09:31 2020 +0200
 
     Add units to motion tracking solve errors
-    
+
     The unit being "pixels".
-    
+
     Before this change the solve errors were unitless in the UI.
-    
+
     With this change in place, the UI is now clear on that the unit of the
     reprojection errors is pixels (px).
-    
+
     Differential Revision: https://developer.blender.org/D8000
 
 commit a8a5a701f2839a97af51825d98726e7eb7e6eb1d
@@ -428,11 +428,11 @@ Author: Sergey Sharybin <sergey.vfx@gmail.com>
 Date:   Thu Jun 18 10:12:01 2020 +0200
 
     Update Ceres to the latest upstream version
-    
+
     Using latest master because of various compilation error fixes.
-    
+
     Brings a lot of recent development. From most interesting parts:
-    
+
     - New threading model.
     - Tiny solver.
     - Compatibility with C++17.
@@ -442,20 +442,20 @@ Author: Sergey Sharybin <sergey.vfx@gmail.com>
 Date:   Fri May 15 14:54:30 2020 +0200
 
     Fix crash solving when having negative frames
-    
+
     Don't use linear array with frame as an index since it has the
     following disadvantages:
-    
+
     - Requires every application to take care of frame remapping, which
       could be way more annoying than it sounds.
-    
+
     - Inefficient from memory point of view when solving part of a footage
       which is closer to the end of frame range.
-    
+
     Using map technically is slower from performance point of view, but
     could not feel any difference as the actual computation is way more
     complex than access of camera on individual frames.
-    
+
     Solves crash aspect of T72009
 
 commit 730eec3e0a382b23648d9000e07218519e1223d1
@@ -481,13 +481,13 @@ Author: Sergey Sharybin <sergey.vfx@gmail.com>
 Date:   Mon Apr 20 17:33:03 2020 +0200
 
     Implement Nuke/Natron distortion model
-    
+
     Neither Nuke nor Natron support OpenCV's radial distortion model
     which makes it impossible to have any kind of interoperability.
-    
+
     The new model is available under the distortion model menu in Lens
     settings.
-    
+
     Differential Revision: https://developer.blender.org/D7484
 
 commit 1dc83e7545fc832180322f492245933fb343f158
@@ -495,10 +495,10 @@ Author: Sergey Sharybin <sergey.vfx@gmail.com>
 Date:   Tue Apr 21 16:41:23 2020 +0200
 
     Cleanup, naming
-    
+
     Initial bundle adjustment only supported OpenCV's radial distortion
     model, so the cost functor was called after it.
-    
+
     Nowadays it supports more than this single model, so naming was a bit
     wrong and misleading.
 
@@ -507,7 +507,7 @@ Author: Sergey Sharybin <sergey.vfx@gmail.com>
 Date:   Tue Apr 21 12:25:45 2020 +0200
 
     Cleanup, spelling and naming in bundle adjustment
-    
+
     Just more things which were discovered to be annoying on unclear when
     adding more features to this code.
 
@@ -522,7 +522,7 @@ Author: Sergey Sharybin <sergey.vfx@gmail.com>
 Date:   Mon Apr 20 12:44:07 2020 +0200
 
     De-duplicate creation of residual block
-    
+
     Allows to centralize logic which is needed to check which cost functor
     to use for the specific intrinsics.
 
@@ -531,7 +531,7 @@ Author: Sergey Sharybin <sergey.vfx@gmail.com>
 Date:   Mon Apr 20 11:41:01 2020 +0200
 
     Cleanup reprojection cost function
-    
+
     Make it smaller and more clear how and what it operates on.
 
 commit 1efc975a5457cfee6baf41df67afb3e43834d57f
@@ -539,7 +539,7 @@ Author: Sergey Sharybin <sergey.vfx@gmail.com>
 Date:   Mon Apr 20 11:19:47 2020 +0200
 
     Pass entire camera intrinsics to reprojection error functor
-    
+
     Currently no functional changes, but allows to have access to some
     invariant settings of camera intrinsics such as image dimensions.
 

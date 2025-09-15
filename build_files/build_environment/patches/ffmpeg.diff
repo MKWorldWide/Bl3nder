@@ -19,7 +19,7 @@ index ffa407d53d..d291f87187 100755
 -                             require_pkg_config libvorbisenc vorbisenc vorbis/vorbisenc.h vorbis_encode_init
 +enabled libvorbis         && require_pkg_config libvorbis vorbis vorbis/codec.h vorbis_info_init $libm_extralibs &&
 +                             require_pkg_config libvorbisenc vorbisenc vorbis/vorbisenc.h vorbis_encode_init $libm_extralibs
- 
+
  enabled libvpx            && {
      enabled libvpx_vp8_decoder && {
 @@ -7046,7 +7046,7 @@ enabled libx264           && require_pkg_config libx264 x264 "stdint.h x264.h" x

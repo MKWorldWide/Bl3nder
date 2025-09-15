@@ -169,5 +169,3 @@ namespace KDL
         return (Equal(src1.q,src2.q,eps)&&Equal(src1.qdot,src2.qdot,eps)&&Equal(src1.qdotdot,src2.qdotdot,eps));
     }
 }
-
-

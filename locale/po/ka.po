@@ -150839,4 +150839,3 @@ msgstr "წახნაგის მაქსიმალურე დახრ�
 
 msgid "Ignore Sharpness"
 msgstr "სიმკვეთრის იგნორირება"
-

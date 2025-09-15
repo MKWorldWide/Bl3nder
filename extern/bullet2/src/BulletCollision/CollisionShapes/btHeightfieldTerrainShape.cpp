@@ -4,8 +4,8 @@ Copyright (c) 2003-2009 Erwin Coumans  http://bulletphysics.org
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
-Permission is granted to anyone to use this software for any purpose, 
-including commercial applications, and to alter it and redistribute it freely, 
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
 subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
@@ -80,7 +80,7 @@ void btHeightfieldTerrainShape::initialize(
 	m_flipTriangleWinding = false;
 	m_upAxis = upAxis;
 	m_localScaling.setValue(btScalar(1.), btScalar(1.), btScalar(1.));
-	
+
 	m_vboundsChunkSize = 0;
 	m_vboundsGridWidth = 0;
 	m_vboundsGridLength = 0;
@@ -424,7 +424,7 @@ void gridRaycast(Action_T& quadAction, const btVector3& beginPos, const btVector
 		// Consider the ray is too small to hit anything
 		return;
 	}
-	
+
 
 	btScalar rayDirectionFlatX = endPos[indices[0]] - beginPos[indices[0]];
 	btScalar rayDirectionFlatZ = endPos[indices[2]] - beginPos[indices[2]];
@@ -714,7 +714,7 @@ void btHeightfieldTerrainShape::performRaycast(btTriangleCallback* callback, con
 		return;
 	}
 
-	
+
 
 	if (m_vboundsGrid.size()==0)
 	{
@@ -782,7 +782,7 @@ void btHeightfieldTerrainShape::buildAccelerator(int chunkSize)
 
 	// This data structure is only reallocated if the required size changed
 	m_vboundsGrid.resize(nChunksX * nChunksZ);
-	
+
 	// Compute min and max height for all chunks
 	for (int cz = 0; cz < nChunksZ; ++cz)
 	{

@@ -92,7 +92,7 @@ class stable_sort_task: public tbb::task {
     Compare comp;
     signed char inplace;
 public:
-    stable_sort_task(RandomAccessIterator1 xs_, RandomAccessIterator1 xe_, RandomAccessIterator2 zs_, int inplace_, Compare comp_ ) : 
+    stable_sort_task(RandomAccessIterator1 xs_, RandomAccessIterator1 xe_, RandomAccessIterator2 zs_, int inplace_, Compare comp_ ) :
         xs(xs_), xe(xe_), zs(zs_), comp(comp_), inplace(inplace_)
     {}
 };
@@ -101,7 +101,7 @@ template<typename RandomAccessIterator1, typename RandomAccessIterator2, typenam
 tbb::task* stable_sort_task<RandomAccessIterator1, RandomAccessIterator2, Compare>::execute() {
     const size_t SORT_CUT_OFF = 500;
     if ((size_t) (xe - xs) <= SORT_CUT_OFF) {
-        stable_sort_base_case(xs, xe, zs, inplace, comp); 
+        stable_sort_base_case(xs, xe, zs, inplace, comp);
         return NULL;
     } else {
         RandomAccessIterator1 xm = xs + (xe - xs) / 2;
@@ -115,14 +115,14 @@ tbb::task* stable_sort_task<RandomAccessIterator1, RandomAccessIterator2, Compar
         m->set_ref_count(2);
         task* right = new(m->allocate_child()) stable_sort_task(xm,xe,zm,!inplace, comp);
         spawn(*right);
-        recycle_as_child_of(*m); 
+        recycle_as_child_of(*m);
         xe=xm;
         inplace=!inplace;
         return this;
     }
 }
 
-} // namespace internal 
+} // namespace internal
 
 template<typename RandomAccessIterator, typename Compare>
 void parallel_stable_sort( RandomAccessIterator xs, RandomAccessIterator xe, Compare comp ) {

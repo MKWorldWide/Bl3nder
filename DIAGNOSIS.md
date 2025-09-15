@@ -3,14 +3,16 @@
 ## 🕵️‍♂️ Detected Tech Stack
 
 ### Core Technologies
+
 - **Blender Fork**: Custom fork with AI enhancements (Lilybear render engine, AthenaMist AI Agent)
 - **Build System**: CMake-based build system
-- **Languages**: 
+- **Languages**:
   - C/C++ (core Blender)
   - Python (scripts, addons, testing)
   - JavaScript/TypeScript (web components, UI)
 
 ### Build & Dependencies
+
 - **Python**: 3.11+ (from requirements.txt)
 - **Node.js**: 20.x (from CI workflow)
 - **Package Managers**:
@@ -18,8 +20,9 @@
   - npm (Node.js)
 
 ### Development Tools
+
 - **Testing**: pytest (Python), Node test runner
-- **Linting**: 
+- **Linting**:
   - Python: flake8 (minimal configuration)
   - JavaScript: ESLint
 - **Documentation**: MkDocs
@@ -27,6 +30,7 @@
 ## 🔍 Issues Identified
 
 ### 1. CI/CD Pipeline
+
 - **Current State**:
   - Basic CI workflow with Python and Node.js setup
   - No caching for dependencies
@@ -35,12 +39,14 @@
   - No concurrency control
 
 ### 2. Documentation
+
 - **Current State**:
   - MkDocs configuration present but not fully utilized
   - No automatic deployment to GitHub Pages
   - README is comprehensive but could be better organized
 
 ### 3. Development Environment
+
 - **Current State**:
   - .editorconfig present but could be more comprehensive
   - No pre-commit hooks for code quality

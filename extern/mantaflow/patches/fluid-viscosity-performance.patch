@@ -11,7 +11,7 @@ index 35cb3960656..e5edf2e6040 100644
 @@ -169,8 +169,6 @@ struct ApplyMatrix : public KernelBase {
    {
      unusedParameter(vecRhs);  // Not needed in this matrix application
- 
+
 -    if (matrixA.size() != 4)
 -      errMsg("ConjugateGrad: Invalid A matrix in apply matrix step");
      Grid<Real> &A0 = *matrixA[0];
@@ -29,7 +29,7 @@ index 35cb3960656..e5edf2e6040 100644
 @@ -255,8 +255,6 @@ struct ApplyMatrix2D : public KernelBase {
    {
      unusedParameter(vecRhs);  // Not needed in this matrix application
- 
+
 -    if (matrixA.size() != 3)
 -      errMsg("ConjugateGrad: Invalid A matrix in apply matrix step");
      Grid<Real> &A0 = *matrixA[0];
@@ -56,12 +56,12 @@ index 35cb3960656..e5edf2e6040 100644
 @@ -347,8 +345,6 @@ struct ApplyMatrixViscosityU : public KernelBase {
      Grid<Real> &Aminusj = *matrixA[5];
      Grid<Real> &Aminusk = *matrixA[6];
- 
+
 -    if (vecRhs.size() != 2)
 -      errMsg("ConjugateGrad: Invalid rhs vector in apply matrix step");
      Grid<Real> &srcV = *vecRhs[0];
      Grid<Real> &srcW = *vecRhs[1];
- 
+
 @@ -402,6 +398,10 @@ struct ApplyMatrixViscosityU : public KernelBase {
    {
      const int _maxX = maxX;
@@ -85,12 +85,12 @@ index 35cb3960656..e5edf2e6040 100644
 @@ -459,8 +457,6 @@ struct ApplyMatrixViscosityV : public KernelBase {
      Grid<Real> &Aminusj = *matrixA[5];
      Grid<Real> &Aminusk = *matrixA[6];
- 
+
 -    if (vecRhs.size() != 2)
 -      errMsg("ConjugateGrad: Invalid rhs vector in apply matrix step");
      Grid<Real> &srcU = *vecRhs[0];
      Grid<Real> &srcW = *vecRhs[1];
- 
+
 @@ -514,6 +510,10 @@ struct ApplyMatrixViscosityV : public KernelBase {
    {
      const int _maxX = maxX;
@@ -114,12 +114,12 @@ index 35cb3960656..e5edf2e6040 100644
 @@ -571,8 +569,6 @@ struct ApplyMatrixViscosityW : public KernelBase {
      Grid<Real> &Aminusj = *matrixA[5];
      Grid<Real> &Aminusk = *matrixA[6];
- 
+
 -    if (vecRhs.size() != 2)
 -      errMsg("ConjugateGrad: Invalid rhs vector in apply matrix step");
      Grid<Real> &srcU = *vecRhs[0];
      Grid<Real> &srcV = *vecRhs[1];
- 
+
 @@ -626,6 +622,11 @@ struct ApplyMatrixViscosityW : public KernelBase {
    {
      const int _maxX = maxX;

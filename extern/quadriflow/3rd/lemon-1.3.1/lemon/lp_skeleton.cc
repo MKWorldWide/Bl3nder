@@ -140,4 +140,3 @@ namespace lemon {
   const char* MipSkeleton::_solverName() const { return "MipSkeleton"; }
 
 } //namespace lemon
-

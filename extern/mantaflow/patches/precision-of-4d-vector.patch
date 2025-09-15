@@ -5,7 +5,7 @@ index c3d72ac8aff..69cb96ff1ff 100644
 @@ -287,6 +287,34 @@ template<class S> inline S dot(const Vector4D<S> &t, const Vector4D<S> &v)
    return t.x * v.x + t.y * v.y + t.z * v.z + t.t * v.t;
  }
- 
+
 +/* Based on libstdc++ implementation from:
 +   https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/c_global/cmath#L3769
 +*/
@@ -46,7 +46,7 @@ index c3d72ac8aff..69cb96ff1ff 100644
 +  S l = hypot4(v.x, v.y, v.z, v.t);
 +  return (fabs(l - 1.) < VECTOR_EPSILON) ? 1. : l;
  }
- 
+
  //! Compute squared magnitude
 @@ -313,11 +341,11 @@ template<class S> inline S normSquare(const Vector4D<S> &v)
  //! Returns a normalized vector

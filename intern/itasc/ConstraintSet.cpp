@@ -21,7 +21,7 @@ ConstraintSet::ConstraintSet(unsigned int _nc,double accuracy,unsigned int maxim
     m_U(e_identity_matrix(6,6)),m_V(e_identity_matrix(6,6)),m_B(e_zero_matrix(6,6)),
     m_Jf_inv(e_zero_matrix(6,6)),
 	m_internalPose(F_identity), m_externalPose(F_identity),
-	m_constraintCallback(NULL), m_constraintParam(NULL), 
+	m_constraintCallback(NULL), m_constraintParam(NULL),
 	m_toggle(false),m_substep(false),
     m_threshold(accuracy),m_maxIter(maximum_iterations)
 {
@@ -29,9 +29,9 @@ ConstraintSet::ConstraintSet(unsigned int _nc,double accuracy,unsigned int maxim
 }
 
 ConstraintSet::ConstraintSet():
-    m_nc(0), 
+    m_nc(0),
 	m_internalPose(F_identity), m_externalPose(F_identity),
-	m_constraintCallback(NULL), m_constraintParam(NULL), 
+	m_constraintCallback(NULL), m_constraintParam(NULL),
 	m_toggle(false),m_substep(false),
 	m_threshold(0.0),m_maxIter(0)
 {

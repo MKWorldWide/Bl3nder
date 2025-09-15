@@ -3,7 +3,7 @@ Author: Brecht Van Lommel <brecht@blender.org>
 Date:   Tue Feb 4 23:33:50 2025 +0100
 
     Fix Metal shader errors with MaterialX 1.39
-    
+
     * mx_microfacet.glsl uses functions from mx_math.metal, so the
       latter must be included first.
     * Defining atan(y, x) for GLSL compatibility conflicts with
@@ -11,7 +11,7 @@ Date:   Tue Feb 4 23:33:50 2025 +0100
       the definition.
     * textureQueryLevels(u_envRadiance) does not take into account that
       this texture is wrapped in a MetalTexture class.
-    
+
     Signed-off-by: Brecht Van Lommel <brecht@blender.org>
 
 diff --git a/pxr/imaging/hdSt/materialXShaderGen.cpp b/pxr/imaging/hdSt/materialXShaderGen.cpp
@@ -35,7 +35,7 @@ index 58687a760..8345b6fb2 100644
      }
 -    emitLine("u_envRadianceMips = textureQueryLevels(u_envRadiance)", mxStage);
      Base::emitLineBreak(mxStage);
- 
+
      // Initialize MaterialX Texture samplers with HdGetSampler equivalents
 @@ -1309,12 +1318,12 @@ HdStMaterialXShaderGenMsl::_EmitMxFunctions(
      mx::GenContext& mxContext,
@@ -52,7 +52,7 @@ index 58687a760..8345b6fb2 100644
 +        + "/lib/mx_microfacet.glsl", mxContext, mxStage);
      _EmitConstantsUniformsAndTypeDefs(
          mxContext, mxStage,_syntax->getConstantQualifier());
- 
+
 diff --git a/pxr/imaging/hgiMetal/shaderGenerator.mm b/pxr/imaging/hgiMetal/shaderGenerator.mm
 index f1db1beb1..6ace76999 100644
 --- a/pxr/imaging/hgiMetal/shaderGenerator.mm

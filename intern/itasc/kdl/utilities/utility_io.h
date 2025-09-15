@@ -1,14 +1,14 @@
-/***************************************************************************** 
+/*****************************************************************************
  *  	Erwin Aertbelien, Div. PMA, Dep. of Mech. Eng., K.U.Leuven
  *
- * \version 
+ * \version
  *		ORO_Geometry V0.2
  *
  *	\par History
  *		- $log$
  *
  *	\par Release
- *		$Name:  $ 
+ *		$Name:  $
  *
  * \file   utility_io.h
  *     Included by most lrl-files to provide some general
@@ -36,17 +36,17 @@ namespace KDL {
 void _check_istream(std::istream& is);
 
 
-/** 
+/**
  * Eats characters of the stream until the character delim is encountered
  * @param is a stream
  * @param delim eat until this character is encountered
  */
 void Eat(std::istream& is, int delim );
 
-/** 
+/**
  * Eats characters of the stream as long as they satisfy the description in descript
  * @param is a stream
- * @param descript description string. A sequence of spaces, tabs, 
+ * @param descript description string. A sequence of spaces, tabs,
  *           new-lines and comments is regarded as 1 space in the description string.
  */
 void Eat(std::istream& is,const char* descript);
@@ -60,7 +60,7 @@ void Eat(std::istream& is,const char* descript);
  */
 void EatWord(std::istream& is,const char* delim,char* storage,int maxsize);
 
-/** 
+/**
  * Eats characters of the stream until the character delim is encountered
  * similar to Eat(is,delim) but spaces at the end are not read.
  * @param is a stream

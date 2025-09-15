@@ -2875,7 +2875,7 @@ option(WITH_ATHENAMIST_AI "Enable AthenaMist AI Agent integration" ON)
 if(WITH_ATHENAMIST_AI)
     message(STATUS "AthenaMist AI Agent integration enabled")
     add_definitions(-DWITH_ATHENAMIST_AI)
-    
+
     # Include AthenaMist AI source
     add_subdirectory(source/blender/athenamist_integration)
 endif()

@@ -22,7 +22,7 @@ index a97a755..07ce853 100644
 +#ifndef __APPLE__
              if (HAVE_MKFIFOAT_RUNTIME) {
                  result = mkfifoat(dir_fd, path->narrow, mode);
- 
+
 +            } else
 +#endif
 +            {
@@ -39,7 +39,7 @@ index a97a755..07ce853 100644
 +#ifndef __APPLE__
              if (HAVE_MKNODAT_RUNTIME) {
                  result = mknodat(dir_fd, path->narrow, mode, device);
- 
+
 +            } else
 +#endif
 +            {

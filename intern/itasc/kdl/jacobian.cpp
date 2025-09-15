@@ -112,12 +112,12 @@ namespace KDL
     {
         return Equal((*this),arg);
     }
-    
+
     bool Jacobian::operator!=(const Jacobian& arg)
     {
         return !Equal((*this),arg);
     }
-    
+
     bool Equal(const Jacobian& a,const Jacobian& b,double eps)
     {
         if(a.rows()==b.rows()&&a.columns()==b.columns()){
@@ -128,5 +128,5 @@ namespace KDL
         }else
             return false;
     }
-    
+
 }

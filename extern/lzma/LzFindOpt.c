@@ -101,7 +101,7 @@ else
           maxLen = len;
           *d++ = (UInt32)(len - cur);
           *d++ = delta - 1;
-          
+
           if (len == lenLimit)
           {
             const UInt32 pair1 = pair[1];
@@ -179,7 +179,7 @@ else
         }
 
         delta = (UInt32)pos - delta;
- 
+
         if (--cutValue == 0 || delta >= pos)
         {
           *ptr0 = *ptr1 = kEmptyHashValue;
@@ -228,7 +228,7 @@ UInt32 * Z7_FASTCALL GetMatchesSpecN_2(const Byte *lenLimit, size_t pos, const B
   do // while (hash != size)
   {
     UInt32 delta;
-    
+
   #ifndef cbs
     UInt32 cbs;
   #endif
@@ -302,7 +302,7 @@ else
           maxLen = len;
           *d++ = (UInt32)(len - cur);
           *d++ = delta - 1;
-          
+
           if (len == lenLimit)
           {
             const UInt32 pair1 = pair[1];
@@ -379,7 +379,7 @@ else
             return NULL;
         }
         delta = (UInt32)pos - delta;
- 
+
         if (--cutValue == 0 || delta >= cbs)
         {
           *ptr0 = *ptr1 = kEmptyHashValue;
@@ -434,7 +434,7 @@ UInt32 * Z7_FASTCALL GetMatchesSpecN_3(uint32plus lenLimit, size_t pos, const By
       cbs = (UInt32)pos;
     }
   #endif
-    
+
     if (delta >= cbs)
     {
       CLzRef *ptr1 = son + ((size_t)_cyclicBufferPos << 1);

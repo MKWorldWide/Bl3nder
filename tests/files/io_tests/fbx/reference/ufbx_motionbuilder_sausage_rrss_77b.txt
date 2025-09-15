@@ -1,7 +1,7 @@
 ==== Meshes: 1
 - Mesh 'Mesh' vtx:290 face:288 loop:1152 edge:576
-    - 0 4 5 1 1 ... 161 161 212 282 266 
-    - 0/1 0/4 4/5 1/5 1/166 ... 160/269 156/161 157/161 161/266 161/212 
+    - 0 4 5 1 1 ... 161 161 212 282 266
+    - 0/1 0/4 4/5 1/5 1/166 ... 160/269 156/161 157/161 161/266 161/212
   - attr 'position' FLOAT_VECTOR POINT
     - (-0.938, 0.000, 5.250)
     - (-0.875, -0.375, 5.250)
@@ -11,9 +11,9 @@
     - (0.688, -0.688, 3.000)
     - (0.688, -0.688, 1.500)
   - attr 'sharp_edge' BOOLEAN EDGE
-    - 0 1 0 1 0 ... 1 1 0 1 0 
+    - 0 1 0 1 0 ... 1 1 0 1 0
   - attr 'material_index' INT FACE
-    - 0 0 0 0 0 ... 0 0 0 0 0 
+    - 0 0 0 0 0 ... 0 0 0 0 0
   - attr 'custom_normal' INT16_2D CORNER
     - (0, 0)
     - (0, 0)
@@ -29,7 +29,7 @@
     - 2=0.959 1=0.041
     - 2=0.939 1=0.061
   - 1 materials
-    - 'unnamed' 
+    - 'unnamed'
 
 ==== Objects: 2
 - Obj 'Armature' ARMATURE data:'Armature'
@@ -60,7 +60,7 @@
   - rot 0.000, 0.000, 0.000 (XYZ)
   - scl 1.000, 1.000, 1.000
   - 3 vertex groups
-    - 'Bottom' 'Middle' 'Top' 
+    - 'Bottom' 'Middle' 'Top'
   - 1 modifiers
     - ARMATURE 'Armature'
   - props: int:Look=1 fl:Size=100.000
@@ -148,4 +148,3 @@
       0.000 -1.000 0.000 0.000
       1.000 0.000 0.000 3.800
       0.000 0.000 1.000 0.000
-

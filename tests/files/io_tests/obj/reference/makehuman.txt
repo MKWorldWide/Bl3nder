@@ -1,7 +1,7 @@
 ==== Meshes: 1
 - Mesh 'makehuman' vtx:15340 face:14812 loop:58256 edge:29818
-    - 6526 4323 4320 6525 8679 ... 14792 6660 6661 6672 6671 
-    - 4320/4323 4320/6525 5904/5906 2536/4327 2536/5886 ... 6639/6652 6655/6666 14823/14825 14791/14793 6671/6672 
+    - 6526 4323 4320 6525 8679 ... 14792 6660 6661 6672 6671
+    - 4320/4323 4320/6525 5904/5906 2536/4327 2536/5886 ... 6639/6652 6655/6666 14823/14825 14791/14793 6671/6672
   - attr 'position' FLOAT_VECTOR POINT
     - (0.313, 8.214, 0.596)
     - (0.352, 8.175, 0.596)
@@ -11,11 +11,11 @@
     - (0.000, 9.074, -0.541)
     - (0.000, 9.074, -0.679)
   - attr 'sharp_edge' BOOLEAN EDGE
-    - 0 0 0 0 0 ... 0 0 0 0 0 
+    - 0 0 0 0 0 ... 0 0 0 0 0
   - attr 'material_index' INT FACE
-    - 0 0 0 0 0 ... 0 0 0 0 0 
+    - 0 0 0 0 0 ... 0 0 0 0 0
   - attr 'sharp_face' BOOLEAN FACE
-    - 0 0 0 0 0 ... 0 0 0 0 0 
+    - 0 0 0 0 0 ... 0 0 0 0 0
   - attr 'custom_normal' INT16_2D CORNER
     - (128, 29865)
     - (390, 16462)
@@ -33,7 +33,7 @@
     - (0.406, 0.945)
     - (0.415, 0.948)
   - 1 materials
-    - 'basic' 
+    - 'basic'
 
 ==== Objects: 1
 - Obj 'makehuman' MESH data:'makehuman'
@@ -53,4 +53,3 @@
   - viewport specular (1.000, 1.000, 1.000), intensity 0.500
   - viewport metallic 0.000, roughness 1.000
   - backface False probe True shadow False
-

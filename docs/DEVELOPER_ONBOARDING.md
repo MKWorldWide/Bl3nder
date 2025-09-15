@@ -19,7 +19,7 @@ Before starting, ensure you have the following:
 #### 🔧 Required Software
 - **Git**: Version control system
 - **CMake**: 3.10 or higher
-- **C++ Compiler**: 
+- **C++ Compiler**:
   - **Windows**: Visual Studio 2019 or later
   - **macOS**: Xcode 12 or later
   - **Linux**: GCC 11.0+ or Clang 8.0+
@@ -511,4 +511,4 @@ make test && echo "Tests passed!" || echo "Tests failed!"
 *Welcome to the Blender development community! Your contributions help make Blender better for everyone.*
 
 **Last Updated**: 2024-12-19
-**Version**: 1.0 
+**Version**: 1.0

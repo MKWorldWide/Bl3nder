@@ -4858,4 +4858,3 @@ msgstr "mikrofonas"
 
 msgid "network"
 msgstr "tinklas"
-

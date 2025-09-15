@@ -63,7 +63,7 @@ private:
 public:
 	/**
 	* Creates a new, empty sound list.
-	* Sounds must be added to the list using the addSound() method. 
+	* Sounds must be added to the list using the addSound() method.
 	* \param random False if the sounds int he list must be played sequentially. True if random.
 	*/
 	SoundList(bool random = false);
@@ -79,7 +79,7 @@ public:
 
 	/**
 	* Adds a sound to the list.
-	* The added sounds can be played sequentially or randomly dependig 
+	* The added sounds can be played sequentially or randomly dependig
 	* on the m_random flag
 	* \param sound A shared_ptr to the sound.
 	*/

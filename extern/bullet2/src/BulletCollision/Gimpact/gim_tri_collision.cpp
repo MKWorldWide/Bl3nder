@@ -149,8 +149,8 @@ public:
 		GUINT clipped_count= PLANE_CLIP_TRIANGLE_GENERIC(
 			0,srcpoints[0],srcpoints[1],srcpoints[2],temp_points,
 			DISTANCE_EDGE(tripoints[0],tripoints[1],i0,i1));
-		
-		
+
+
 		if(clipped_count == 0) return 0;
 
 		// edge 1
@@ -544,7 +544,7 @@ public:
 
 		margin = margin_u + margin_v;
 
-		
+
 		tu_vertices[0] = u0;
 		tu_vertices[1] = u1;
 		tu_vertices[2] = u2;

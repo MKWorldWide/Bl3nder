@@ -117,28 +117,28 @@ struct RenderStats {
   double setup_time;            /* Setup time in seconds */
   double render_time;           /* Pure rendering time in seconds */
   double post_process_time;     /* Post-processing time in seconds */
-  
+
   /* Performance Metrics */
   float fps;                    /* Frames per second */
   float frame_time_ms;          /* Average frame time in milliseconds */
   float gpu_utilization;        /* GPU utilization percentage */
   float cpu_utilization;        /* CPU utilization percentage */
-  
+
   /* Memory Usage */
   size_t gpu_memory_used;       /* GPU memory used in bytes */
   size_t system_memory_used;    /* System memory used in bytes */
   size_t texture_memory_used;   /* Texture memory used in bytes */
-  
+
   /* Quality Metrics */
   int samples_per_pixel;        /* Samples per pixel */
   float noise_level;            /* Estimated noise level */
   float convergence_ratio;      /* Convergence ratio (0.0 - 1.0) */
-  
+
   /* AI Metrics */
   double ai_processing_time;    /* AI processing time in seconds */
   int ai_suggestions_generated; /* Number of AI suggestions generated */
   float ai_optimization_score;  /* AI optimization effectiveness */
-  
+
   /* Live Rendering Metrics */
   int live_updates;             /* Number of live updates */
   float live_update_frequency;  /* Live update frequency in Hz */
@@ -155,42 +155,42 @@ struct RenderSettings {
   float aspect_ratio;           /* Aspect ratio */
   bool use_crop;                /* Use crop window */
   float2 crop_min, crop_max;    /* Crop window coordinates */
-  
+
   /* Quality Settings */
   QualityPreset quality_preset; /* Quality preset */
   int samples_per_pixel;        /* Samples per pixel */
   float quality_factor;         /* Quality adjustment factor (0.0 - 1.0) */
   int max_bounces;              /* Maximum light bounces */
-  
+
   /* Sampling Settings */
   SamplingStrategy sampling_strategy; /* Sampling strategy */
   float sampling_threshold;     /* Sampling threshold for adaptive sampling */
   int min_samples;              /* Minimum samples per pixel */
   int max_samples;              /* Maximum samples per pixel */
-  
+
   /* Denoising Settings */
   DenoisingMethod denoising_method; /* Denoising method */
   float denoising_strength;     /* Denoising strength (0.0 - 1.0) */
   bool enable_denoising;        /* Enable denoising */
-  
+
   /* Live Rendering Settings */
   bool enable_live_rendering;   /* Enable live rendering */
   float live_update_rate;       /* Live update rate in Hz */
   int progressive_passes;       /* Number of progressive passes */
   bool enable_interactive_mode; /* Enable interactive mode */
-  
+
   /* AI Settings */
   bool enable_ai_integration;   /* Enable AI integration */
   bool enable_ai_suggestions;   /* Enable AI suggestions */
   bool enable_ai_optimization;  /* Enable AI optimization */
   float ai_confidence_threshold; /* AI confidence threshold */
-  
+
   /* Performance Settings */
   bool enable_adaptive_quality; /* Enable adaptive quality */
   bool enable_performance_monitoring; /* Enable performance monitoring */
   float target_fps;             /* Target FPS for adaptive rendering */
   float max_render_time;        /* Maximum render time in seconds */
-  
+
   /* Advanced Settings */
   bool enable_intelligent_sampling; /* Enable intelligent sampling */
   bool enable_real_time_denoising; /* Enable real-time denoising */
@@ -208,28 +208,28 @@ struct SceneData {
   int light_count;              /* Number of lights in scene */
   int material_count;           /* Number of materials in scene */
   int texture_count;            /* Number of textures in scene */
-  
+
   /* Geometry Information */
   int triangle_count;           /* Total triangle count */
   int vertex_count;             /* Total vertex count */
   float scene_bounds[6];        /* Scene bounding box */
-  
+
   /* Lighting Information */
   float total_light_power;      /* Total light power in scene */
   int light_types[8];           /* Count of different light types */
   bool has_environment_light;   /* Whether scene has environment lighting */
-  
+
   /* Material Information */
   int material_types[16];       /* Count of different material types */
   bool has_volumetric_materials; /* Whether scene has volumetric materials */
   bool has_transparent_materials; /* Whether scene has transparent materials */
-  
+
   /* Camera Information */
   float3 camera_position;       /* Camera position */
   float3 camera_direction;      /* Camera direction */
   float camera_fov;             /* Camera field of view */
   float camera_near, camera_far; /* Camera near and far planes */
-  
+
   /* Animation Information */
   bool has_animation;           /* Whether scene has animation */
   int frame_count;              /* Number of animation frames */
@@ -246,7 +246,7 @@ struct AISuggestion {
   char title[256];              /* Suggestion title */
   char description[1024];       /* Detailed description */
   char action[512];             /* Recommended action */
-  
+
   /* Classification */
   enum class Type {
     PERFORMANCE,                /* Performance optimization */
@@ -255,24 +255,24 @@ struct AISuggestion {
     CREATIVE,                   /* Creative suggestions */
     TECHNICAL,                  /* Technical improvements */
   } type;
-  
+
   enum class Priority {
     LOW,                        /* Low priority */
     MEDIUM,                     /* Medium priority */
     HIGH,                       /* High priority */
     CRITICAL,                   /* Critical priority */
   } priority;
-  
+
   /* Metrics */
   float confidence;             /* AI confidence level (0.0 - 1.0) */
   float impact_score;           /* Expected impact score (0.0 - 1.0) */
   float effort_score;           /* Required effort score (0.0 - 1.0) */
-  
+
   /* State */
   bool applied;                 /* Whether suggestion has been applied */
   bool dismissed;               /* Whether suggestion has been dismissed */
   double timestamp;             /* When suggestion was generated */
-  
+
   /* Parameters */
   float parameters[16];         /* Suggestion parameters */
   char parameter_names[16][32]; /* Parameter names */
@@ -288,27 +288,27 @@ struct PerformanceMetrics {
   double render_time;           /* Render time in seconds */
   double gpu_time;              /* GPU time in seconds */
   double cpu_time;              /* CPU time in seconds */
-  
+
   /* Throughput */
   float fps;                    /* Frames per second */
   float samples_per_second;     /* Samples per second */
   float pixels_per_second;      /* Pixels per second */
-  
+
   /* Utilization */
   float gpu_utilization;        /* GPU utilization percentage */
   float cpu_utilization;        /* CPU utilization percentage */
   float memory_utilization;     /* Memory utilization percentage */
-  
+
   /* Memory */
   size_t gpu_memory_used;       /* GPU memory used in bytes */
   size_t system_memory_used;    /* System memory used in bytes */
   size_t texture_memory_used;   /* Texture memory used in bytes */
-  
+
   /* Quality */
   float current_quality;        /* Current quality level */
   float target_quality;         /* Target quality level */
   float convergence_ratio;      /* Convergence ratio */
-  
+
   /* System */
   float temperature;            /* GPU temperature in Celsius */
   float power_consumption;      /* Power consumption in watts */
@@ -325,7 +325,7 @@ struct TextureData {
   int2 size;                    /* Texture size */
   int channels;                 /* Number of channels */
   int mipmap_levels;            /* Number of mipmap levels */
-  
+
   /* Format Information */
   enum class Format {
     RGBA8,                      /* 8-bit RGBA */
@@ -338,12 +338,12 @@ struct TextureData {
     R16,                        /* 16-bit red */
     R32F,                       /* 32-bit float red */
   } format;
-  
+
   /* Usage Information */
   bool is_loaded;               /* Whether texture is loaded */
   bool is_compressed;           /* Whether texture is compressed */
   size_t memory_size;           /* Memory size in bytes */
-  
+
   /* GPU Information */
   GPUTexture *gpu_texture;      /* GPU texture handle */
   bool gpu_uploaded;            /* Whether uploaded to GPU */
@@ -357,7 +357,7 @@ struct MaterialData {
   /* Basic Information */
   char name[256];               /* Material name */
   char type[64];                /* Material type */
-  
+
   /* Properties */
   float3 base_color;            /* Base color */
   float metallic;               /* Metallic factor */
@@ -365,19 +365,19 @@ struct MaterialData {
   float ior;                    /* Index of refraction */
   float transmission;           /* Transmission factor */
   float alpha;                  /* Alpha factor */
-  
+
   /* Textures */
   TextureData *base_color_texture;     /* Base color texture */
   TextureData *metallic_texture;       /* Metallic texture */
   TextureData *roughness_texture;      /* Roughness texture */
   TextureData *normal_texture;         /* Normal texture */
   TextureData *emission_texture;       /* Emission texture */
-  
+
   /* Advanced Properties */
   bool is_volumetric;           /* Whether material is volumetric */
   bool is_transparent;          /* Whether material is transparent */
   bool is_emissive;             /* Whether material is emissive */
-  
+
   /* AI Properties */
   float ai_complexity_score;    /* AI complexity score */
   float ai_quality_score;       /* AI quality score */
@@ -449,4 +449,4 @@ constexpr float MAX_MEMORY_UTILIZATION = 0.8f;
 constexpr float DEFAULT_AI_CONFIDENCE_THRESHOLD = 0.7f;
 constexpr int MAX_AI_SUGGESTIONS = 10;
 
-}  // namespace blender::lilybear 
+}  // namespace blender::lilybear

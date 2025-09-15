@@ -69840,4 +69840,3 @@ msgstr "Leviga per Angolo"
 
 msgid "Ignore Sharpness"
 msgstr "Ignora Nitidezza"
-

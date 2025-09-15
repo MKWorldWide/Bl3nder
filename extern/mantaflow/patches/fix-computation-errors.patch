@@ -14,7 +14,7 @@ index b05f90939d4..fbdfd8a4851 100644
 -  return (fabs(l - 1.) < VECTOR_EPSILON * VECTOR_EPSILON) ? 1. : sqrt(l);
 +  return (fabs(l - 1.) < VECTOR_EPSILON) ? 1. : l;
  }
- 
+
  //! Compute squared magnitude
 @@ -465,11 +465,11 @@ template<class S> inline Vector3D<S> abs(const Vector3D<S> &v)
  //! Returns a normalized vector

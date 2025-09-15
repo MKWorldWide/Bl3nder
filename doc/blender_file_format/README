@@ -25,5 +25,3 @@ Options:
 Examples:
         default:       % blender2.5 --background --python BlendFileDnaExporter_25.py
         with options:  % blender2.5 --background --python BlendFileDnaExporter_25.py -- --dna-keep-blend --dna-debug
-
-

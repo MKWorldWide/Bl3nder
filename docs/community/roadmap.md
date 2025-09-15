@@ -69,11 +69,11 @@ gantt
     Documentation      :done,    doc1, 2025-08-15, 30d
     Performance        :active,  perf1, 2025-09-01, 45d
     AI Integration     :         ai1, 2025-10-01, 60d
-    
+
     section Features
     Material Editor    :         mat1, after ai1, 30d
     Animation Tools    :         anim1, after mat1, 45d
-    
+
     section Releases
     v1.1.0             :         rel1, 2025-11-15, 30d
     v1.2.0             :         rel2, 2026-02-01, 45d

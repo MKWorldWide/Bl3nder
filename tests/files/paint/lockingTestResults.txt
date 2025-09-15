@@ -1,4 +1,4 @@
-At the fold where there is not yet a value, paint with the given brush 
+At the fold where there is not yet a value, paint with the given brush
 (should have 0.250 Weight, 1.000 Strength, Add).
 
 The shape should still look geometrically identical to the background one.

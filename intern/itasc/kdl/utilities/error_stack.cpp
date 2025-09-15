@@ -4,14 +4,14 @@
 /*****************************************************************************
  *  	Erwin Aertbelien, Div. PMA, Dep. of Mech. Eng., K.U.Leuven
  *
- * \version 
+ * \version
  *		ORO_Geometry V0.2
  *
  *	\par History
  *		- $log$
  *
  *	\par Release
- *		$Name:  $ 
+ *		$Name:  $
  ****************************************************************************/
 
 
@@ -32,7 +32,7 @@ ErrorStack errorstack;
 
 
 void IOTrace(const std::string& description) {
-    errorstack.push(description);   
+    errorstack.push(description);
 }
 
 

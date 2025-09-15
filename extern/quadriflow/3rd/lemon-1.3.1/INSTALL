@@ -28,7 +28,7 @@ issue the following commands:
 
    4. Build LEMON.
 
-      $ make 
+      $ make
 
       This command compiles the non-template part of LEMON into
       libemon.a file. It also compiles the programs in the 'tools' and
@@ -56,7 +56,7 @@ issue the following commands:
       some other location, then pass the
       -DCMAKE_INSTALL_PREFIX=DIRECTORY flag to cmake in Step 3.
       For example:
-      
+
       $ cmake -DCMAKE_INSTALL_PREFIX=/home/username/lemon'
 
 Configure Options and Variables
@@ -123,7 +123,7 @@ You find a list of the most useful options below.
   installed version of MathJax to properly render the doc.
 
 -DLEMON_DOC_MATHJAX_RELPATH=DIRECTORY
-  
+
   The location of the MathJax library. It defaults to
   http://www.mathjax.org/mathjax, which necessitates Internet access
   for proper rendering. The easiest way to make it usable offline is
@@ -133,12 +133,12 @@ You find a list of the most useful options below.
 
   See http://docs.mathjax.org/en/latest/installation.html for more details.
 
-  
+
 -DLEMON_ENABLE_GLPK=NO
 -DLEMON_ENABLE_COIN=NO
 -DLEMON_ENABLE_ILOG=NO
 
-  Enable optional third party libraries. They are all enabled by default. 
+  Enable optional third party libraries. They are all enabled by default.
 
 -DLEMON_DEFAULT_LP=GLPK
 

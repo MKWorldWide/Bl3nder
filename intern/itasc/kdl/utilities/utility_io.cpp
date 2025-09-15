@@ -4,14 +4,14 @@
 /*****************************************************************************
  *  	Erwin Aertbelien, Div. PMA, Dep. of Mech. Eng., K.U.Leuven
  *
- * \version 
+ * \version
  *		ORO_Geometry V0.2
  *
  *	\par History
  *		- $log$
  *
  *	\par Release
- *		$Name:  $ 
+ *		$Name:  $
  * \todo
  *   make IO routines more robust against the differences between DOS/UNIX end-of-line style.
  ****************************************************************************/
@@ -27,7 +27,7 @@
 namespace KDL {
 
 //
-//  _functions are private functions 
+//  _functions are private functions
 //
 
     void _check_istream(std::istream& is)
@@ -78,10 +78,10 @@ static int _EatSpace( std::istream& is,int* countp=NULL) {
     int ch;
     int count;
     count=-1;
-    do { 
+    do {
         _check_istream(is);
 
-        ch = is.get(); 
+        ch = is.get();
         count++;
         if (ch == '#') {
             ch = _EatUntilEndOfLine(is,&count);
@@ -107,13 +107,13 @@ static int _EatSpace( std::istream& is,int* countp=NULL) {
 // Eats whites, returns, tabs and the delim character
 //  Checks whether delim char. is encountered.
 void Eat( std::istream& is, int delim )
-{   
+{
     int ch;
     ch=_EatSpace(is);
     if (ch != delim) {
        throw Error_BasicIO_Exp_Delim();
     }
-    ch=_EatSpace(is);   
+    ch=_EatSpace(is);
     is.putback(ch);
 }
 
@@ -121,7 +121,7 @@ void Eat( std::istream& is, int delim )
 //  Checks whether delim char. is encountered.
 // EatEnd does not eat all space-like char's at the end.
 void EatEnd( std::istream& is, int delim )
-{   
+{
     int ch;
     ch=_EatSpace(is);
     if (ch != delim) {
@@ -139,7 +139,7 @@ void EatEnd( std::istream& is, int delim )
 
 // Simple routine, enough for our purposes.
 //  works with ASCII chars
-inline char Upper(char ch) 
+inline char Upper(char ch)
 {
     /*if (('a'<=ch)&&(ch<='z'))
         return (ch-'a'+'A');
@@ -154,7 +154,7 @@ void Eat(std::istream& is,const char* descript)
     // eats whites before word
     char ch;
     char chdescr;
-    ch=_EatSpace(is);   
+    ch=_EatSpace(is);
     is.putback(ch);
     const char* p;
     p = descript;
@@ -175,7 +175,7 @@ void Eat(std::istream& is,const char* descript)
         }
         p++;
     }
-    
+
 }
 
 

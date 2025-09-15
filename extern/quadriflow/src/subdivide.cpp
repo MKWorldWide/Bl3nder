@@ -316,7 +316,7 @@ bool subdivide_edgeDiff(MatrixXi &F, MatrixXd &V, MatrixXd &N, MatrixXd &Q, Matr
         O.col(vn) = (O.col(v0) + O.col(v1)) * 0.5;
         if (S)
             S->col(vn) = S->col(v0);
-        
+
         nonmanifold[vn] = false;
         boundary[vn] = is_boundary;
 
@@ -362,7 +362,7 @@ bool subdivide_edgeDiff(MatrixXi &F, MatrixXd &V, MatrixXd &N, MatrixXd &Q, Matr
         auto D01 = diffs[e0];
         auto D1p = diffs[e0 / 3 * 3 + (e0 + 1) % 3];
         auto Dp0 = diffs[e0 / 3 * 3 + (e0 + 2) % 3];
-        
+
         Vector2i D0n = D01 / 2;
 
         auto orients1 = face_spaces[f0];
@@ -371,7 +371,7 @@ bool subdivide_edgeDiff(MatrixXi &F, MatrixXd &V, MatrixXd &N, MatrixXd &Q, Matr
         sharp_edges[f0 * 3] = sharp_eid0p;
         sharp_edges[f0 * 3 + 1] = sharp_eid02;
         sharp_edges[f0 * 3 + 2] = sharp_eid0;
-        
+
         diffs[f0 * 3] = D01 + D1p - D0n;
         diffs[f0 * 3 + 1] = Dp0;
         diffs[f0 * 3 + 2] = D0n;
@@ -386,12 +386,12 @@ bool subdivide_edgeDiff(MatrixXi &F, MatrixXd &V, MatrixXd &N, MatrixXd &Q, Matr
 
             auto Ds10 = diffs[e1];
             auto Ds0p = diffs[e1 / 3 * 3 + (e1 + 1) % 3];
-            
+
             auto Dsp1 = diffs[e1 / 3 * 3 + (e1 + 2) % 3];
             int orient = 0;
             while (rshift90(D01, orient) != Ds10) orient += 1;
             Vector2i Dsn0 = rshift90(D0n, orient);
-            
+
             F.col(f1) << vn, v0, v1p;
             eid1p = edge_values.size();
             sharp_eid1p = 0;

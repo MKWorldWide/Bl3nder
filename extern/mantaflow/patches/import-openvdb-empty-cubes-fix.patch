@@ -3,10 +3,10 @@ Author: Bartosz Kosiorek <gang65@poczta.onet.pl>
 Date:   Wed May 21 22:44:01 2025 +0200
 
     Physics: Fix OpenVDB import visual glitches, by copying full 8x8x8 nodes
-    
+
     If grid has 8x8x8 block with the same value, it is stored as Tile with single value.
     We need to iterate over the bounding box and copy such value to all voxels in 8x8x8 node.
-    
+
     Fixes: #91174 #124064
 
 diff --git a/extern/mantaflow/preprocessed/fileio/iovdb.cpp b/extern/mantaflow/preprocessed/fileio/iovdb.cpp
@@ -15,9 +15,9 @@ index 4b7463782da..85ab3781e5a 100644
 +++ b/extern/mantaflow/preprocessed/fileio/iovdb.cpp
 @@ -54,14 +54,28 @@ template<class GridType, class T> void importVDB(typename GridType::Ptr from, Gr
    using ValueT = typename GridType::ValueType;
- 
+
    // Check if current grid is to be read as a sparse grid, active voxels (only) will be copied
-+  
++
    if (to->saveSparse()) {
      to->clear();  // Ensure that destination grid is empty before writing
      for (typename GridType::ValueOnCIter iter = from->cbeginValueOn(); iter.test(); ++iter) {

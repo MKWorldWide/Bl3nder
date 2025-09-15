@@ -31,7 +31,7 @@ extern "C" {
 	#define _WT_INFOCHANGE(b)	((b)+6)
 	#define _WT_CSRCHANGE(b)	((b)+7) /* 1.1 */
 	#define _WT_MAX(b)			((b)+WT_MAXOFFSET)
-	
+
 	#define WT_PACKET			_WT_PACKET(WT_DEFBASE)
 	#define WT_CTXOPEN			_WT_CTXOPEN(WT_DEFBASE)
 	#define WT_CTXCLOSE			_WT_CTXCLOSE(WT_DEFBASE)
@@ -187,14 +187,14 @@ typedef struct tagAXIS {
 
 #ifndef NOWTIFC
 
-#ifndef NOWTCURSORS 
+#ifndef NOWTCURSORS
 
 /* cursor capabilities */
 #define CRC_MULTIMODE	0x0001 /* 1.1 */
 #define CRC_AGGREGATE	0x0002 /* 1.1 */
 #define CRC_INVERT		0x0004 /* 1.1 */
 
-#endif 
+#endif
 
 /* info categories */
 #define WTI_INTERFACE		1
@@ -336,7 +336,7 @@ typedef struct tagAXIS {
 	#define EXT_DEFAULT		6
 	#define EXT_DEFCONTEXT	7
 	#define EXT_DEFSYSCTX	8
-	#define EXT_CURSORS		9 
+	#define EXT_CURSORS		9
 	#define EXT_MAX			109 /* Allow 100 cursors */
 
 #endif
@@ -757,7 +757,7 @@ typedef struct tagTILT { /* 1.1 */
 	HCTX API WTMgrDefContextEx(HMGR, UINT, BOOL); /* 1.1 */
 	#define ORD_WTMgrDefContextEx			206
 	#endif
-	
+
 	#ifndef NOWTMGRCONFIGFXNS
 	/* MANAGER CONFIG BOX  FUNCTIONS */
 	UINT API WTMgrDeviceConfig(HMGR, UINT, HWND);
@@ -862,4 +862,3 @@ typedef struct tagTILT { /* 1.1 */
 #endif	/* __cplusplus */
 
 #endif /* #define _INC_WINTAB */
-

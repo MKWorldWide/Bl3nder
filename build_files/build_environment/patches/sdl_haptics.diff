@@ -1,7 +1,7 @@
 --- src/joystick/iphoneos/SDL_mfijoystick.m	2023-08-16 18:57:36
 +++ src/joystick/iphoneos/SDL_mfijoystick.m2	2023-08-16 18:57:25
 @@ -95,7 +95,8 @@
- 
+
  #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= 140000) || (__APPLETV_OS_VERSION_MAX_ALLOWED >= 140000) || (__MAC_OS_VERSION_MAX_ALLOWED > 1500000) || (__MAC_OS_X_VERSION_MAX_ALLOWED > 101600)
  #define ENABLE_MFI_BATTERY
 -#define ENABLE_MFI_RUMBLE

@@ -64,7 +64,7 @@ namespace KDL
      *
      * @return -2 if maxiter exceeded, 0 otherwise
      */
-	template<typename MatrixA, typename MatrixUV, typename VectorS> 
+	template<typename MatrixA, typename MatrixUV, typename VectorS>
 	int svd_eigen_HH(
 		const Eigen::MatrixBase<MatrixA>&		A,
 		Eigen::MatrixBase<MatrixUV>&			U,
@@ -76,21 +76,21 @@ namespace KDL
         //get the rows/columns of the matrix
         const int rows = A.rows();
         const int cols = A.cols();
-        
+
         U = A;
-        
+
         int i(-1),its(-1),j(-1),jj(-1),k(-1),nm=0;
         int ppi(0);
         bool flag;
         e_scalar maxarg1,maxarg2,anorm(0),c(0),f(0),h(0),s(0),scale(0),x(0),y(0),z(0),g(0);
-        
+
         g=scale=anorm=e_scalar(0.0);
-        
+
         /* Householder reduction to bidiagonal form. */
         for (i=0;i<cols;i++) {
             ppi=i+1;
             tmp(i)=scale*g;
-            g=s=scale=e_scalar(0.0); 
+            g=s=scale=e_scalar(0.0);
             if (i<rows) {
                 // compute the sum of the i-th column, starting from the i-th row
                 for (k=i;k<rows;k++) scale += fabs(U(k,i));
@@ -140,7 +140,7 @@ namespace KDL
             }
             maxarg1=anorm;
             maxarg2=(fabs(S(i))+fabs(tmp(i)));
-            anorm = maxarg1 > maxarg2 ?	maxarg1 : maxarg2;		
+            anorm = maxarg1 > maxarg2 ?	maxarg1 : maxarg2;
         }
         /* Accumulation of right-hand transformations. */
         for (i=cols-1;i>=0;i--) {
@@ -176,7 +176,7 @@ namespace KDL
             }
             ++U(i,i);
         }
-        
+
         /* Diagonalization of the bidiagonal form. */
         for (k=cols-1;k>=0;k--) { /* Loop over singular values. */
             for (its=1;its<=maxiter;its++) {  /* Loop over allowed iterations. */
@@ -211,7 +211,7 @@ namespace KDL
                     }
                 }
                 z=S(k);
-                
+
                 if (ppi == k) {       /* Convergence. */
                     if (z < e_scalar(0.0)) {   /* Singular value is made nonnegative. */
                         S(k) = -z;
@@ -219,17 +219,17 @@ namespace KDL
                     }
                     break;
                 }
-                
+
                 x=S(ppi);            /* Shift from bottom 2-by-2 minor: */
                 nm=k-1;
                 y=S(nm);
                 g=tmp(nm);
                 h=tmp(k);
                 f=((y-z)*(y+z)+(g-h)*(g+h))/(e_scalar(2.0)*h*y);
-                
+
                 g=PYTHAG(f,e_scalar(1.0));
                 f=((x-z)*(x+z)+h*((y/(f+SIGN(g,f)))-h))/x;
-                
+
                 /* Next QR transformation: */
                 c=s=1.0;
                 for (j=ppi;j<=nm;j++) {
@@ -276,7 +276,7 @@ namespace KDL
 
         //Sort eigen values:
         for (i=0; i<cols; i++){
-            
+
             double S_max = S(i);
             int i_max = i;
             for (j=i+1; j<cols; j++){
@@ -291,17 +291,17 @@ namespace KDL
                 e_scalar tmp = S(i);
                 S(i)=S(i_max);
                 S(i_max)=tmp;
-                
+
                 /* swap eigenvectors */
                 U.col(i).swap(U.col(i_max));
                 V.col(i).swap(V.col(i_max));
             }
         }
-        
-        
-        if (its == maxiter) 
+
+
+        if (its == maxiter)
             return (-2);
-        else 
+        else
             return (0);
     }
 

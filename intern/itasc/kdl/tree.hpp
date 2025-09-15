@@ -154,7 +154,7 @@ namespace KDL
         SegmentMap::value_type const* getSegmentPtr(const std::string& segment_name)const
         {
             SegmentMap::const_iterator it = segments.find(segment_name);
-            
+
             if (it == segments.end())
                 return 0;
 
@@ -170,8 +170,3 @@ namespace KDL
     };
 }
 #endif
-
-
-
-
-

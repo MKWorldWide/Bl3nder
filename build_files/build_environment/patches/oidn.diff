@@ -7,7 +7,7 @@ index 057526d..059cdbd 100644
  )
  target_compile_definitions(OpenImageDenoise_core PRIVATE OIDN_LIBRARY_NAME="${OIDN_LIBRARY_NAME}")
 +target_compile_definitions(OpenImageDenoise_core PRIVATE SHARED_POSTFIX=\"$<$<CONFIG:Debug>:$<TARGET_PROPERTY:OpenImageDenoise_core,DEBUG_POSTFIX>>\")
- 
+
  if(OIDN_LIBRARY_VERSIONED)
    set_target_properties(OpenImageDenoise_core PROPERTIES VERSION ${PROJECT_VERSION})
 diff --git a/core/module.cpp b/core/module.cpp
@@ -16,7 +16,7 @@ index cafedbc..b7d7ff6 100644
 +++ b/core/module.cpp
 @@ -29,7 +29,7 @@ OIDN_NAMESPACE_BEGIN
        return true; // module already loaded
- 
+
      // Get the path of the module to load
 -    std::string filename = OIDN_LIBRARY_NAME "_" + name;
 +    std::string filename = OIDN_LIBRARY_NAME "_" + name + SHARED_POSTFIX;
@@ -61,7 +61,7 @@ index 35c6291..5cc2d84 100644
 @@ -97,11 +97,17 @@ OIDN_NAMESPACE_BEGIN
    {
      const std::string name = getArchName(prop);
- 
+
 +    // BLENDER: this comment is meant to generate a merge conflict if the code
 +    // here changes, so we know that hipSupportsDeviceOIDN should be updated.
      if (name == "gfx1030")

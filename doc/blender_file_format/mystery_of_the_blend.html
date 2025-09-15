@@ -20,25 +20,25 @@
 </a>
 
 <p>In this article I will describe the
- blend-file-format with a request to tool-makers to support blend-file. 
-   
+ blend-file-format with a request to tool-makers to support blend-file.
+
 </p>
 <p>First I'll describe how Blender works with blend-files. You'll notice
- why the blend-file-format is not that well documented, as from 
+ why the blend-file-format is not that well documented, as from
 Blender's perspective this is not needed.
-We look at the global file-structure of a blend-file (the file-header 
+We look at the global file-structure of a blend-file (the file-header
 and file-blocks).
 After this is explained, we go deeper to the core of the blend-file, the
  DNA-structures. They hold the blue-prints of the blend-file and the key
  asset of understanding blend-files.
-When that's done we can use these DNA-structures to read information 
+When that's done we can use these DNA-structures to read information
 from elsewhere in the blend-file.
 
 </p>
 <p>
 In this article we'll be using the default blend-file from Blender 2.54,
- with the goal to read the output resolution from the Scene. 
-The article is written to be programming language independent and I've 
+ with the goal to read the output resolution from the Scene.
+The article is written to be programming language independent and I've
 setup a web-site for support.
 </p>
 
@@ -47,38 +47,38 @@ setup a web-site for support.
 </a>
 
 <p>
-Loading and saving in Blender is very fast and Blender is known to 
-have excellent downward and upward compatibility. Ton Roosendaal 
-demonstrated that in December 2008 by loading a 1.0 blend-file using 
+Loading and saving in Blender is very fast and Blender is known to
+have excellent downward and upward compatibility. Ton Roosendaal
+demonstrated that in December 2008 by loading a 1.0 blend-file using
 Blender 2.48a [ref: <a href="http://www.blendernation.com/2008/12/01/blender-dna-rna-and-backward-compatibility/">http://www.blendernation.com/2008/12/01/blender-dna-rna-and-backward-compatibility/</a>].
 </p>
 
 <p>
-Saving complex scenes in Blender is done within seconds. Blender 
-achieves this by saving data in memory to disk without any 
+Saving complex scenes in Blender is done within seconds. Blender
+achieves this by saving data in memory to disk without any
 transformations or translations. Blender only adds file-block-headers to
- this data. A file-block-header contains clues on how to interpret the 
-data. After the data, all internally Blender structures are stored. 
-These structures will act as blue-prints when Blender loads the file. 
+ this data. A file-block-header contains clues on how to interpret the
+data. After the data, all internally Blender structures are stored.
+These structures will act as blue-prints when Blender loads the file.
 Blend-files can be different when stored on different hardware platforms
- or Blender releases. There is no effort taken to make blend-files 
-binary the same. Blender creates the blend-files in this manner since 
-release 1.0. Backward and upwards compatibility is not implemented when 
+ or Blender releases. There is no effort taken to make blend-files
+binary the same. Blender creates the blend-files in this manner since
+release 1.0. Backward and upwards compatibility is not implemented when
 saving the file, this is done during loading.
 </p>
 
 <p>
-When Blender loads a blend-file, the DNA-structures are read first. 
-Blender creates a catalog of these DNA-structures. Blender uses this 
-catalog together with the data in the file, the internal Blender 
-structures of the Blender release you're using and a lot of 
-transformation and translation logic to implement the backward and 
-upward compatibility. In the source code of blender there is actually 
-logic which can transform and translate every structure used by a 
+When Blender loads a blend-file, the DNA-structures are read first.
+Blender creates a catalog of these DNA-structures. Blender uses this
+catalog together with the data in the file, the internal Blender
+structures of the Blender release you're using and a lot of
+transformation and translation logic to implement the backward and
+upward compatibility. In the source code of blender there is actually
+logic which can transform and translate every structure used by a
 Blender release to the one of the release you're using [ref: <a href="http://download.blender.org/source/blender-2.48a.tar.gz">http://download.blender.org/source/blender-2.48a.tar.gz</a>
- <a href="https://svn.blender.org/svnroot/bf-blender/tags/blender-2.48-release/source/blender/blenloader/intern/readfile.c">blender/blenloader/intern/readfile.c</a> lines 
-4946-7960]. The more difference between releases the more logic is 
-executed. 
+ <a href="https://svn.blender.org/svnroot/bf-blender/tags/blender-2.48-release/source/blender/blenloader/intern/readfile.c">blender/blenloader/intern/readfile.c</a> lines
+4946-7960]. The more difference between releases the more logic is
+executed.
 </p>
 
 <p>
@@ -113,7 +113,7 @@ This section explains how the global file-structure can be read.
         <div class="box"><p class="code">Header</p></div>
         <div class="box"><p class="code">Data</p></div>
     </div>
-    
+
     <div class="box" style="border-style:dashed"><p class="code">File-block</p></div>
     <div class="box" style="border-style:dashed"><p class="code">File-block</p></div>
 
@@ -145,11 +145,11 @@ This section explains how the global file-structure can be read.
 </a>
 
 <p>
-The first 12 bytes of every blend-file is the file-header. The 
-file-header has information on Blender (version-number) and the PC the 
-blend-file was saved on (pointer-size and endianness). This is required 
-as all data inside the blend-file is ordered in that  way, because no  
-translation or transformation  is done during saving. 
+The first 12 bytes of every blend-file is the file-header. The
+file-header has information on Blender (version-number) and the PC the
+blend-file was saved on (pointer-size and endianness). This is required
+as all data inside the blend-file is ordered in that  way, because no
+translation or transformation  is done during saving.
 The next table describes the information in the file-header.
 </p>
 
@@ -191,13 +191,13 @@ The next table describes the information in the file-header.
 </p>
 
 <ul>
-    <li>in a big endian ordering, the largest part of the value is placed on the first byte and 
+    <li>in a big endian ordering, the largest part of the value is placed on the first byte and
     the lowest part of the value is placed on the last byte,</li>
     <li>in a little endian ordering, largest part of the value is placed on the last byte
     and the smallest part of the value is placed on the first byte.</li>
 </ul>
 
-<p> 
+<p>
 Nowadays, little-endian is the most commonly used.
 </p>
 
@@ -217,8 +217,8 @@ Writing the integer <code class="evidence">0x4A3B2C1Dh</code>, will be ordered:
 
 <p>
 Blender supports little-endian and big-endian.<br>
-This means that when the endianness 
-is different between the blend-file and the PC your using, Blender changes it to the byte ordering 
+This means that when the endianness
+is different between the blend-file and the PC your using, Blender changes it to the byte ordering
 of your PC.
 </p>
 
@@ -241,7 +241,7 @@ This hex-dump describes a file-header created with <code>blender</code> <code>2.
 <a name="file-blocks" href="#file-blocks"><h3>File-blocks</h3></a>
 
 <p>
-File-blocks contain a "<a href="#file-block-header">file-block header</a>" and "file-block data". 
+File-blocks contain a "<a href="#file-block-header">file-block header</a>" and "file-block data".
 </p>
 
 <a name="file-block-header" href="#file-block-header"><h3>File-block headers</h3></a>
@@ -251,16 +251,16 @@ The file-block-header describes:
 </p>
 
 <ul>
-<li>the type of information stored in the 
+<li>the type of information stored in the
 file-block</li>
 <li>the total length of the data</li>
-<li>the old memory 
+<li>the old memory
 pointer at the moment the data was written to disk</li>
 <li>the number of items of this information</li>
 </ul>
 
 <p>
-As we can see below, depending on the pointer-size stored in the file-header, a file-block-header 
+As we can see below, depending on the pointer-size stored in the file-header, a file-block-header
 can be 20 or 24 bytes long, hence it is always aligned at 4 bytes.
 </p>
 
@@ -307,19 +307,19 @@ The above table describes how a file-block-header is structured:
 </p>
 
 <ul>
-<li><code>Code</code> describes different types of file-blocks. The code determines with what logic the data must be read. <br>  
+<li><code>Code</code> describes different types of file-blocks. The code determines with what logic the data must be read. <br>
 These codes also allows fast finding of data like Library, Scenes, Object or Materials as they all have a specific code. </li>
-<li><code>Size</code> contains the total length of data after the file-block-header. 
-After the data a new file-block starts. The last file-block in the file 
+<li><code>Size</code> contains the total length of data after the file-block-header.
+After the data a new file-block starts. The last file-block in the file
 has code 'ENDB'.</li>
-<li><code>Old memory address</code> contains the memory address when the structure 
-was last stored. When loading the file the structures can be placed on 
+<li><code>Old memory address</code> contains the memory address when the structure
+was last stored. When loading the file the structures can be placed on
 different memory addresses. Blender updates pointers to these structures
  to the new memory addresses.</li>
-<li><code>SDNA index</code> contains the index in the DNA structures to be used when 
+<li><code>SDNA index</code> contains the index in the DNA structures to be used when
 reading this file-block-data. <br>
 More information about this subject will be explained in the <a href="#reading-scene-information">Reading scene information section</a>.</li>
-<li><code>Count</code> tells how many elements of the specific SDNA structure can be found in the data.</li> 
+<li><code>Count</code> tells how many elements of the specific SDNA structure can be found in the data.</li>
 </ul>
 
 <a name="example-file-block-header"></a>
@@ -329,10 +329,10 @@ Example
 </p>
 <p>
 This hex-dump describes a File-block (= <span class="header">File-block header</span> + <span class="data">File-block data</span>) created with <code>blender</code> <code>2.54</code> on <code>little-endian</code> hardware with a <code>32 bits</code> pointer length.<br>
-<code class="block"><span class="descr">             file-block 
+<code class="block"><span class="descr">             file-block
            identifier='SC'  data size=1404  old pointer   SDNA index=150
                  |              |              |              |</span>
-0000 4420: <span class="header">[53 43 00 00]  [7C 05 00 00]  [68 34 FB 0B]  [96 00 00 00]</span>    SC.. `... ./.. .... 
+0000 4420: <span class="header">[53 43 00 00]  [7C 05 00 00]  [68 34 FB 0B]  [96 00 00 00]</span>    SC.. `... ./.. ....
 0000 4430: <span class="header">[01 00 00 00]</span>  <span class="data">[xx xx xx xx    xx xx xx xx    xx xx xx xx</span>     .... xxxx xxxx xxxx<span class="descr">
                  |              |
               count=1      file-block data (next 1404 bytes)</span>
@@ -348,8 +348,8 @@ This hex-dump describes a File-block (= <span class="header">File-block header</
 </ul>
 
 <p>
-Before we can interpret the data of this file-block we first have to read the DNA structures in the file. 
-The section "<a href="#structure-DNA">Structure DNA</a>" will show how to do that. 
+Before we can interpret the data of this file-block we first have to read the DNA structures in the file.
+The section "<a href="#structure-DNA">Structure DNA</a>" will show how to do that.
 </p>
 </div>
 
@@ -362,9 +362,9 @@ Structure DNA is stored in a file-block with code 'DNA1'. It can be just before 
 </p>
 
 <p>
-The 'DNA1' file-block contains all internal structures of the Blender release the 
+The 'DNA1' file-block contains all internal structures of the Blender release the
 file was created in. <br>
-These structure can be described as C-structures: they can hold fields, arrays and 
+These structure can be described as C-structures: they can hold fields, arrays and
 pointers to other structures, just like a normal C-structure.
 
 <p>
@@ -400,7 +400,7 @@ Example
 </p>
 <p>
 This hex-dump describes the file-block 'DNA1' header created with <code>blender</code> <code>2.54.0</code> on <code>little-endian</code> hardware with a <code>32 bits</code> pointer length.<br>
-<code class="block"><span class="descr">      (file-block 
+<code class="block"><span class="descr">      (file-block
        identifier='DNA1') data size=57796   old pointer   SDNA index=0
                   |              |              |              |</span>
 0004 B060   <span class="header">[44 4E 41 31]  [C4 E1 00 00]  [C8 00 84 0B]  [00 00 00 00]</span>  DNA1............
@@ -520,17 +520,17 @@ The next section describes how this information is ordered in the <b>data</b> of
 </table>
 
 <p>
-As you can see, the structures are stored in 4 arrays: names, types, 
-lengths and structures. Every structure also contains an array of 
-fields. A field is the combination of a type and a name. From this 
-information a catalog of all structures can be constructed. 
-The names are stored as how a C-developer defines them. This means that 
+As you can see, the structures are stored in 4 arrays: names, types,
+lengths and structures. Every structure also contains an array of
+fields. A field is the combination of a type and a name. From this
+information a catalog of all structures can be constructed.
+The names are stored as how a C-developer defines them. This means that
 the name also defines pointers and arrays.
-(When a name starts with '*' it is used as a pointer. when the name 
+(When a name starts with '*' it is used as a pointer. when the name
 contains for example '[3]' it is used as a array of 3 long.)
-In the types you'll find simple-types (like: 'integer', 'char', 
-'float'), but also complex-types like 'Scene' and 'MetaBall'. 
-'TLEN' part describes the length of the types. A 'char' is 1 byte, an 
+In the types you'll find simple-types (like: 'integer', 'char',
+'float'), but also complex-types like 'Scene' and 'MetaBall'.
+'TLEN' part describes the length of the types. A 'char' is 1 byte, an
 'integer' is 4 bytes and a 'Scene' is 1376 bytes long.
 </p>
 
@@ -559,7 +559,7 @@ The first names are: *next, *prev, *data, *first, *last, x, y, xmin, xmax, ymin,
                                 |              |             |</span>
 0004 B070    <span class="fade">01 00  00 00 [53 44  4E 41]</span><span class="data">[4E  41 4D 45] [CB 0B 00  00]</span>  <span class="fade">....SDNA</span>NAME....
 0004 B080   <span class="data">[2A 6E  65 78  74 00][2A 70  72  65 76 00] [2A 64 61  74</span>   *next.*prev.*dat<span class="descr">
-                      |                    |                   | 
+                      |                    |                   |
                   '*next\0'            '*prev\0'            '*dat'</span><span class="fade">
                                   ....
                                   .... (3019 names)</span>
@@ -571,8 +571,8 @@ The first names are: *next, *prev, *data, *first, *last, x, y, xmin, xmax, ymin,
 Note
 </p>
 <p>
-While reading the DNA you'll will come across some strange 
-names like '(*doit)()'. These are method pointers and Blender updates 
+While reading the DNA you'll will come across some strange
+names like '(*doit)()'. These are method pointers and Blender updates
 them to the correct methods.
 </p>
 </div>
@@ -599,7 +599,7 @@ The first types are: char, uchar, short, ushort, int, long, ulong, float, double
 0005 3AA0    <span class="fade">45 00    00 00</span>   [54 4C    45 4E]  [01 00]  [01 00]  [02 00]  [02 00]  <span class="fade">E...</span>TLEN........
                                   <span class="fade">....</span>
 0005 3AC0   [08 00]  [04 00]  [08 00]  [10 00]  [10 00]  [14 00]  [4C 00]  [34 00]  ............L.4.<span class="descr">
-               8        4        8       
+               8        4        8
            ListBase   vec2s    vec2f    ... etc
            length     len      length   </span><span class="fade">
                                   ....
@@ -613,7 +613,7 @@ The first types are: char, uchar, short, ushort, int, long, ulong, float, double
                                                                         |</span>
 0005 3E30    <span class="fade">40 00 38 00   60 00   00 00     00 00     00 00</span>    [53 54     52 43]  <span class="fade">@.8.`.......</span>STRC
 0005 3E40   [8E 01 00 00] [0A 00] [02 00]   [0A 00]   [00 00]   [0A 00]   [01 00]  ................<span class="descr">
-                 398         10      2         10        0         10        0  
+                 398         10      2         10        0         10        0
               number of    index    fields    index     index     index     index
              structures   in <a href="#DNA1-data-array-types">types</a>           in <a href="#DNA1-data-array-types">types</a>  in <a href="#DNA1-data-array-names">names</a>  in <a href="#DNA1-data-array-types">types</a>   in <a href="#DNA1-data-array-names">names</a></span><span class="fade">
                           '                  '----------------'  '-----------------'                                    '
@@ -629,8 +629,8 @@ The first types are: char, uchar, short, ushort, int, long, ulong, float, double
 <p>
 The DNA structures inside a Blender 2.48 blend-file can be found at <a href="http://www.atmind.nl/blender/blender-sdna.html">http://www.atmind.nl/blender/blender-sdna.html</a>.
 
-If we understand the DNA part of the file it is now possible to read 
-information from other parts file-blocks. The next section will tell us 
+If we understand the DNA part of the file it is now possible to read
+information from other parts file-blocks. The next section will tell us
 how.
 </p>
 
@@ -652,8 +652,8 @@ Now note that:
 </ul>
 </p>
 
-<p> 
-We can map the Scene structure on the data of the file-blocks. 
+<p>
+We can map the Scene structure on the data of the file-blocks.
 But before we can do that, we have to flatten the Scene-structure.
 
 <code class="block">struct Scene {
@@ -669,7 +669,7 @@ But before we can do that, we have to flatten the Scene-structure.
 
 The first field in the Scene-structure is of type 'ID' with the name 'id'.
 Inside the list of DNA structures there is a structure defined for type 'ID' (structure index 17).
- 
+
 <code class="block">struct ID {
     void *next, *prev;
     struct ID *newid;
@@ -683,16 +683,16 @@ Inside the list of DNA structures there is a structure defined for type 'ID' (st
 </code>
 
 The first field in this structure has type 'void' and name '*next'. <br>
-Looking in the structure list there is no structure defined for type 'void': it is a simple type and therefore the data should be read. 
+Looking in the structure list there is no structure defined for type 'void': it is a simple type and therefore the data should be read.
 The name '*next' describes a pointer.
 As we see, the first 4 bytes of the data can be mapped to 'id.next'.
 </p>
 
 <p>
-Using this method we'll map a structure to its data. If we want to 
-read a specific field we know at which offset in the data it is located 
+Using this method we'll map a structure to its data. If we want to
+read a specific field we know at which offset in the data it is located
 and how much space it takes.<br>
-The next table shows the output of this flattening process for some 
+The next table shows the output of this flattening process for some
 parts of the Scene-structure. Not all rows are described in the table as
  there is a lot of information in a Scene-structure.
 </p>
@@ -804,7 +804,7 @@ parts of the Scene-structure. Not all rows are described in the table as
 <p>
 We can now read the X and Y resolution of the Scene:
 <ul>
-<li>the X-resolution is located on offset 382 of the file-block-data and must be read as a 
+<li>the X-resolution is located on offset 382 of the file-block-data and must be read as a
 short.</li>
 <li>the Y-resolution is located on offset 384 and is also a short</li>
 </ul>
@@ -815,7 +815,7 @@ short.</li>
 Note
 </p>
 <p>
-An array of chars can mean 2 things. The field contains readable 
+An array of chars can mean 2 things. The field contains readable
 text or it contains an array of flags (not humanly readable).
 </p>
 </div>
@@ -832,4 +832,3 @@ than 1. For example Vertices and Faces are stored in this way.
 
 </body>
 </html>
-

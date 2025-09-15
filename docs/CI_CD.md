@@ -463,4 +463,4 @@ Bl3nder uses a comprehensive Continuous Integration and Continuous Deployment (C
 
 ---
 
-**This CI/CD pipeline ensures high-quality, reliable releases for Bl3nder!** 🚀 
+**This CI/CD pipeline ensures high-quality, reliable releases for Bl3nder!** 🚀

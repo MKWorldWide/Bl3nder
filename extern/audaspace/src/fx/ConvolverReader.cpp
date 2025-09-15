@@ -36,7 +36,7 @@ ConvolverReader::ConvolverReader(std::shared_ptr<IReader> reader, std::shared_pt
 		AUD_THROW(StateException, "The sound and the impulse response. must have the same rate");
 
 	m_M = m_L = m_N / 2;
-	
+
 	if(m_irChannels > 1)
 		for(int i = 0; i < m_inChannels; i++)
 			m_convolvers.push_back(std::unique_ptr<Convolver>(new Convolver(ir->getChannel(i), irLength, m_threadPool, plan)));
@@ -112,7 +112,7 @@ void ConvolverReader::read(int& length, bool& eos, sample_t* buffer)
 				int len = std::min(std::abs(writeLength - bufRest), m_eOutBufLen);
 				std::memcpy(buffer + writePos + bufRest, m_outBuffer, len*sizeof(sample_t));
 				m_outBufferPos = len;
-				writeLength = std::min((length*m_inChannels) - writePos, m_eOutBufLen + bufRest);					
+				writeLength = std::min((length*m_inChannels) - writePos, m_eOutBufLen + bufRest);
 			}
 			else
 			{
@@ -166,7 +166,7 @@ void ConvolverReader::divideByChannel(const sample_t* buffer, int len)
 {
 	int k = 0;
 	for(int i = 0; i < len; i += m_inChannels)
-	{	
+	{
 		for(int j = 0; j < m_inChannels; j++)
 			m_vecInOut[j][k] = buffer[i + j];
 		k++;
@@ -189,14 +189,14 @@ int ConvolverReader::threadFunction(int id, bool input)
 	int share = std::ceil((float)m_inChannels / (float)m_nChannelThreads);
 	int start = id*share;
 	int end = std::min(start + share, m_inChannels);
-	
+
 	int l=m_lastLengthIn;
 	for(int i = start; i < end; i++)
 		if(input)
 			m_convolvers[i]->getNext(m_vecInOut[i], m_vecInOut[i], l, m_eosTail);
 		else
 			m_convolvers[i]->getNext(nullptr, m_vecInOut[i], l, m_eosTail);
-	
+
 	return l;
 }
 

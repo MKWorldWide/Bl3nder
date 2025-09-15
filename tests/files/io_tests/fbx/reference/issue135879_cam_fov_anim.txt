@@ -77,4 +77,3 @@
   - fcu 'scale[2]' smooth:CONT_ACCEL extra:CONSTANT keyframes:2 grp:'CAM_006.Target'
     - (1.000, 0.010) lh:(-24.000, 0.010 AUTO_CLAMPED) rh:(26.000, 0.010 AUTO_CLAMPED)
     - (76.000, 0.010) lh:(51.000, 0.010 AUTO_CLAMPED) rh:(101.000, 0.010 AUTO_CLAMPED)
-

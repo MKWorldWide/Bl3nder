@@ -4,8 +4,8 @@ Copyright (c) 2003-2006 Erwin Coumans  http://continuousphysics.com/Bullet/
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
-Permission is granted to anyone to use this software for any purpose, 
-including commercial applications, and to alter it and redistribute it freely, 
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
 subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
@@ -162,7 +162,7 @@ void btHashedOverlappingPairCache::growTables()
 			const btBroadphasePair& pair = m_overlappingPairArray[i];
 			int proxyId1 = pair.m_pProxy0->getUid();
 			int proxyId2 = pair.m_pProxy1->getUid();
-			/*if (proxyId1 > proxyId2) 
+			/*if (proxyId1 > proxyId2)
 				btSwap(proxyId1, proxyId2);*/
 			int hashValue = static_cast<int>(getHash(static_cast<unsigned int>(proxyId1), static_cast<unsigned int>(proxyId2)) & (m_overlappingPairArray.capacity() - 1));  // New hash value with new mask
 			m_next[i] = m_hashTable[hashValue];
@@ -178,7 +178,7 @@ btBroadphasePair* btHashedOverlappingPairCache::internalAddPair(btBroadphaseProx
 	int proxyId1 = proxy0->getUid();
 	int proxyId2 = proxy1->getUid();
 
-	/*if (proxyId1 > proxyId2) 
+	/*if (proxyId1 > proxyId2)
 		btSwap(proxyId1, proxyId2);*/
 
 	int hash = static_cast<int>(getHash(static_cast<unsigned int>(proxyId1), static_cast<unsigned int>(proxyId2)) & (m_overlappingPairArray.capacity() - 1));  // New hash value with new mask

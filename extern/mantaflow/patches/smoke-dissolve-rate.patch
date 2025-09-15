@@ -3,7 +3,7 @@ Author: Bartosz Kosiorek <gang65@poczta.onet.pl>
 Date:   Fri May 2 19:59:49 2025 +0200
 
     Physics: Dissolve smoke independently from number of timesteps in Frame
-    
+
     Fixes: 80529
 
 diff --git a/extern/mantaflow/preprocessed/plugin/extforces.cpp b/extern/mantaflow/preprocessed/plugin/extforces.cpp

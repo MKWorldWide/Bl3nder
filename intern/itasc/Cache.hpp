@@ -32,7 +32,7 @@ namespace iTaSC {
 
 typedef unsigned int CacheTS;
 
-struct Timestamp 
+struct Timestamp
 {
 	double realTimestamp;
 	double realTimestep;
@@ -68,13 +68,13 @@ The device must specify the largest cache item (limited to 256Kb) so that the ca
 buffer can be organized optimally.
 Cache channels are identified by small number (starting from 0) allocated by the cache system.
 Cache items are inserted into cache channels ordered by timestamp. Writing is always done
-at the end of the cache buffer: writing an item automatically clears all items with 
+at the end of the cache buffer: writing an item automatically clears all items with
 higher timestamp.
-A cache item is an array of bytes provided by the device; the format of the cache item is left 
-to the device. 
+A cache item is an array of bytes provided by the device; the format of the cache item is left
+to the device.
 The device can retrieve a cache item associated with a certain timestamp. The cache system
-returns a pointer that points directly in the cache buffer to avoid unnecessary copy. 
-The pointer is guaranteed to be pointer aligned so that direct mapping to C structure is possible 
+returns a pointer that points directly in the cache buffer to avoid unnecessary copy.
+The pointer is guaranteed to be pointer aligned so that direct mapping to C structure is possible
 (=32 bit aligned on 32 systems and 64 bit aligned on 64 bits system).
 
 Timestamp = rounded time in millisecond.
@@ -85,7 +85,7 @@ struct CacheBuffer;
 struct CacheItem;
 struct CacheChannel;
 
-class Cache 
+class Cache
 {
 private:
 	/* map between device and cache entry.
@@ -93,7 +93,7 @@ private:
 	typedef std::map<const void *, struct CacheEntry*> CacheMap;
 	CacheMap  m_cache;
 	const CacheItem *getCurrentCacheItemInternal(const void *device, int channel, CacheTS timestamp);
-   
+
 public:
 	Cache();
 	~Cache();
@@ -107,7 +107,7 @@ public:
 	int deleteChannel(const void *device, int channel);
 	/* delete all channels of a device and remove the device from the map */
 	int deleteDevice(const void *device);
-	/* removes all cache items, leaving the special item at timestamp=0. 
+	/* removes all cache items, leaving the special item at timestamp=0.
 	   if device=NULL, apply to all devices. */
 	void clearCacheFrom(const void *device, CacheTS timestamp);
 
@@ -120,7 +120,7 @@ public:
 
 	/* specialized function to add a vector of double in the cache
 	   It will first check if a vector exist already in the cache for the same timestamp
-	   and compared the cached vector with the new values. 
+	   and compared the cached vector with the new values.
 	   If all values are within threshold, the vector is updated but the cache is not deleted
 	   for the future timestamps. */
 	double *addCacheVectorIfDifferent(const void *device, int channel, CacheTS timestamp, double *data, unsigned int length, double threshold);
@@ -130,7 +130,7 @@ public:
 	   On return, timestamp is updated with the actual timestamp of the item being returned.
 	   Note that the length of the item is not returned, it is up to the device to organize
 	   the data so that length can be retrieved from the data if needed.
-	   Device can NULL, it will then just look the first channel available, useful to 
+	   Device can NULL, it will then just look the first channel available, useful to
 	   test the status of the cache. */
 	const void *getPreviousCacheItem(const void *device, int channel, CacheTS *timestamp);
 
@@ -142,7 +142,7 @@ public:
 
 /* the following structures are not internal use only, they should not be used directly */
 
-struct CacheEntry 
+struct CacheEntry
 {
 	CacheChannel *m_channelArray;		// array of channels, automatically resized if more channels are created
 	unsigned int m_count;				// number of channel in channelArray
@@ -198,10 +198,10 @@ struct CacheItem
 //  m_lastItemPositionW	position in word of last item written
 //  m_firstFreePositionW	position in word where a new item can be written, 0 if buffer is empty
 //  lookup				lookup table for fast access to item by timestamp
-//						The buffer is divided in blocks of 2**n bytes with n chosen so that 
-//						there are no more than CACHE_LOOKUP_TABLE_SIZE blocks and that each 
-//						block will contain at least one item. 
-//						Each element of the lookup table gives the timestamp and offset 
+//						The buffer is divided in blocks of 2**n bytes with n chosen so that
+//						there are no more than CACHE_LOOKUP_TABLE_SIZE blocks and that each
+//						block will contain at least one item.
+//						Each element of the lookup table gives the timestamp and offset
 //						of the last cache item occupying (=starting in) the corresponding block.
 #define CACHE_HEADER \
 	struct CacheBuffer *m_next;		\

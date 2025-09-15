@@ -415,7 +415,7 @@ inline void delaunay() {
           delete nbit->second->second;
           spikeheap.erase(nbit->second);
         }
-      
+
       beach.erase(nbit);
       beach.erase(bit);
       beach.erase(pbit);
@@ -844,4 +844,3 @@ int main(int argc,const char **argv)
          nodeMap("coordinates_y",scaleMap(yMap(coords),600)).
          run();
 }
-

@@ -85,7 +85,7 @@ typedef struct
   /* BT + Hash */
   CMtSync hashSync;
   /* Byte hashDummy[kMtCacheLineDummy]; */
-  
+
   /* Hash */
   Mf_GetHeads GetHeadsFunc;
   CMatchFinder *MatchFinder;

@@ -375,4 +375,4 @@ jobs:
 
 **Join the Bl3nder Community Today!** 🌟
 
-*Together, we're building the future of AI-enhanced 3D creation.* 
+*Together, we're building the future of AI-enhanced 3D creation.*

@@ -83,7 +83,7 @@ void HRTFLoader::loadHRTFs(std::shared_ptr<HRTF> hrtfs, char ear, const std::str
 				AUD_THROW(FileException, "The HRTF name doesn't follow the naming scheme: " + filename);
 			}
 			hrtfs->addImpulseResponse(std::make_shared<StreamBuffer>(std::make_shared<File>(readpath + "/" + filename)), azim, elev);
-		}	
+		}
 		found_file = FindNextFile(dir, &entry);
 	}
 	FindClose(dir);

@@ -46,7 +46,7 @@ index 808fc98c6..75becea99 100644
  FetchContent_MakeAvailable(ocl-icd)
  add_library(OpenCL-ICD ALIAS OpenCL)
 +set(FETCHCONTENT_FULLY_DISCONNECTED ON)
- 
+
  add_subdirectory(opencl-aot)
 diff --git a/sycl/CMakeLists.txt b/sycl/CMakeLists.txt
 index a29bfc631..e9d306208 100644
@@ -54,10 +54,10 @@ index a29bfc631..e9d306208 100644
 +++ b/sycl/CMakeLists.txt
 @@ -215,7 +215,6 @@ install(FILES
    COMPONENT sycl-headers)
- 
+
  include(AddBoostMp11Headers)
 -include(FetchBoostUnorderedHeaders)
- 
+
  # This is workaround to detect changes (add or modify) in subtree which
  # are not detected by copy_directory command.
 diff --git a/sycl/cmake/modules/FetchBoostUnorderedHeaders.cmake b/sycl/cmake/modules/FetchBoostUnorderedHeaders.cmake
@@ -190,7 +190,7 @@ index e9d52c5b2..8b439ba00 100644
 -  else()
 -    set(UMF_DISABLE_HWLOC ${SYCL_UMF_DISABLE_HWLOC} CACHE INTERNAL "Disable hwloc for UMF")
    endif()
- 
+
 +  set(UMF_LINK_HWLOC_STATICALLY OFF CACHE INTERNAL "static HWLOC")
 +  set(UMF_DISABLE_HWLOC ${SYCL_UMF_DISABLE_HWLOC} CACHE INTERNAL "Disable hwloc for UMF")
 +
@@ -219,14 +219,14 @@ index e538318f8..43599b552 100644
  #include <memory>
 +#include <sstream>
  #include <vector>
- 
+
  #include "split_string.hpp"
 diff --git a/sycl/source/detail/kernel_program_cache.hpp b/sycl/source/detail/kernel_program_cache.hpp
 index 968cb9b24..ee13dc8c6 100644
 --- a/sycl/source/detail/kernel_program_cache.hpp
 +++ b/sycl/source/detail/kernel_program_cache.hpp
 @@ -20,6 +20,7 @@
- 
+
  #include <atomic>
  #include <condition_variable>
 +#include <map>
@@ -246,7 +246,7 @@ index 968cb9b24..ee13dc8c6 100644
  class MockKernelProgramCache;
 @@ -177,8 +176,8 @@ public:
    };
- 
+
    struct ProgramCache {
 -    ::boost::unordered_map<ProgramCacheKeyT, ProgramBuildResultPtr> Cache;
 -    ::boost::unordered_multimap<CommonProgramKeyT, ProgramCacheKeyT> KeyMap;
@@ -254,18 +254,18 @@ index 968cb9b24..ee13dc8c6 100644
 +    std::multimap<CommonProgramKeyT, ProgramCacheKeyT> KeyMap;
      // Mapping between a UR program and its size.
      std::unordered_map<ur_program_handle_t, size_t> ProgramSizeMap;
- 
+
 @@ -214,10 +213,8 @@ public:
    };
    using KernelBuildResultPtr = std::shared_ptr<KernelBuildResult>;
- 
+
 -  using KernelByNameT =
 -      ::boost::unordered_map<std::string, KernelBuildResultPtr>;
 -  using KernelCacheT =
 -      ::boost::unordered_map<ur_program_handle_t, KernelByNameT>;
 +  using KernelByNameT = std::map<std::string, KernelBuildResultPtr>;
 +  using KernelCacheT = std::map<ur_program_handle_t, KernelByNameT>;
- 
+
    using KernelFastCacheKeyT =
        std::tuple<SerializedObj,      /* Serialized spec constants. */
 @@ -233,13 +230,7 @@ public:
@@ -280,7 +280,7 @@ index 968cb9b24..ee13dc8c6 100644
 -  using KernelFastCacheT =
 -      ::boost::unordered_flat_map<KernelFastCacheKeyT, KernelFastCacheValT>;
 +  using KernelFastCacheT = std::map<KernelFastCacheKeyT, KernelFastCacheValT>;
- 
+
    // DS to hold data and functions related to Program cache eviction.
    struct EvictionList {
 diff --git a/sycl/unittests/CMakeLists.txt b/sycl/unittests/CMakeLists.txt
@@ -291,6 +291,6 @@ index 883142678..dedd9f83f 100644
  add_custom_target(SYCLUnitTests)
  set_target_properties(SYCLUnitTests PROPERTIES FOLDER "SYCL tests")
 -include_directories(${BOOST_UNORDERED_INCLUDE_DIRS})
- 
+
  foreach(flag_var
      CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE

@@ -26,5 +26,5 @@ index fd478a4..c1c0148 100644
 +#  pragma warning(pop)
 +#endif
        }
- 
+
        out_value[i] = static_cast<OutT>(in_value);

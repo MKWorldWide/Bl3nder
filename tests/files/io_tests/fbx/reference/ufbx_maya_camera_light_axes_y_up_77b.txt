@@ -15,4 +15,3 @@
 
 ==== Lights: 1
 - Light 'Light' SUN col:(1.000, 1.000, 1.000) energy:1.000
-

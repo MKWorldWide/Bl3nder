@@ -1,10 +1,10 @@
-/* 
+/*
  * Lyapunov Shader - in memory of great mathematician Aleksandr Mikhailovich Lyapunov
  * Original code: Sylvio Sell - maitag.de - Rostock Germany 2013
  * OSL port by Thomas Dinges
  * More information: https://projects.blender.org/blender/blender/issues/32305
  */
- 
+
 /* Fac_Type
  * 0, SPREAD,	Spread indices for fac output
  * 1, ABS,		Absolute values from indices

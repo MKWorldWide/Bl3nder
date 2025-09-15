@@ -147937,4 +147937,3 @@ msgstr "Maximum face angle for smooth edges"
 
 msgid "Ignore Sharpness"
 msgstr "Ignore Sharpness"
-

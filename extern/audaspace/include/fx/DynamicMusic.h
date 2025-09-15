@@ -29,7 +29,7 @@
 #include <memory>
 #include <vector>
 #include <thread>
-#include <atomic> 
+#include <atomic>
 #include <condition_variable>
 #include <mutex>
 
@@ -188,7 +188,7 @@ public:
 
 	/**
 	* Retrieves the volume of the scenes.
-	* \return The volume. 
+	* \return The volume.
 	*/
 	float getVolume();
 

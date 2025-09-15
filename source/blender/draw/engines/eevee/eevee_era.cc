@@ -119,4 +119,4 @@ void ERAModule::set_biome_interaction_level(float level)
   state_.biome_interaction_level = level;
 }
 
-}  // namespace blender::eevee 
+}  // namespace blender::eevee

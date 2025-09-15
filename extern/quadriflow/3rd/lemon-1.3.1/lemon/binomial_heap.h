@@ -442,4 +442,3 @@ namespace lemon {
 } //namespace lemon
 
 #endif //LEMON_BINOMIAL_HEAP_H
-

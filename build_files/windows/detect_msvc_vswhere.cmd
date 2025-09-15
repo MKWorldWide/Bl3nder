@@ -33,12 +33,12 @@ if NOT "%verbose%" == "" (
 if "%VS_InstallDir%"=="" (
 	if NOT "%verbose%" == "" (
 		echo.
-		echo Visual Studio is detected but no suitable installation was found. 
+		echo Visual Studio is detected but no suitable installation was found.
 		echo.
-		echo Check the "Desktop development with C++" workload has been installed. 
-		echo. 
+		echo Check the "Desktop development with C++" workload has been installed.
+		echo.
 		echo If you are attempting to use either Visual Studio Preview version or the Visual C++ Build tools, Please see 'make help' on how to opt in to those toolsets.
-		echo. 
+		echo.
 		goto FAIL
 	)
 )
@@ -86,9 +86,9 @@ if exist "%VCVARS%" (
 
 rem try msbuild
 if NOT "%verbose%" == "" (
-	echo Testing for MSBuild 
+	echo Testing for MSBuild
 )
-msbuild /version > NUL 
+msbuild /version > NUL
 if errorlevel 1 (
 	if NOT "%verbose%" == "" (
 		echo Visual Studio %BUILD_VS_YEAR% msbuild not found
@@ -97,7 +97,7 @@ if errorlevel 1 (
 )
 
 if NOT "%verbose%" == "" (
-		echo Visual Studio %BUILD_VS_YEAR% msbuild found 
+		echo Visual Studio %BUILD_VS_YEAR% msbuild found
 )
 
 REM try the c++ compiler
@@ -117,11 +117,11 @@ if NOT "%verbose%" == "" (
 )
 
 if NOT "%verbose%" == "" (
-	echo Visual Studio %BUILD_VS_YEAR% is detected successfully  
+	echo Visual Studio %BUILD_VS_YEAR% is detected successfully
 )
 goto EOF
 
 :FAIL
-exit /b 1 
+exit /b 1
 
 :EOF

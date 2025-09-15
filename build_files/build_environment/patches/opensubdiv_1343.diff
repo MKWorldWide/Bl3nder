@@ -45,15 +45,15 @@ index c2e95e1c3d..5b8d43f1dc 100644
 @@ -293,14 +293,14 @@ class StencilTableFactory : public StencilTableFactoryReal<float> {
      static StencilTable const * Create(
                  TopologyRefiner const & refiner, Options options = Options()) {
- 
+
 -        return static_cast<StencilTable const *>(
 +        return reinterpret_cast<StencilTable const *>(
                  BaseFactory::Create(refiner, options));
      }
- 
+
      static StencilTable const * Create(
                  int numTables, StencilTable const ** tables) {
- 
+
 -        return static_cast<StencilTable const *>(
 +        return reinterpret_cast<StencilTable const *>(
                  BaseFactory::Create(numTables,
@@ -62,7 +62,7 @@ index c2e95e1c3d..5b8d43f1dc 100644
 @@ -311,7 +311,7 @@ class StencilTableFactory : public StencilTableFactoryReal<float> {
                  StencilTable const *localPointStencilTable,
                  bool factorize = true) {
- 
+
 -        return static_cast<StencilTable const *>(
 +        return reinterpret_cast<StencilTable const *>(
                  BaseFactory::AppendLocalPointStencilTable(refiner,
@@ -71,7 +71,7 @@ index c2e95e1c3d..5b8d43f1dc 100644
 @@ -324,7 +324,7 @@ class StencilTableFactory : public StencilTableFactoryReal<float> {
                  StencilTable const *localPointStencilTable,
                  bool factorize = true) {
- 
+
 -        return static_cast<StencilTable const *>(
 +        return reinterpret_cast<StencilTable const *>(
                  BaseFactory::AppendLocalPointStencilTableVarying(refiner,
@@ -80,7 +80,7 @@ index c2e95e1c3d..5b8d43f1dc 100644
 @@ -338,7 +338,7 @@ class StencilTableFactory : public StencilTableFactoryReal<float> {
                  int channel = 0,
                  bool factorize = true) {
- 
+
 -        return static_cast<StencilTable const *>(
 +        return reinterpret_cast<StencilTable const *>(
                  BaseFactory::AppendLocalPointStencilTableFaceVarying(refiner,
@@ -89,7 +89,7 @@ index c2e95e1c3d..5b8d43f1dc 100644
 @@ -364,7 +364,7 @@ class LimitStencilTableFactory : public LimitStencilTableFactoryReal<float> {
                  PatchTable const * patchTable = 0,
                  Options options = Options()) {
- 
+
 -        return static_cast<LimitStencilTable const *>(
 +        return reinterpret_cast<LimitStencilTable const *>(
                  BaseFactory::Create(

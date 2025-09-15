@@ -462,4 +462,3 @@ namespace lemon {
   }
 
 } //namespace lemon
-

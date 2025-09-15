@@ -30,32 +30,32 @@ jobs:
           # Message posted when marking an issue as stale
           stale-issue-message: |
             This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.
-            
+
             If you'd like to keep this issue open, please:
             - Add a comment with any updates
             - Add the `keep-open` label
             - Or simply respond to this message
-            
+
             For more information, see our [Contributing Guide](CONTRIBUTING.md).
           # Message posted when marking a pull request as stale
           stale-pr-message: |
             This pull request has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.
-            
+
             If you'd like to keep this PR open, please:
             - Add a comment with any updates
             - Add the `keep-open` label
             - Or simply respond to this message
-            
+
             For more information, see our [Contributing Guide](CONTRIBUTING.md).
           # Message posted when closing a stale issue
           close-issue-message: |
             This issue has been automatically closed due to inactivity. If you'd like to reopen it, please create a new issue and reference this one.
-            
+
             Thank you for your contributions to Bl3nder!
           # Message posted when closing a stale pull request
           close-pr-message: |
             This pull request has been automatically closed due to inactivity. If you'd like to reopen it, please create a new pull request and reference this one.
-            
+
             Thank you for your contributions to Bl3nder!
           # Labels to apply when marking as stale
           stale-issue-label: stale

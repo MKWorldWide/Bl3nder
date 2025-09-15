@@ -297,7 +297,7 @@ MY_CPU_64BIT means that processor can work with 64-bit registers.
 
 #elif  (defined(__GNUC__) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 3))) \
     || (defined(__clang__) && Z7_has_builtin(__builtin_bswap16))
- 
+
 #define Z7_BSWAP16(v)  __builtin_bswap16(v)
 #define Z7_BSWAP32(v)  __builtin_bswap32(v)
 #define Z7_BSWAP64(v)  __builtin_bswap64(v)

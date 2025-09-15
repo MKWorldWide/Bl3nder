@@ -161,4 +161,3 @@ namespace lemon {
 } //END OF NAMESPACE LEMON
 
 #endif //LEMON_CLP_H
-

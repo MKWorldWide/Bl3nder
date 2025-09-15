@@ -566,7 +566,7 @@ int func(int a)
 int A_test(int a) {}
 int A_func(int a)
 {
-  
+
   return B_test(a);
 }
 
@@ -591,9 +591,9 @@ int func(int a)
     string expect = R"(
 int func(int a)
 {
-  
+
   A_S b;
-  
+
   A_F f = A_B();
   f = B();
   A_S d;

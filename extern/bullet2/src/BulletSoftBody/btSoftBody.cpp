@@ -1928,13 +1928,13 @@ void btSoftBody::refine(ImplicitFn* ifn, btScalar accurary, bool cut)
 				--i;
 			}
 		}
-#if 0	
+#if 0
 		for(i=nnodes-1;i>=0;--i)
 		{
 			if(!ranks[i]) todelete.push_back(i);
-		}	
+		}
 		if(todelete.size())
-		{		
+		{
 			btAlignedObjectArray<int>&	map=ranks;
 			for(int i=0;i<nnodes;++i) map[i]=i;
 			PointersToIndices(this);
@@ -1945,7 +1945,7 @@ void btSoftBody::refine(ImplicitFn* ifn, btScalar accurary, bool cut)
 				int&	b=map[--nnodes];
 				m_ndbvt.remove(m_nodes[a].m_leaf);m_nodes[a].m_leaf=0;
 				btSwap(m_nodes[a],m_nodes[b]);
-				j=a;a=b;b=j;			
+				j=a;a=b;b=j;
 			}
 			IndicesToPointers(this,&map[0]);
 			m_nodes.resize(nnodes);
@@ -3242,7 +3242,7 @@ void btSoftBody::updateClusters()
 #if 1 /* Constant	*/
 			c.m_invwi = c.m_framexform.getBasis() * c.m_locii * c.m_framexform.getBasis().transpose();
 #else
-#if 0 /* Sphere	*/ 
+#if 0 /* Sphere	*/
 			const btScalar	rk=(2*c.m_extents.length2())/(5*c.m_imass);
 			const btVector3	inertia(rk,rk,rk);
 			const btVector3	iin(btFabs(inertia[0])>SIMD_EPSILON?1/inertia[0]:0,

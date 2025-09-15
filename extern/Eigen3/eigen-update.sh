@@ -28,4 +28,3 @@ then
 else
     echo "Did you install Git?"
 fi
-

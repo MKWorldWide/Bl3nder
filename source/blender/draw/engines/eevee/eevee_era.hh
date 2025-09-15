@@ -21,7 +21,7 @@ class Instance;
 
 /* -------------------------------------------------------------------- */
 /** \name ERA Module
- * 
+ *
  * Handles emotional resonance visualization and interaction.
  * Integrates with Eevee's rendering pipeline to provide:
  * - Emotional resonance layers
@@ -76,4 +76,4 @@ class ERAModule {
 
 /** \} */
 
-}  // namespace blender::eevee 
+}  // namespace blender::eevee

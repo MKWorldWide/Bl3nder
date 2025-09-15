@@ -214,7 +214,7 @@ void DetectMORAVEC(const FloatImage& grayscale_image,
       // low self-similarity with overlapping patterns
       // OPTI: load pattern once
       // clang-format off
-      int score =  
+      int score =
           SAD(s, s-r*stride-r, stride, stride)+SAD(s, s-r*stride, stride, stride)+SAD(s, s-r*stride+r, stride, stride)+
           SAD(s, s         -r, stride, stride)+                                   SAD(s, s         +r, stride, stride)+
           SAD(s, s+r*stride-r, stride, stride)+SAD(s, s+r*stride, stride, stride)+SAD(s, s+r*stride+r, stride, stride);

@@ -51,7 +51,7 @@ if NOT "%1" == "" (
 		set BUILD_CMAKE_ARGS=%BUILD_CMAKE_ARGS% -C"%BLENDER_DIR%\build_files\cmake\config\blender_developer.cmake"
 	) else if "%1" == "asan" (
 		set WITH_ASAN=1
-	) else if "%1" == "x86" ( 
+	) else if "%1" == "x86" (
 		echo Error: 32 bit builds of blender are no longer supported.
 		goto ERR
 	) else if "%1" == "x64" (

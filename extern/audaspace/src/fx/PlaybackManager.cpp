@@ -17,7 +17,7 @@
 #include "fx/PlaybackManager.h"
 #include "fx/VolumeSound.h"
 
-#include <stdexcept> 
+#include <stdexcept>
 
 AUD_NAMESPACE_BEGIN
 PlaybackManager::PlaybackManager(std::shared_ptr<IDevice> device) :

@@ -22,7 +22,7 @@
 SIMD_FORCE_INLINE int btGetConstraintIslandId2(const btTypedConstraint* lhs)
 {
     int islandId;
-    
+
     const btCollisionObject& rcolObj0 = lhs->getRigidBodyA();
     const btCollisionObject& rcolObj1 = lhs->getRigidBodyB();
     islandId = rcolObj0.getIslandTag() >= 0 ? rcolObj0.getIslandTag() : rcolObj1.getIslandTag();
@@ -43,7 +43,7 @@ public:
 SIMD_FORCE_INLINE int btGetMultiBodyConstraintIslandId(const btMultiBodyConstraint* lhs)
 {
     int islandId;
-    
+
     int islandTagA = lhs->getIslandIdA();
     int islandTagB = lhs->getIslandIdB();
     islandId = islandTagA >= 0 ? islandTagA : islandTagB;
@@ -69,20 +69,20 @@ struct MultiBodyInplaceSolverIslandCallback : public btSimulationIslandManager::
     btMultiBodyConstraintSolver* m_solver;
     btMultiBodyConstraint** m_multiBodySortedConstraints;
     int m_numMultiBodyConstraints;
-    
+
     btTypedConstraint** m_sortedConstraints;
     int m_numConstraints;
     btIDebugDraw* m_debugDrawer;
     btDispatcher* m_dispatcher;
-    
+
     btAlignedObjectArray<btCollisionObject*> m_bodies;
 	btAlignedObjectArray<btCollisionObject*> m_softBodies;
     btAlignedObjectArray<btPersistentManifold*> m_manifolds;
     btAlignedObjectArray<btTypedConstraint*> m_constraints;
     btAlignedObjectArray<btMultiBodyConstraint*> m_multiBodyConstraints;
-    
+
     btAlignedObjectArray<btSolverAnalyticsData> m_islandAnalyticsData;
-    
+
     MultiBodyInplaceSolverIslandCallback(btMultiBodyConstraintSolver* solver,
                                          btDispatcher* dispatcher)
     : m_solverInfo(NULL),
@@ -93,37 +93,37 @@ struct MultiBodyInplaceSolverIslandCallback : public btSimulationIslandManager::
     m_dispatcher(dispatcher)
     {
     }
-    
+
     MultiBodyInplaceSolverIslandCallback& operator=(const MultiBodyInplaceSolverIslandCallback& other)
     {
         btAssert(0);
         (void)other;
         return *this;
     }
-    
+
     SIMD_FORCE_INLINE virtual void setup(btContactSolverInfo* solverInfo, btTypedConstraint** sortedConstraints, int numConstraints, btMultiBodyConstraint** sortedMultiBodyConstraints, int numMultiBodyConstraints, btIDebugDraw* debugDrawer)
     {
         m_islandAnalyticsData.clear();
         btAssert(solverInfo);
         m_solverInfo = solverInfo;
-        
+
         m_multiBodySortedConstraints = sortedMultiBodyConstraints;
         m_numMultiBodyConstraints = numMultiBodyConstraints;
         m_sortedConstraints = sortedConstraints;
         m_numConstraints = numConstraints;
-        
+
         m_debugDrawer = debugDrawer;
         m_bodies.resize(0);
         m_manifolds.resize(0);
         m_constraints.resize(0);
         m_multiBodyConstraints.resize(0);
     }
-    
+
     void setMultiBodyConstraintSolver(btMultiBodyConstraintSolver* solver)
     {
         m_solver = solver;
     }
-    
+
     virtual void processIsland(btCollisionObject** bodies, int numBodies, btPersistentManifold** manifolds, int numManifolds, int islandId)
     {
         if (islandId < 0)
@@ -141,14 +141,14 @@ struct MultiBodyInplaceSolverIslandCallback : public btSimulationIslandManager::
             //also add all non-contact constraints/joints for this island
             btTypedConstraint** startConstraint = 0;
             btMultiBodyConstraint** startMultiBodyConstraint = 0;
-            
+
             int numCurConstraints = 0;
             int numCurMultiBodyConstraints = 0;
-            
+
             int i;
-            
+
             //find the first constraint for this island
-            
+
             for (i = 0; i < m_numConstraints; i++)
             {
                 if (btGetConstraintIslandId2(m_sortedConstraints[i]) == islandId)
@@ -165,7 +165,7 @@ struct MultiBodyInplaceSolverIslandCallback : public btSimulationIslandManager::
                     numCurConstraints++;
                 }
             }
-            
+
             for (i = 0; i < m_numMultiBodyConstraints; i++)
             {
                 if (btGetMultiBodyConstraintIslandId(m_multiBodySortedConstraints[i]) == islandId)
@@ -182,7 +182,7 @@ struct MultiBodyInplaceSolverIslandCallback : public btSimulationIslandManager::
                     numCurMultiBodyConstraints++;
                 }
             }
-            
+
             //if (m_solverInfo->m_minimumSolverBatchSize<=1)
             //{
             //    m_solver->solveGroup( bodies,numBodies,manifolds, numManifolds,startConstraint,numCurConstraints,*m_solverInfo,m_debugDrawer,m_dispatcher);
@@ -204,10 +204,10 @@ struct MultiBodyInplaceSolverIslandCallback : public btSimulationIslandManager::
                     m_manifolds.push_back(manifolds[i]);
                 for (i = 0; i < numCurConstraints; i++)
                     m_constraints.push_back(startConstraint[i]);
-                
+
                 for (i = 0; i < numCurMultiBodyConstraints; i++)
                     m_multiBodyConstraints.push_back(startMultiBodyConstraint[i]);
-                
+
                 if ((m_multiBodyConstraints.size() + m_constraints.size() + m_manifolds.size()) > m_solverInfo->m_minimumSolverBatchSize)
                 {
                     processConstraints(islandId);
@@ -219,16 +219,16 @@ struct MultiBodyInplaceSolverIslandCallback : public btSimulationIslandManager::
             }
         }
     }
-    
+
     virtual void processConstraints(int islandId=-1)
     {
         btCollisionObject** bodies = m_bodies.size() ? &m_bodies[0] : 0;
         btPersistentManifold** manifold = m_manifolds.size() ? &m_manifolds[0] : 0;
         btTypedConstraint** constraints = m_constraints.size() ? &m_constraints[0] : 0;
         btMultiBodyConstraint** multiBodyConstraints = m_multiBodyConstraints.size() ? &m_multiBodyConstraints[0] : 0;
-        
+
         //printf("mb contacts = %d, mb constraints = %d\n", mbContacts, m_multiBodyConstraints.size());
-        
+
         m_solver->solveMultiBodyGroup(bodies, m_bodies.size(), manifold, m_manifolds.size(), constraints, m_constraints.size(), multiBodyConstraints, m_multiBodyConstraints.size(), *m_solverInfo, m_debugDrawer, m_dispatcher);
         if (m_bodies.size() && (m_solverInfo->m_reportSolverAnalytics&1))
         {

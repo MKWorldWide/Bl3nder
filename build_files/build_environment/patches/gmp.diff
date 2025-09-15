@@ -3,11 +3,11 @@ diff -Naur gmp-6.2.1-clean/Makefile.am gmp-6.2.1-dirty/Makefile.am
 +++ gmp-6.2.1-dirty/Makefile.am	2023-01-24 13:06:03.527956700 +0000
 @@ -112,7 +112,7 @@
  LIBGMPXX_LT_AGE      = 6
- 
- 
+
+
 -SUBDIRS = tests mpn mpz mpq mpf printf scanf rand cxx demos tune doc
 +SUBDIRS = tests mpn mpz mpq mpf printf scanf rand cxx demos tune
- 
+
  EXTRA_DIST = configfsf.guess configfsf.sub .gdbinit INSTALL.autoconf \
  	     COPYING.LESSERv3 COPYINGv2 COPYINGv3
 diff -Naur gmp-6.2.1-clean/Makefile.in gmp-6.2.1-dirty/Makefile.in
@@ -19,9 +19,9 @@ diff -Naur gmp-6.2.1-clean/Makefile.in gmp-6.2.1-dirty/Makefile.in
  LIBGMPXX_LT_AGE = 7
 -SUBDIRS = tests mpn mpz mpq mpf printf scanf rand cxx demos tune doc
 +SUBDIRS = tests mpn mpz mpq mpf printf scanf rand cxx demos tune
- 
+
  # Put asl.h here for now.
- 
+
 diff -Naur gmp-6.2.1-clean/configure gmp-6.2.1-dirty/configure
 --- gmp-6.2.1-clean/configure	2020-11-14 18:45:15.000000000 +0000
 +++ gmp-6.2.1-dirty/configure	2023-01-24 14:06:26.822206200 +0000
@@ -40,11 +40,11 @@ diff -Naur gmp-6.2.1-clean/gmp-h.in gmp-6.2.1-dirty/gmp-h.in
 --- gmp-6.2.1-clean/gmp-h.in	2020-11-14 18:45:09.000000000 +0000
 +++ gmp-6.2.1-dirty/gmp-h.in	2023-01-24 14:07:02.962184400 +0000
 @@ -398,7 +398,7 @@
- 
+
  /* Microsoft's C compiler accepts __inline */
  #ifdef _MSC_VER
 -#define __GMP_EXTERN_INLINE  __inline
 +#define __GMP_EXTERN_INLINE  static __inline
  #endif
- 
+
  /* Recent enough Sun C compilers want "inline" */

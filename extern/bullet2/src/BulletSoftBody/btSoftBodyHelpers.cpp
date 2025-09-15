@@ -852,11 +852,11 @@ btSoftBody* btSoftBodyHelpers::CreatePatchUV(btSoftBodyWorldInfo& worldInfo,
 	*
 	*
 	*    node00 ------ node01
-	*      | .              
-	*      |   .            
-	*      |     .          
-	*      |       .        
-	*      |         .      
+	*      | .
+	*      |   .
+	*      |     .
+	*      |       .
+	*      |         .
 	*    node10        node11
 	*
 	*
@@ -864,7 +864,7 @@ btSoftBody* btSoftBodyHelpers::CreatePatchUV(btSoftBodyWorldInfo& worldInfo,
 	*   2) Faces:
 	*      two triangles,
 	*      UV Coordinates (hier example for single quad)
-	*      
+	*
 	*     (0,1)          (0,1)  (1,1)
 	*     1 |\            3 \-----| 2
 	*       | \              \    |
@@ -1190,7 +1190,7 @@ if(face&&face[0])
 		sf>>index;
 		sf>>ni[0];sf>>ni[1];sf>>ni[2];
 		sf>>bound;
-		psb->appendFace(ni[0],ni[1],ni[2]);	
+		psb->appendFace(ni[0],ni[1],ni[2]);
 		if(btetralinks)
 			{
 			psb->appendLink(ni[0],ni[1],0,true);

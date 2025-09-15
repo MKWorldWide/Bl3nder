@@ -18,12 +18,12 @@ class btModifiedGramSchmidt
 public:
     btAlignedObjectArray<TV> m_in;
     btAlignedObjectArray<TV> m_out;
-    
+
     btModifiedGramSchmidt(const btAlignedObjectArray<TV>& vecs): m_in(vecs)
     {
         m_out.resize(0);
     }
-    
+
     void solve()
     {
         m_out.resize(m_in.size());
@@ -42,7 +42,7 @@ public:
 //            v.print();
         }
     }
-    
+
     void test()
     {
         std::cout << SIMD_EPSILON << std::endl;

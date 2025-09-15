@@ -1,7 +1,7 @@
 ==== Meshes: 1
 - Mesh 'Cube.001' vtx:8 face:12 loop:36 edge:18
-    - 4 2 0 2 7 ... 2 3 4 0 1 
-    - 2/4 0/2 0/4 2/7 3/7 ... 1/4 1/5 4/5 4/6 2/6 
+    - 4 2 0 2 7 ... 2 3 4 0 1
+    - 2/4 0/2 0/4 2/7 3/7 ... 1/4 1/5 4/5 4/6 2/6
   - attr 'position' FLOAT_VECTOR POINT
     - (1.000, 1.000, 1.000)
     - (1.000, 1.000, -1.000)
@@ -11,9 +11,9 @@
     - (-1.000, -1.000, 1.000)
     - (-1.000, -1.000, -1.000)
   - attr 'sharp_edge' BOOLEAN EDGE
-    - 0 0 0 0 0 ... 0 0 0 0 0 
+    - 0 0 0 0 0 ... 0 0 0 0 0
   - attr 'material_index' INT FACE
-    - 0 0 0 0 0 ... 0 0 0 0 0 
+    - 0 0 0 0 0 ... 0 0 0 0 0
   - attr 'custom_normal' INT16_2D CORNER
     - (0, 0)
     - (0, 0)
@@ -37,7 +37,7 @@
     - 2=0.941
     - 0=0.809 1=0.105 3=0.081
   - 1 materials
-    - 'Material' 
+    - 'Material'
 
 ==== Objects: 2
 - Obj 'Armature' ARMATURE data:'Armature'
@@ -49,7 +49,7 @@
   - rot 0.000, 0.000, 0.000 (XYZ)
   - scl 1.000, 1.000, 1.000
   - 4 vertex groups
-    - 'Bone' 'Bone.001' 'Bone.002' 'Bone.003' 
+    - 'Bone' 'Bone.001' 'Bone.002' 'Bone.003'
   - 1 modifiers
     - ARMATURE 'Armature'
 
@@ -100,4 +100,3 @@
       0.928 -0.372 -0.023 -0.615
       0.023 0.116 -0.993 0.192
       0.372 0.921 0.116 1.522
-

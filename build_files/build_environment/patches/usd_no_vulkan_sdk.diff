@@ -65,7 +65,7 @@ index 4e9066ca3a..0a929fda3b 100644
 +            # Using usd_build.py: find individual components
 +            find_package(VulkanHeaders CONFIG REQUIRED)
 +            list(APPEND VULKAN_LIBS Vulkan::Headers)
- 
+
 -            # Find the extra vulkan libraries we need
 -            set(EXTRA_VULKAN_LIBS shaderc_combined)
 -            if (WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -88,7 +88,7 @@ index 4e9066ca3a..0a929fda3b 100644
 +
 +            find_package(VulkanLoader CONFIG REQUIRED)
 +            list(APPEND VULKAN_LIBS Vulkan::Loader)
- 
+
 -            add_definitions(-DPXR_VULKAN_SUPPORT_ENABLED)
 +            find_package(VulkanMemoryAllocator CONFIG REQUIRED)
 +            list(APPEND VULKAN_LIBS GPUOpen::VulkanMemoryAllocator)
@@ -125,7 +125,7 @@ index 6fe1134c14..4629e5a03f 100644
 +++ b/cmake/macros/Private.cmake
 @@ -823,6 +823,12 @@ function(_pxr_target_link_libraries NAME)
          list(APPEND all_libraries ${external})
- 
+
          foreach(lib ${all_libraries})
 +            # Remove BUILD and INSTALL generator expressions:
 +            #     $<BUILD_LOCAL_INTERFACE:tgt> -> tgt
@@ -252,11 +252,11 @@ index 00ad754480..dff4754366 100644
          shaderSection
          texture
 -        vk_mem_alloc
- 
+
      PUBLIC_HEADERS
          api.h
          vulkan.h
- 
+
 -    PRIVATE_CLASSES
 -        spirv_reflect
 -
@@ -272,17 +272,17 @@ index 4e5a9627ad..5c0b70ddcb 100644
  #include "pxr/imaging/hgiVulkan/instance.h"
  #include "pxr/imaging/hgiVulkan/pipelineCache.h"
 -#include "pxr/imaging/hgiVulkan/vk_mem_alloc.h"
- 
+
  #include "pxr/base/tf/diagnostic.h"
- 
+
 +#define VMA_IMPLEMENTATION
 +#include <vk_mem_alloc.h>
 +
- 
+
  PXR_NAMESPACE_OPEN_SCOPE
- 
+
 @@ -171,11 +173,9 @@ HgiVulkanDevice::HgiVulkanDevice(HgiVulkanInstance* instance)
- 
+
      // Allow certain buffers/images to have dedicated memory allocations to
      // improve performance on some GPUs.
 -    bool dedicatedAllocations = false;
@@ -310,7 +310,7 @@ index 4e5a9627ad..5c0b70ddcb 100644
 +    vmaVulkanFunctions.vkGetInstanceProcAddr = &vkGetInstanceProcAddr;
 +    vmaVulkanFunctions.vkGetDeviceProcAddr = &vkGetDeviceProcAddr;
 +    allocatorInfo.pVulkanFunctions = &vmaVulkanFunctions;
- 
+
      if (supportsMemExtension) {
          allocatorInfo.flags |= VMA_ALLOCATOR_CREATE_EXT_MEMORY_BUDGET_BIT;
 diff --git a/pxr/imaging/hgiVulkan/diagnostic.cpp b/pxr/imaging/hgiVulkan/diagnostic.cpp
@@ -320,7 +320,7 @@ index fb8d756d6d..455780e2c8 100644
 @@ -274,4 +274,4 @@ HgiVulkanResultString(VkResult result)
      return string_VkResult(result);
  }
- 
+
 -PXR_NAMESPACE_CLOSE_SCOPE
 \ No newline at end of file
 +PXR_NAMESPACE_CLOSE_SCOPE
@@ -331,17 +331,17 @@ index e89235cd6f..01de3a85d0 100644
 @@ -12,7 +12,8 @@
  #include "pxr/imaging/hgiVulkan/sampler.h"
  #include "pxr/imaging/hgiVulkan/diagnostic.h"
- 
+
 -#include <float.h>
 +#include <algorithm>
 +#include <cfloat>
- 
+
  PXR_NAMESPACE_OPEN_SCOPE
- 
+
 @@ -104,4 +105,4 @@ HgiVulkanSampler::GetInflightBits()
      return _inflightBits;
  }
- 
+
 -PXR_NAMESPACE_CLOSE_SCOPE
 \ No newline at end of file
 +PXR_NAMESPACE_CLOSE_SCOPE
@@ -354,16 +354,16 @@ index 333c2bf125..576b898a99 100644
  #include "pxr/imaging/hgiVulkan/diagnostic.h"
  #include "pxr/imaging/hgiVulkan/shaderCompiler.h"
 -#include "pxr/imaging/hgiVulkan/spirv_reflect.h"
- 
+
  #include <shaderc/shaderc.hpp>
 +#include <spirv_reflect.h>
- 
+
  #include <unordered_map>
- 
+
 @@ -278,4 +278,4 @@ HgiVulkanMakeDescriptorSetLayouts(
      return layouts;
  }
- 
+
 -PXR_NAMESPACE_CLOSE_SCOPE
 \ No newline at end of file
 +PXR_NAMESPACE_CLOSE_SCOPE
@@ -445,16 +445,16 @@ index 3ea215679f..7f28679328 100644
 --- a/pxr/imaging/hgiVulkan/vulkan.h
 +++ b/pxr/imaging/hgiVulkan/vulkan.h
 @@ -22,7 +22,11 @@
- 
+
  #include <vulkan/vulkan.h>
- 
+
 -#include "pxr/imaging/hgiVulkan/vk_mem_alloc.h"
 +#define VMA_STATIC_VULKAN_FUNCTIONS 1
 +// Allow dynamic fetching too. This is a fallback for anything that doesn't
 +// have a prototype.
 +#define VMA_DYNAMIC_VULKAN_FUNCTIONS 1
 +#include <vk_mem_alloc.h>
- 
+
  // Use the default allocator (nullptr)
  inline VkAllocationCallbacks*
 
@@ -475,7 +475,7 @@ index 0a929fda3b..4d2658441e 100644
 @@ -188,23 +188,31 @@ if (PXR_BUILD_IMAGING)
      if (PXR_ENABLE_VULKAN_SUPPORT)
          message(STATUS "Enabling experimental feature Vulkan support")
- 
+
 +        # We use BUILD_LOCAL_INTERFACE so that the Vulkan dependencies remain
 +        # internal only. Except for the headers, which are publicly accessible
 +        # from hgiVulkan.
@@ -485,7 +485,7 @@ index 0a929fda3b..4d2658441e 100644
 +
              # Not using usd_build.py: find from the Vulkan SDK
              find_package(Vulkan MODULE REQUIRED COMPONENTS shaderc_combined)
- 
+
 +            list(APPEND VULKAN_LIBS Vulkan::Headers)
              # The SDK uniquely places the "vk_mem_alloc.h" header inside a "vma"
              # subdirectory. This means we would need to use "#include <vma/vk_mem_alloc.h>"
@@ -495,7 +495,7 @@ index 0a929fda3b..4d2658441e 100644
 -            target_include_directories(Vulkan::Vulkan INTERFACE
 +            target_include_directories(Vulkan::Headers INTERFACE
                  "${Vulkan_INCLUDE_DIR}/vma")
- 
+
 -            list(APPEND VULKAN_LIBS Vulkan::Vulkan)
 -            list(APPEND VULKAN_LIBS Vulkan::shaderc_combined)
 +            list(APPEND VULKAN_LIBS $<BUILD_LOCAL_INTERFACE:Vulkan::Vulkan>)
@@ -509,19 +509,19 @@ index 0a929fda3b..4d2658441e 100644
              list(APPEND VULKAN_LIBS Vulkan::Headers)
 @@ -213,30 +221,23 @@ if (PXR_BUILD_IMAGING)
              list(APPEND VULKAN_LIBS Vulkan::UtilityHeaders)
- 
+
              find_package(VulkanLoader CONFIG REQUIRED)
 -            list(APPEND VULKAN_LIBS Vulkan::Loader)
 +            list(APPEND VULKAN_LIBS $<BUILD_LOCAL_INTERFACE:Vulkan::Loader>)
- 
+
              find_package(VulkanMemoryAllocator CONFIG REQUIRED)
              list(APPEND VULKAN_LIBS GPUOpen::VulkanMemoryAllocator)
- 
+
              find_package(ShaderC MODULE REQUIRED)
 -            list(APPEND VULKAN_LIBS shaderc_combined)
 +            list(APPEND VULKAN_LIBS $<BUILD_LOCAL_INTERFACE:shaderc_combined>)
          endif()
- 
+
          # In either case we have custom logic for SPIRV-Reflect
          find_package(SpirvReflect MODULE REQUIRED)
 -        if(SpirvReflect_IS_SOURCE_DEP)
@@ -531,7 +531,7 @@ index 0a929fda3b..4d2658441e 100644
 -            list(APPEND VULKAN_LIBS spirv-reflect)
 -        endif()
 +        list(APPEND VULKAN_LIBS $<BUILD_LOCAL_INTERFACE:spirv-reflect>)
- 
+
          # Find the OS specific libs we need
          if (UNIX AND NOT APPLE)
              find_package(X11 REQUIRED)
@@ -540,7 +540,7 @@ index 0a929fda3b..4d2658441e 100644
 -            # No extra libs required
 +            list(APPEND VULKAN_LIBS $<BUILD_LOCAL_INTERFACE:X11::X11>)
          endif()
- 
+
          add_definitions(-DPXR_VULKAN_SUPPORT_ENABLED)
 diff --git a/pxr/pxrConfig.cmake.in b/pxr/pxrConfig.cmake.in
 index a7e566bac2..07bd1ad412 100644
@@ -549,7 +549,7 @@ index a7e566bac2..07bd1ad412 100644
 @@ -90,6 +90,32 @@ if(@Imath_FOUND@)
      find_dependency(Imath)
  endif()
- 
+
 +if(@PXR_ENABLE_VULKAN_SUPPORT@)
 +    if(@PXR_USING_VULKAN_SDK@)
 +        if(NOT DEFINED Vulkan_DIR AND NOT [[@Vulkan_DIR@]] STREQUAL "")

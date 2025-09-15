@@ -32,16 +32,16 @@ index 60a323820cb..1bfb891c397 100644
 + * This is a modified version for Blender used by importers.
 + *
   */
- 
+
  #ifndef NANOSVG_H
  #define NANOSVG_H
- 
+
  #ifndef NANOSVG_CPLUSPLUS
  #ifdef __cplusplus
  extern "C" {
  #endif
  #endif
- 
+
  // NanoSVG is a simple stupid single-header-file SVG parse. The output of the parser is a list of cubic bezier shapes.
  //
  // The library suits well for anything from rendering scalable icons in your editor application to prototyping a game.
@@ -58,12 +58,12 @@ index 60a323820cb..1bfb891c397 100644
  // DPI (dots-per-inch) controls how the unit conversion is done.
  //
  // If you don't know or care about the units stuff, "px" and 96 should get you going.
- 
- 
+
+
  /* Example Usage:
 @@ -112,60 +114,61 @@ typedef struct NSVGgradientStop {
  } NSVGgradientStop;
- 
+
  typedef struct NSVGgradient {
  	float xform[6];
  	char spread;
@@ -71,7 +71,7 @@ index 60a323820cb..1bfb891c397 100644
  	int nstops;
  	NSVGgradientStop stops[1];
  } NSVGgradient;
- 
+
  typedef struct NSVGpaint {
  	signed char type;
  	union {
@@ -79,7 +79,7 @@ index 60a323820cb..1bfb891c397 100644
  		NSVGgradient* gradient;
  	};
  } NSVGpaint;
- 
+
  typedef struct NSVGpath
  {
  	float* pts;					// Cubic bezier points: x0,y0, [cpx1,cpx1,cpx2,cpy2,x1,y1], ...
@@ -88,7 +88,7 @@ index 60a323820cb..1bfb891c397 100644
  	float bounds[4];			// Tight bounding box of the shape [minx,miny,maxx,maxy].
  	struct NSVGpath* next;		// Pointer to next path, or NULL if last element.
  } NSVGpath;
- 
+
  typedef struct NSVGshape
  {
  	char id[64];				// Optional 'id' attr of the shape or its group
@@ -112,17 +112,17 @@ index 60a323820cb..1bfb891c397 100644
  	NSVGpath* paths;			// Linked list of paths in the image.
  	struct NSVGshape* next;		// Pointer to next shape, or NULL if last element.
  } NSVGshape;
- 
+
  typedef struct NSVGimage
  {
  	float width;				// Width of the image.
  	float height;				// Height of the image.
  	NSVGshape* shapes;			// Linked list of shapes in the image.
  } NSVGimage;
- 
+
  // Parses SVG file from a file, returns SVG image as paths.
  NSVGimage* nsvgParseFromFile(const char* filename, const char* units, float dpi);
- 
+
 @@ -333,60 +336,61 @@ int nsvg__parseXML(char* input,
  				   void* ud)
  {
@@ -146,23 +146,23 @@ index 60a323820cb..1bfb891c397 100644
  			s++;
  		}
  	}
- 
+
  	return 1;
  }
- 
- 
+
+
  /* Simple SVG parser. */
- 
+
  #define NSVG_MAX_ATTR 128
 +#define NSVG_MAX_BREADCRUMB 5
- 
+
  enum NSVGgradientUnits {
  	NSVG_USER_SPACE = 0,
  	NSVG_OBJECT_SPACE = 1
  };
- 
+
  #define NSVG_MAX_DASHES 8
- 
+
  enum NSVGunits {
  	NSVG_UNITS_USER,
  	NSVG_UNITS_PX,
@@ -175,16 +175,16 @@ index 60a323820cb..1bfb891c397 100644
  	NSVG_UNITS_EM,
  	NSVG_UNITS_EX
  };
- 
+
  typedef struct NSVGcoordinate {
  	float value;
  	int units;
  } NSVGcoordinate;
- 
+
  typedef struct NSVGlinearData {
  	NSVGcoordinate x1, y1, x2, y2;
  } NSVGlinearData;
- 
+
 @@ -428,60 +432,64 @@ typedef struct NSVGattrib
  	int strokeDashCount;
  	char strokeLineJoin;
@@ -199,7 +199,7 @@ index 60a323820cb..1bfb891c397 100644
  	char hasStroke;
  	char visible;
  } NSVGattrib;
- 
+
  typedef struct NSVGparser
  {
  	NSVGattrib attr[NSVG_MAX_ATTR];
@@ -221,35 +221,35 @@ index 60a323820cb..1bfb891c397 100644
 +  /** Blender number of elements in breadcrumb. */
 +  int breadcrumb_len;
  } NSVGparser;
- 
+
  static void nsvg__xformIdentity(float* t)
  {
  	t[0] = 1.0f; t[1] = 0.0f;
  	t[2] = 0.0f; t[3] = 1.0f;
  	t[4] = 0.0f; t[5] = 0.0f;
  }
- 
+
  static void nsvg__xformSetTranslation(float* t, float tx, float ty)
  {
  	t[0] = 1.0f; t[1] = 0.0f;
  	t[2] = 0.0f; t[3] = 1.0f;
  	t[4] = tx; t[5] = ty;
  }
- 
+
  static void nsvg__xformSetScale(float* t, float sx, float sy)
  {
  	t[0] = sx; t[1] = 0.0f;
  	t[2] = 0.0f; t[3] = sy;
  	t[4] = 0.0f; t[5] = 0.0f;
  }
- 
+
  static void nsvg__xformSetSkewX(float* t, float a)
  {
  	t[0] = 1.0f; t[1] = 0.0f;
  	t[2] = tanf(a); t[3] = 1.0f;
  	t[4] = 0.0f; t[5] = 0.0f;
  }
- 
+
 @@ -930,60 +938,68 @@ static void nsvg__getLocalBounds(float* bounds, NSVGshape *shape, float* xform)
  				bounds[2] = curveBounds[2];
  				bounds[3] = curveBounds[3];
@@ -265,7 +265,7 @@ index 60a323820cb..1bfb891c397 100644
  		}
  	}
  }
- 
+
  static void nsvg__addShape(NSVGparser* p)
  {
  	NSVGattrib* attr = nsvg__getAttr(p);
@@ -273,14 +273,14 @@ index 60a323820cb..1bfb891c397 100644
  	NSVGshape* shape;
  	NSVGpath* path;
  	int i;
- 
+
  	if (p->plist == NULL)
  		return;
- 
+
  	shape = (NSVGshape*)malloc(sizeof(NSVGshape));
  	if (shape == NULL) goto error;
  	memset(shape, 0, sizeof(NSVGshape));
- 
+
 +  /* Copy parent id from breadcrumb. */
 +  if (p->breadcrumb_len > 0) {
 +    memcpy(shape->id_parent, p->breadcrumb[0], sizeof shape->id_parent);
@@ -304,10 +304,10 @@ index 60a323820cb..1bfb891c397 100644
  	shape->miterLimit = attr->miterLimit;
  	shape->fillRule = attr->fillRule;
  	shape->opacity = attr->opacity;
- 
+
  	shape->paths = p->plist;
  	p->plist = NULL;
- 
+
  	// Calculate shape bounds
  	shape->bounds[0] = shape->paths->bounds[0];
  	shape->bounds[1] = shape->paths->bounds[1];
@@ -333,10 +333,10 @@ index 60a323820cb..1bfb891c397 100644
  		}
  	}
  	it[i] = '\0';
- 
+
  	return s;
  }
- 
+
  static const char* nsvg__getNextPathItemWhenArcFlag(const char* s, char* it)
  {
  	it[0] = '\0';
@@ -349,7 +349,7 @@ index 60a323820cb..1bfb891c397 100644
  	}
  	return s;
  }
- 
+
 -static const char* nsvg__getNextPathItem(const char* s, char* it)
 +static const char* nsvg__getNextPathItem(const char* s, char* it, char cmd, int nargs)
  {
@@ -374,10 +374,10 @@ index 60a323820cb..1bfb891c397 100644
  		it[1] = '\0';
  		return s;
  	}
- 
+
  	return s;
  }
- 
+
  static unsigned int nsvg__parseColorHex(const char* str)
  {
  	unsigned int r=0, g=0, b=0;
@@ -387,11 +387,11 @@ index 60a323820cb..1bfb891c397 100644
  		return NSVG_RGB(r*17, g*17, b*17);			// same effect as (r<<4|r), (g<<4|g), ..
  	return NSVG_RGB(128, 128, 128);
  }
- 
+
  // Parse rgb color. The pointer 'str' must point at "rgb(" (4+ characters).
  // This function returns gray (rgb(128, 128, 128) == '#808080') on parse errors
  // for backwards compatibility. Note: other image viewers return black instead.
- 
+
  static unsigned int nsvg__parseColorRGB(const char* str)
  {
  	int i;
@@ -401,7 +401,7 @@ index 60a323820cb..1bfb891c397 100644
  	char closedFlag;
  	int i;
  	char item[64];
- 
+
  	for (i = 0; attr[i]; i += 2) {
  		if (strcmp(attr[i], "d") == 0) {
  			s = attr[i + 1];
@@ -413,7 +413,7 @@ index 60a323820cb..1bfb891c397 100644
  			nsvg__parseAttribs(p, tmp);
  		}
  	}
- 
+
  	if (s) {
  		nsvg__resetPath(p);
  		cpx = 0; cpy = 0;
@@ -421,7 +421,7 @@ index 60a323820cb..1bfb891c397 100644
  		initPoint = 0;
  		closedFlag = 0;
  		nargs = 0;
- 
+
  		while (*s) {
  			item[0] = '\0';
  			if ((cmd == 'A' || cmd == 'a') && (nargs == 3 || nargs == 4))
@@ -463,17 +463,17 @@ index 60a323820cb..1bfb891c397 100644
  			if (strcmp(attr[i], "y2") == 0) y2 = nsvg__parseCoordinate(p, attr[i + 1], nsvg__actualOrigY(p), nsvg__actualHeight(p));
  		}
  	}
- 
+
  	nsvg__resetPath(p);
- 
+
  	nsvg__moveTo(p, x1, y1);
  	nsvg__lineTo(p, x2, y2);
- 
+
  	nsvg__addPath(p, 0);
- 
+
  	nsvg__addShape(p);
  }
- 
+
  static void nsvg__parsePoly(NSVGparser* p, const char** attr, int closeFlag)
  {
  	int i;
@@ -481,9 +481,9 @@ index 60a323820cb..1bfb891c397 100644
  	float args[2];
  	int nargs, npts = 0;
  	char item[64];
- 
+
  	nsvg__resetPath(p);
- 
+
  	for (i = 0; attr[i]; i += 2) {
  		if (!nsvg__parseAttr(p, attr[i], attr[i + 1])) {
  			if (strcmp(attr[i], "points") == 0) {
@@ -505,12 +505,12 @@ index 60a323820cb..1bfb891c397 100644
  			}
  		}
  	}
- 
+
  	nsvg__addPath(p, (char)closeFlag);
- 
+
  	nsvg__addShape(p);
  }
- 
+
  static void nsvg__parseSVG(NSVGparser* p, const char** attr)
  {
  	int i;
@@ -527,17 +527,17 @@ index 60a323820cb..1bfb891c397 100644
  		for (i = grad->nstops-1; i > idx; i--)
  			grad->stops[i] = grad->stops[i-1];
  	}
- 
+
  	stop = &grad->stops[idx];
  	stop->color = curAttr->stopColor;
  	stop->color |= (unsigned int)(curAttr->stopOpacity*255) << 24;
  	stop->offset = curAttr->stopOffset;
  }
- 
+
  static void nsvg__startElement(void* ud, const char* el, const char** attr)
  {
  	NSVGparser* p = (NSVGparser*)ud;
- 
+
  	if (p->defsFlag) {
  		// Skip everything but gradients in defs
  		if (strcmp(el, "linearGradient") == 0) {
@@ -549,7 +549,7 @@ index 60a323820cb..1bfb891c397 100644
  		}
  		return;
  	}
- 
+
  	if (strcmp(el, "g") == 0) {
  		nsvg__pushAttr(p);
  		nsvg__parseAttribs(p, attr);
@@ -603,11 +603,11 @@ index 60a323820cb..1bfb891c397 100644
  		nsvg__parseSVG(p, attr);
  	}
  }
- 
+
  static void nsvg__endElement(void* ud, const char* el)
  {
  	NSVGparser* p = (NSVGparser*)ud;
- 
+
  	if (strcmp(el, "g") == 0) {
 +    /* Remove the breadcrumb level. */
 +    if (p->breadcrumb_len > 0) {
@@ -622,14 +622,14 @@ index 60a323820cb..1bfb891c397 100644
  		p->defsFlag = 0;
  	}
  }
- 
+
  static void nsvg__content(void* ud, const char* s)
  {
  	NSVG_NOTUSED(ud);
  	NSVG_NOTUSED(s);
  	// empty
  }
- 
+
  static void nsvg__imageBounds(NSVGparser* p, float* bounds)
  {
  	NSVGshape* shape;

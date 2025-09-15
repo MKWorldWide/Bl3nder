@@ -400,7 +400,7 @@ void runMcfGeqTests( Param param,
   Digraph gr0;
   MCF mcf0(gr0);
   mcf0.run(param);
-  check(mcf0.totalCost() == 0, "Wrong total cost");  
+  check(mcf0.totalCost() == 0, "Wrong total cost");
 }
 
 template < typename MCF, typename Param >

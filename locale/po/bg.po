@@ -2379,4 +2379,3 @@ msgstr "Засенчване"
 
 msgid "Pose Library"
 msgstr "Библиотека с Пози"
-

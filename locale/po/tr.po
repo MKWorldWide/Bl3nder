@@ -127428,4 +127428,3 @@ msgstr "Pürüzsüz kenarlar için maksimum yüz açısı"
 
 msgid "Ignore Sharpness"
 msgstr "Keskinliği Yoksay"
-

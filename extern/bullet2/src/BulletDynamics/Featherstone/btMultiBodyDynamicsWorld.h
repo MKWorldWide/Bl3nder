@@ -48,7 +48,7 @@ protected:
 
 	virtual void calculateSimulationIslands();
 	virtual void updateActivationState(btScalar timeStep);
-	
+
 
 	virtual void serializeMultiBodies(btSerializer* serializer);
 
@@ -56,9 +56,9 @@ public:
 	btMultiBodyDynamicsWorld(btDispatcher* dispatcher, btBroadphaseInterface* pairCache, btMultiBodyConstraintSolver* constraintSolver, btCollisionConfiguration* collisionConfiguration);
 
 	virtual ~btMultiBodyDynamicsWorld();
-    
+
     virtual void solveConstraints(btContactSolverInfo& solverInfo);
-    
+
 	virtual void addMultiBody(btMultiBody* body, int group = btBroadphaseProxy::DefaultFilter, int mask = btBroadphaseProxy::AllFilter);
 
 	virtual void removeMultiBody(btMultiBody* body);
@@ -100,7 +100,7 @@ public:
 	virtual void integrateTransforms(btScalar timeStep);
     void integrateMultiBodyTransforms(btScalar timeStep);
     void predictMultiBodyTransforms(btScalar timeStep);
-    
+
     virtual void predictUnconstraintMotion(btScalar timeStep);
 	virtual void debugDrawWorld();
 
@@ -116,7 +116,7 @@ public:
 	virtual void setMultiBodyConstraintSolver(btMultiBodyConstraintSolver* solver);
 	virtual void setConstraintSolver(btConstraintSolver* solver);
 	virtual void getAnalyticsData(btAlignedObjectArray<struct btSolverAnalyticsData>& m_islandAnalyticsData) const;
-    
+
     virtual void solveExternalForces(btContactSolverInfo& solverInfo);
     virtual void solveInternalConstraints(btContactSolverInfo& solverInfo);
     void buildIslands();

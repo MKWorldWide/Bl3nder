@@ -29,7 +29,7 @@ if "%WITH_ASAN%"=="1" (
 )
 
 if NOT "%verbose%" == "" (
-	echo BUILD_CMAKE_ARGS=%BUILD_CMAKE_ARGS% 
+	echo BUILD_CMAKE_ARGS=%BUILD_CMAKE_ARGS%
 )
 
 if NOT EXIST %BUILD_DIR%\nul (
@@ -49,7 +49,7 @@ if "%MUST_CONFIGURE%"=="1" (
 	"%CMAKE%" ^
 		%BUILD_CMAKE_ARGS% ^
 		-H%BLENDER_DIR% ^
-		-B%BUILD_DIR% 
+		-B%BUILD_DIR%
 
 	if %ERRORLEVEL% NEQ 0 (
 		echo "Configuration Failed"

@@ -78,4 +78,3 @@ int TreeJntToJacSolver::JntToJac(const JntArray& q_in, Jacobian& jac,
 
 }//end JntToJac
 }//end namespace
-

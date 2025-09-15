@@ -15,7 +15,7 @@ diff -ru ./src/video/SDL_video.c ./src/video/SDL_video.c
 @@ -526,6 +526,13 @@
      list(APPEND EXTRA_CFLAGS "-fno-strict-aliasing")
    endif()
- 
+
 +  # BLENDER: make libs compatible with older Xcode.
 +  # https://github.com/KhronosGroup/MoltenVK/issues/1756
 +  check_c_compiler_flag(-fno-objc-msgsend-selector-stubs HAVE_GCC_NO_OBJC_MSGSEND_SELECTOR_STUBS)

@@ -2298,4 +2298,3 @@ msgstr "Ezin da irakurri %s '%s': %s"
 
 msgid "Import-Export"
 msgstr "Inportatu-Esportatu"
-

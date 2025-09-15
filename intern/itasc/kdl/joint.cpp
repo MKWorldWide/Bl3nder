@@ -161,4 +161,3 @@ namespace KDL {
 	}
 
 } // end of namespace KDL
-

@@ -33084,4 +33084,3 @@ ufbx_abi ufbx_vec3 ufbx_get_weighted_face_normal(const ufbx_vertex_vec3 *positio
 #elif defined(__GNUC__)
 	#pragma GCC diagnostic pop
 #endif
-

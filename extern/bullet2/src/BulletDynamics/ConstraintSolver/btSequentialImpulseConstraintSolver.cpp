@@ -984,14 +984,14 @@ void btSequentialImpulseConstraintSolver::setFrictionConstraintImpulse(btSolverC
 {
 	{
 		btSolverConstraint& frictionConstraint1 = m_tmpSolverContactFrictionConstraintPool[solverConstraint.m_frictionIndex];
-		
+
 		frictionConstraint1.m_appliedImpulse = 0.f;
 	}
 
 	if ((infoGlobal.m_solverMode & SOLVER_USE_2_FRICTION_DIRECTIONS))
 	{
 		btSolverConstraint& frictionConstraint2 = m_tmpSolverContactFrictionConstraintPool[solverConstraint.m_frictionIndex + 1];
-		
+
 		frictionConstraint2.m_appliedImpulse = 0.f;
 	}
 }

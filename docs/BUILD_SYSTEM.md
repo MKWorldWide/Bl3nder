@@ -333,4 +333,4 @@ make -j$(nproc) --debug=v 2>&1 | grep "slow"
 *This build system documentation provides comprehensive information about building Blender from source. For platform-specific instructions, refer to the official build documentation.*
 
 **Last Updated**: 2024-12-19
-**Version**: 1.0 
+**Version**: 1.0

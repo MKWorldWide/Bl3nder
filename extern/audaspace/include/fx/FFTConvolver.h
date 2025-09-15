@@ -135,7 +135,7 @@ public:
 	*						written in the outBuffer.
 	*/
 	void getNext(const fftwf_complex* inBuffer, sample_t* outBuffer, int& length);
-	
+
 	/**
 	* Gets the internally stored extra data which is result of the convolution.
 	* \param[in,out] length The count of samples that should be read. Shall
@@ -155,9 +155,9 @@ public:
 	/**
 	* Calculates the Inverse Fast Fourier Transform of the input array.
 	* \param[in] inBuffer A buffer with the input data to be transformed. Its length must be N/2 + 1
-	* \param[in] outBuffer A pointer to the buffer in which the transform result will be written. 
+	* \param[in] outBuffer A pointer to the buffer in which the transform result will be written.
 	* \param[in,out] length The number of samples to be transformed and the length of the outBuffer.
-	*						It must be equal or lower than N, but tipically N/2 should be used (N=size of the FFTPlan) or the call will fail and the value 
+	*						It must be equal or lower than N, but tipically N/2 should be used (N=size of the FFTPlan) or the call will fail and the value
 	*						of length will be setted to 0, since no data would be written in the outBuffer.
 	*/
 	void IFFT_FDL(const fftwf_complex* inBuffer, sample_t* outBuffer, int& length);

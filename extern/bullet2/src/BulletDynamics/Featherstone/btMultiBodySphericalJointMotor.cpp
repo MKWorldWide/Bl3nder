@@ -107,7 +107,7 @@ void btMultiBodySphericalJointMotor::createConstraintRows(btMultiBodyConstraintA
 	//don't crash
 	if (m_numDofsFinalized != m_jacSizeBoth)
 		return;
-	
+
 
 	if (m_maxAppliedImpulse == 0.f)
 		return;
@@ -115,9 +115,9 @@ void btMultiBodySphericalJointMotor::createConstraintRows(btMultiBodyConstraintA
 	const btScalar posError = 0;
 	const btVector3 dummy(0, 0, 0);
 
-	
+
 	btVector3 axis[3] = { btVector3(1, 0, 0), btVector3(0, 1, 0), btVector3(0, 0, 1) };
-	
+
 	btQuaternion desiredQuat = m_desiredPosition;
 	btQuaternion currentQuat(m_bodyA->getJointPosMultiDof(m_linkA)[0],
 		m_bodyA->getJointPosMultiDof(m_linkA)[1],
@@ -135,10 +135,10 @@ btQuaternion relRot = currentQuat.inverse() * desiredQuat;
 		btMultiBodySolverConstraint& constraintRow = constraintRows.expandNonInitializing();
 
 		int dof = row;
-		
+
 		btScalar currentVelocity = m_bodyA->getJointVelMultiDof(m_linkA)[dof];
 		btScalar desiredVelocity = this->m_desiredVelocity[row];
-		
+
 		btScalar velocityError = desiredVelocity - currentVelocity;
 
 		btMatrix3x3 frameAworld;

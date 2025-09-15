@@ -370,7 +370,7 @@ public:
 
 	//! Along an arbitrary axes.  rotvec should be normalized.
     static Rotation Rot2(const Vector& rotvec,double angle);
-	
+
 	// make sure the matrix is a pure rotation (no scaling)
 	void Ortho();
 
@@ -1077,7 +1077,7 @@ inline bool Equal(const Wrench&,    const Wrench&,    double = epsilon);
 inline bool Equal(const Vector2&,   const Vector2&,   double = epsilon);
 inline bool Equal(const Rotation2&, const Rotation2&, double = epsilon);
 inline bool Equal(const Frame2&,    const Frame2&,    double = epsilon);
-       
+
 IMETHOD Vector diff(const Vector& a,const Vector& b,double dt=1);
 IMETHOD Vector diff(const Rotation& R_a_b1,const Rotation& R_a_b2,double dt=1);
 IMETHOD Twist diff(const Frame& F_a_b1,const Frame& F_a_b2,double dt=1);

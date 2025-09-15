@@ -3,8 +3,8 @@ Copyright (c) 2003-2006 Gino van den Bergen / Erwin Coumans  http://continuousph
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
-Permission is granted to anyone to use this software for any purpose, 
-including commercial applications, and to alter it and redistribute it freely, 
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
 subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
@@ -102,7 +102,7 @@ public:
 		setEulerZYX(yaw, pitch, roll);
 #endif
 	}
-	/**@brief Set the rotation using axis angle notation 
+	/**@brief Set the rotation using axis angle notation
    * @param axis The axis around which to rotate
    * @param angle The magnitude of the rotation in Radians */
 	void setRotation(const btVector3& axis, const btScalar& _angle)
@@ -133,7 +133,7 @@ public:
 				 sinRoll * cosPitch * cosYaw - cosRoll * sinPitch * sinYaw,
 				 cosRoll * cosPitch * cosYaw + sinRoll * sinPitch * sinYaw);
 	}
-	/**@brief Set the quaternion using euler angles 
+	/**@brief Set the quaternion using euler angles
    * @param yaw Angle around Z
    * @param pitch Angle around Y
    * @param roll Angle around X */
@@ -249,7 +249,7 @@ public:
 	}
 
 	/**@brief Multiply this quaternion by q on the right
-   * @param q The other quaternion 
+   * @param q The other quaternion
    * Equivilant to this = this * q */
 	btQuaternion& operator*=(const btQuaternion& q)
 	{
@@ -380,7 +380,7 @@ public:
 		}
 		return *this;
 	}
-	/**@brief Normalize the quaternion 
+	/**@brief Normalize the quaternion
    * Such that x^2 + y^2 + z^2 +w^2 = 1 */
 	btQuaternion& normalize()
 	{
@@ -505,7 +505,7 @@ public:
 #endif
 	}
 
-	/**@brief Return the sum of this quaternion and the other 
+	/**@brief Return the sum of this quaternion and the other
    * @param q2 The other quaternion */
 	SIMD_FORCE_INLINE btQuaternion
 	operator+(const btQuaternion& q2) const
@@ -520,7 +520,7 @@ public:
 #endif
 	}
 
-	/**@brief Return the difference between this quaternion and the other 
+	/**@brief Return the difference between this quaternion and the other
    * @param q2 The other quaternion */
 	SIMD_FORCE_INLINE btQuaternion
 	operator-(const btQuaternion& q2) const
@@ -535,7 +535,7 @@ public:
 #endif
 	}
 
-	/**@brief Return the negative of this quaternion 
+	/**@brief Return the negative of this quaternion
    * This simply negates each element */
 	SIMD_FORCE_INLINE btQuaternion operator-() const
 	{
@@ -571,7 +571,7 @@ public:
 	}
 
 	/**@brief Return the quaternion which is the result of Spherical Linear Interpolation between this and the other quaternion
-   * @param q The other quaternion to interpolate with 
+   * @param q The other quaternion to interpolate with
    * @param t The ratio between this and q to interpolate.  If t = 0 the result is this, if t=1 the result is q.
    * Slerp interpolates assuming constant velocity.  */
 	btQuaternion slerp(const btQuaternion& q, const btScalar& t) const
@@ -911,10 +911,10 @@ inverse(const btQuaternion& q)
 	return q.inverse();
 }
 
-/**@brief Return the result of spherical linear interpolation betwen two quaternions 
+/**@brief Return the result of spherical linear interpolation betwen two quaternions
  * @param q1 The first quaternion
- * @param q2 The second quaternion 
- * @param t The ration between q1 and q2.  t = 0 return q1, t=1 returns q2 
+ * @param q2 The second quaternion
+ * @param t The ration between q1 and q2.  t = 0 return q1, t=1 returns q2
  * Slerp assumes constant velocity between positions. */
 SIMD_FORCE_INLINE btQuaternion
 slerp(const btQuaternion& q1, const btQuaternion& q2, const btScalar& t)

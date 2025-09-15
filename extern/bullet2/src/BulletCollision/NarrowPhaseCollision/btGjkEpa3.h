@@ -976,7 +976,7 @@ int	btComputeGjkEpaPenetration2(const btCollisionDescription& colDesc, btDistanc
 {
     btGjkEpaSolver3::sResults results;
     btVector3 guess = colDesc.m_firstDir;
-    
+
     bool res = btGjkEpaSolver3::Penetration(colDesc.m_objA,colDesc.m_objB,
                                             colDesc.m_transformA,colDesc.m_transformB,
                                             colDesc.m_localSupportFuncA,colDesc.m_localSupportFuncB,
@@ -987,7 +987,7 @@ int	btComputeGjkEpaPenetration2(const btCollisionDescription& colDesc, btDistanc
         if ((results.status==btGjkEpaSolver3::sResults::Penetrating) || results.status==GJK::eStatus::Inside)
         {
             //normal could be 'swapped'
-            
+
             distInfo->m_distance = results.distance;
             distInfo->m_normalBtoA = results.normal;
             btVector3 tmpNormalInB = results.witnesses[1]-results.witnesses[0];
@@ -997,7 +997,7 @@ int	btComputeGjkEpaPenetration2(const btCollisionDescription& colDesc, btDistanc
                 tmpNormalInB = results.normal;
                 lenSqr = results.normal.length2();
             }
-            
+
             if (lenSqr > (SIMD_EPSILON*SIMD_EPSILON))
             {
                 tmpNormalInB /= btSqrt(lenSqr);
@@ -1013,9 +1013,9 @@ int	btComputeGjkEpaPenetration2(const btCollisionDescription& colDesc, btDistanc
                 }
             }
         }
-        
+
     }
-    
+
     return -1;
 }
 #endif

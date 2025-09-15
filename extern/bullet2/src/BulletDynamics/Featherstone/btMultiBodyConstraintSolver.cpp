@@ -4,8 +4,8 @@ Copyright (c) 2013 Erwin Coumans  http://bulletphysics.org
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
-Permission is granted to anyone to use this software for any purpose, 
-including commercial applications, and to alter it and redistribute it freely, 
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
 subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
@@ -835,7 +835,7 @@ void btMultiBodyConstraintSolver::setupMultiBodyContactConstraint(btMultiBodySol
 
 		solverConstraint.m_cfm = cfm * solverConstraint.m_jacDiagABInv;
 	}
-        
+
 	if (infoGlobal.m_solverMode & SOLVER_USE_ARTICULATED_WARMSTARTING)
 	{
 		if (btFabs(cp.m_prevRHS) > 1e-5 && cp.m_prevRHS < 2* solverConstraint.m_rhs && solverConstraint.m_rhs < 2*cp.m_prevRHS)
@@ -1255,7 +1255,7 @@ void btMultiBodyConstraintSolver::convertMultiBodyContact(btPersistentManifold* 
 {
 	const btMultiBodyLinkCollider* fcA = btMultiBodyLinkCollider::upcast(manifold->getBody0());
 	const btMultiBodyLinkCollider* fcB = btMultiBodyLinkCollider::upcast(manifold->getBody1());
-	
+
 	btMultiBody* mbA = fcA ? fcA->m_multiBody : 0;
 	btMultiBody* mbB = fcB ? fcB->m_multiBody : 0;
 
@@ -1641,7 +1641,7 @@ btScalar btMultiBodyConstraintSolver::solveGroupCacheFriendlyFinish(btCollisionO
 		for (int j=0;j<numPoolConstraints;j++)
 		{
 			const btMultiBodySolverConstraint& solverConstraint = m_multiBodyNormalContactConstraints[j];
-		
+
 			//apply the joint feedback into all links of the btMultiBody
 			//todo: double-check the signs of the applied impulse
 
@@ -1669,7 +1669,7 @@ btScalar btMultiBodyConstraintSolver::solveGroupCacheFriendlyFinish(btCollisionO
 					m_multiBodyFrictionContactConstraints[solverConstraint.m_frictionIndex].m_multiBodyB,
 					m_multiBodyFrictionContactConstraints[solverConstraint.m_frictionIndex].m_appliedImpulse*btSimdScalar(-1./infoGlobal.m_timeStep));
 			}
-		
+
 			if ((infoGlobal.m_solverMode & SOLVER_USE_2_FRICTION_DIRECTIONS))
 			{
 				if (m_multiBodyFrictionContactConstraints[solverConstraint.m_frictionIndex+1].m_multiBodyA && m_multiBodyFrictionContactConstraints[solverConstraint.m_frictionIndex+1].m_multiBodyA->isMultiDof())
@@ -1690,7 +1690,7 @@ btScalar btMultiBodyConstraintSolver::solveGroupCacheFriendlyFinish(btCollisionO
 			}
 #endif
 		}
-	
+
 		for (int i=0;i<m_multiBodyNonContactConstraints.size();i++)
 		{
 			const btMultiBodySolverConstraint& solverConstraint = m_multiBodyNonContactConstraints[i];
@@ -1721,7 +1721,7 @@ btScalar btMultiBodyConstraintSolver::solveGroupCacheFriendlyFinish(btCollisionO
 			fb->m_appliedForceBodyB += c.m_contactNormal2*c.m_appliedImpulse*constr->getRigidBodyB().getLinearFactor()/infoGlobal.m_timeStep;
 			fb->m_appliedTorqueBodyA += c.m_relpos1CrossNormal* constr->getRigidBodyA().getAngularFactor()*c.m_appliedImpulse/infoGlobal.m_timeStep;
 			fb->m_appliedTorqueBodyB += c.m_relpos2CrossNormal* constr->getRigidBodyB().getAngularFactor()*c.m_appliedImpulse/infoGlobal.m_timeStep; /*RGM ???? */
-			
+
 		}
 
 		constr->internalSetAppliedImpulse(c.m_appliedImpulse);

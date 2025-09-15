@@ -67,12 +67,12 @@ WRes Thread_Create(CThread *p, THREAD_FUNC_TYPE func, LPVOID param)
 
   DWORD threadId;
   *p = CreateThread(NULL, 0, func, param, 0, &threadId);
-  
+
   #else
-  
+
   unsigned threadId;
   *p = (HANDLE)(_beginthreadex(NULL, 0, func, param, 0, &threadId));
-  
+
   #endif
 
   /* maybe we must use errno here, but probably GetLastError() is also OK. */
@@ -86,9 +86,9 @@ WRes Thread_Create_With_Affinity(CThread *p, THREAD_FUNC_TYPE func, LPVOID param
 
   UNUSED_VAR(affinity)
   return Thread_Create(p, func, param);
-  
+
   #else
-  
+
   /* Windows Me/98/95: threadId parameter may not be NULL in _beginthreadex/CreateThread functions */
   HANDLE h;
   WRes wres;
@@ -245,7 +245,7 @@ WRes Thread_Create_With_CpuSet(CThread *p, THREAD_FUNC_TYPE func, LPVOID param, 
     if (cpuSet)
     {
       #ifdef Z7_AFFINITY_SUPPORTED
-      
+
       /*
       printf("\n affinity :");
       unsigned i;
@@ -269,9 +269,9 @@ WRes Thread_Create_With_CpuSet(CThread *p, THREAD_FUNC_TYPE func, LPVOID param, 
       // if (ret2) ret = ret2;
       #endif
     }
-    
+
     ret = pthread_create(&p->_tid, &attr, func, param);
-    
+
     if (!ret)
     {
       p->_created = 1;
@@ -324,7 +324,7 @@ WRes Thread_Close(CThread *p)
   int ret;
   if (!p->_created)
     return 0;
-    
+
   ret = pthread_detach(p->_tid);
   p->_tid = 0;
   p->_created = 0;
@@ -384,7 +384,7 @@ WRes Event_Reset(CEvent *p)
   p->_state = False;
   return pthread_mutex_unlock(&p->_mutex);
 }
- 
+
 WRes Event_Wait(CEvent *p)
 {
   RINOK(pthread_mutex_lock(&p->_mutex))

@@ -59,4 +59,3 @@ setup(
       ext_modules = [audaspace],
       headers = [os.path.join(source_directory, file) for file in ['PyAPI.h', 'PyDevice.h', 'PyHandle.h', 'PySound.h', 'PySequenceEntry.h', 'PySequence.h', 'PyPlaybackManager.h', 'PyDynamicMusic.h', 'PyThreadPool.h', 'PySource.h'] + (['PyImpulseResponse.h', 'PyHRTF.h'] if '@WITH_FFTW@' == 'ON' else [])] + ['Audaspace.h']
 )
-

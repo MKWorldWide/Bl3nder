@@ -219,7 +219,7 @@ The AI agent system is located in `source/blender/ai_agent/`:
 # Example AI agent structure
 class SceneAnalysisAgent:
     """AI agent for scene complexity analysis."""
-    
+
     def analyze_scene(self, scene_data):
         """Analyze scene complexity and suggest optimizations."""
         # Implementation here
@@ -347,4 +347,4 @@ Support the development of Bl3nder:
 
 **Thank you for contributing to Bl3nder!** 🚀
 
-*Together, we're building the future of AI-enhanced 3D creation.* 
+*Together, we're building the future of AI-enhanced 3D creation.*

@@ -123,4 +123,3 @@ bool Tree::addTreeRecursive(SegmentMap::const_iterator root,
 }
 
 }
-

@@ -14,7 +14,7 @@ index 906c208..b4085d1 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -113,8 +113,11 @@ if(SPIRV_REFLECT_STATIC_LIB)
- 
+
      target_include_directories(spirv-reflect-static
                                 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 +

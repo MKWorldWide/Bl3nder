@@ -3,8 +3,8 @@ Copyright (c) 2003-2006 Gino van den Bergen / Erwin Coumans  http://continuousph
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
-Permission is granted to anyone to use this software for any purpose, 
-including commercial applications, and to alter it and redistribute it freely, 
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
 subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
@@ -62,7 +62,7 @@ public:
 	/*
 	template <typename btScalar>
 	Matrix3x3(const btScalar& yaw, const btScalar& pitch, const btScalar& roll)
-	{ 
+	{
 	setEulerYPR(yaw, pitch, roll);
 	}
 	*/
@@ -127,7 +127,7 @@ public:
 		m_el[2] = other.m_el[2];
 		return *this;
 	}
-    
+
     SIMD_FORCE_INLINE btMatrix3x3(const btVector3& v0, const btVector3& v1, const btVector3& v2)
     {
         m_el[0] = v0;
@@ -137,14 +137,14 @@ public:
 
 #endif
 
-	/** @brief Get a column of the matrix as a vector 
+	/** @brief Get a column of the matrix as a vector
 	*  @param i Column number 0 indexed */
 	SIMD_FORCE_INLINE btVector3 getColumn(int i) const
 	{
 		return btVector3(m_el[0][i], m_el[1][i], m_el[2][i]);
 	}
 
-	/** @brief Get a row of the matrix as a vector 
+	/** @brief Get a row of the matrix as a vector
 	*  @param i Row number 0 indexed */
 	SIMD_FORCE_INLINE const btVector3& getRow(int i) const
 	{
@@ -152,7 +152,7 @@ public:
 		return m_el[i];
 	}
 
-	/** @brief Get a mutable reference to a row of the matrix as a vector 
+	/** @brief Get a mutable reference to a row of the matrix as a vector
 	*  @param i Row number 0 indexed */
 	SIMD_FORCE_INLINE btVector3& operator[](int i)
 	{
@@ -160,7 +160,7 @@ public:
 		return m_el[i];
 	}
 
-	/** @brief Get a const reference to a row of the matrix as a vector 
+	/** @brief Get a const reference to a row of the matrix as a vector
 	*  @param i Row number 0 indexed */
 	SIMD_FORCE_INLINE const btVector3& operator[](int i) const
 	{
@@ -169,17 +169,17 @@ public:
 	}
 
 	/** @brief Multiply by the target matrix on the right
-	*  @param m Rotation matrix to be applied 
+	*  @param m Rotation matrix to be applied
 	* Equivilant to this = this * m */
 	btMatrix3x3& operator*=(const btMatrix3x3& m);
 
 	/** @brief Adds by the target matrix on the right
-	*  @param m matrix to be applied 
+	*  @param m matrix to be applied
 	* Equivilant to this = this + m */
 	btMatrix3x3& operator+=(const btMatrix3x3& m);
 
 	/** @brief Substractss by the target matrix on the right
-	*  @param m matrix to be applied 
+	*  @param m matrix to be applied
 	* Equivilant to this = this - m */
 	btMatrix3x3& operator-=(const btMatrix3x3& m);
 
@@ -284,7 +284,7 @@ public:
 	/** @brief Set the matrix from euler angles using YPR around YXZ respectively
 	*  @param yaw Yaw about Y axis
 	*  @param pitch Pitch about X axis
-	*  @param roll Roll about Z axis 
+	*  @param roll Roll about Z axis
 	*/
 	void setEulerYPR(const btScalar& yaw, const btScalar& pitch, const btScalar& roll)
 	{
@@ -295,9 +295,9 @@ public:
 	* @param eulerX Roll about X axis
 	* @param eulerY Pitch around Y axis
 	* @param eulerZ Yaw about Z axis
-	* 
+	*
 	* These angles are used to produce a rotation matrix. The euler
-	* angles are applied in ZYX order. I.e a vector is first rotated 
+	* angles are applied in ZYX order. I.e a vector is first rotated
 	* about X then Y and then Z
 	**/
 	void setEulerZYX(btScalar eulerX, btScalar eulerY, btScalar eulerZ)
@@ -332,7 +332,7 @@ public:
 				 btScalar(0.0), btScalar(0.0), btScalar(1.0));
 #endif
 	}
-    
+
     /**@brief Set the matrix to the identity */
     void setZero()
     {
@@ -415,7 +415,7 @@ public:
 #endif
 	}
 
-	/**@brief Get the matrix represented as a quaternion 
+	/**@brief Get the matrix represented as a quaternion
 	* @param q The quaternion which will be set */
 	void getRotation(btQuaternion & q) const
 	{
@@ -548,7 +548,7 @@ public:
 	/**@brief Get the matrix represented as euler angles around ZYX
 	* @param yaw Yaw around Z axis
 	* @param pitch Pitch around Y axis
-	* @param roll around X axis 
+	* @param roll around X axis
 	* @param solution_number Which solution of two possible solutions ( 1 or 2) are possible values*/
 	void getEulerZYX(btScalar & yaw, btScalar & pitch, btScalar & roll, unsigned int solution_number = 1) const
 	{
@@ -616,7 +616,7 @@ public:
 		}
 	}
 
-	/**@brief Create a scaled copy of the matrix 
+	/**@brief Create a scaled copy of the matrix
 	* @param s Scaling vector The elements of the vector will scale each column */
 
 	btMatrix3x3 scaled(const btVector3& s) const
@@ -791,7 +791,7 @@ public:
 		}
 	}
 
-	/**@brief Calculate the matrix cofactor 
+	/**@brief Calculate the matrix cofactor
 	* @param r1 The first row to use for calculating the cofactor
 	* @param c1 The first column to use for calculating the cofactor
 	* @param r1 The second row to use for calculating the cofactor

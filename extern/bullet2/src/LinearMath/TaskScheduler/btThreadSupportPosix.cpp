@@ -239,7 +239,7 @@ int btThreadSupportPosix::waitForResponse()
 	{
 		m_cs->lock();
 		bool hasFinished = (2 == m_activeThreadStatus[t].m_status);
-		m_cs->unlock(); 
+		m_cs->unlock();
 		if (hasFinished)
 		{
 			last = t;

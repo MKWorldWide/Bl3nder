@@ -75890,4 +75890,3 @@ msgstr "Največji možni nagib lica, da so robovi še gladki"
 
 msgid "Ignore Sharpness"
 msgstr "Zanemari ostrost"
-

@@ -21,7 +21,7 @@ if NOT "%1" == "" (
     set BuildDir=VS15
     goto par2
   )
-  
+
 )
 :usage
 
@@ -70,12 +70,12 @@ if "%3" == "debug" set CMAKE_DEBUG_OPTIONS=-DWITH_OPTIMIZED_DEBUG=Off
 set dobuild=1
 if "%4" == "nobuild" set dobuild=0
 
-REM If Python is be available certain deps may try to 
+REM If Python is be available certain deps may try to
 REM to use this over the version we build, to prevent that
 REM make sure pythonw is NOT in the path. We look for pythonw.exe
 REM since windows apparently ships a python.exe that just opens up
 REM the windows store but does not ship any actual python files that
-REM could cause issues.  
+REM could cause issues.
 for %%X in (pythonw.exe) do (set PYTHONW=%%~$PATH:X)
 if EXIST "%PYTHONW%" (
   echo PYTHON found at %PYTHONW% dependencies cannot be build with python available in the path
@@ -88,8 +88,8 @@ set HARVEST_DIR=%BUILD_DIR%\output
 set STAGING=%BUILD_DIR%\S
 
 rem for python module build
-set MSSdk=1 
-set DISTUTILS_USE_SDK=1  
+set MSSdk=1
+set DISTUTILS_USE_SDK=1
 rem if you let pip pick its own build dirs, it'll stick it somewhere deep inside the user profile
 rem and cython will refuse to link due to a path that gets too long.
 set TMPDIR=c:\t\

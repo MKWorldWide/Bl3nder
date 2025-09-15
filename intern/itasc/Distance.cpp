@@ -284,9 +284,9 @@ const ConstraintValues* Distance::getControlParameters(unsigned int* _nvalues)
 	m_data.yddot = m_yddot;
 	m_data.action = 0;
 	m_values.action = 0;
-	if (_nvalues) 
-		*_nvalues=1; 
-	return &m_values; 
+	if (_nvalues)
+		*_nvalues=1;
+	return &m_values;
 }
 
 void Distance::updateControlOutput(const Timestamp& timestamp)

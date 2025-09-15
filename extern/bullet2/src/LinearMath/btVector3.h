@@ -3,8 +3,8 @@ Copyright (c) 2003-2006 Gino van den Bergen / Erwin Coumans  http://continuousph
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
-Permission is granted to anyone to use this software for any purpose, 
-including commercial applications, and to alter it and redistribute it freely, 
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
 subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
@@ -118,10 +118,10 @@ public:
 	{
 	}
 
-	/**@brief Constructor from scalars 
+	/**@brief Constructor from scalars
    * @param x X value
-   * @param y Y value 
-   * @param z Z value 
+   * @param y Y value
+   * @param z Z value
    */
 	SIMD_FORCE_INLINE btVector3(const btScalar& _x, const btScalar& _y, const btScalar& _z)
 	{
@@ -154,7 +154,7 @@ public:
 	}
 #endif  // #if defined (BT_USE_SSE_IN_API) || defined (BT_USE_NEON)
 
-	/**@brief Add a vector to this one 
+	/**@brief Add a vector to this one
  * @param The vector to add to this one */
 	SIMD_FORCE_INLINE btVector3& operator+=(const btVector3& v)
 	{
@@ -204,7 +204,7 @@ public:
 		return *this;
 	}
 
-	/**@brief Inversely scale the vector 
+	/**@brief Inversely scale the vector
    * @param s Scale factor to divide by */
 	SIMD_FORCE_INLINE btVector3& operator/=(const btScalar& s)
 	{
@@ -217,7 +217,7 @@ public:
 		vs = bt_pshufd_ps(vs, 0x00);	//	(S S S S)
 
 		mVec128 = _mm_mul_ps(mVec128, vs);
-		
+
 		return *this;
 #else
 		return *this *= btScalar(1.0) / s;
@@ -298,7 +298,7 @@ public:
 		return *this;
 	}
 
-	/**@brief Normalize this vector 
+	/**@brief Normalize this vector
    * x^2 + y^2 + z^2 = 1 */
 	SIMD_FORCE_INLINE btVector3& normalize()
 	{
@@ -347,7 +347,7 @@ public:
 	SIMD_FORCE_INLINE btVector3 normalized() const;
 
 	/**@brief Return a rotated version of this vector
-   * @param wAxis The axis to rotate about 
+   * @param wAxis The axis to rotate about
    * @param angle The angle to rotate by */
 	SIMD_FORCE_INLINE btVector3 rotate(const btVector3& wAxis, const btScalar angle) const;
 
@@ -375,7 +375,7 @@ public:
 #endif
 	}
 
-	/**@brief Return the cross product between this and another vector 
+	/**@brief Return the cross product between this and another vector
    * @param v The other vector */
 	SIMD_FORCE_INLINE btVector3 cross(const btVector3& v) const
 	{
@@ -465,14 +465,14 @@ public:
 #endif
 	}
 
-	/**@brief Return the axis with the smallest value 
+	/**@brief Return the axis with the smallest value
    * Note return values are 0,1,2 for x, y, or z */
 	SIMD_FORCE_INLINE int minAxis() const
 	{
 		return m_floats[0] < m_floats[1] ? (m_floats[0] < m_floats[2] ? 0 : 2) : (m_floats[1] < m_floats[2] ? 1 : 2);
 	}
 
-	/**@brief Return the axis with the largest value 
+	/**@brief Return the axis with the largest value
    * Note return values are 0,1,2 for x, y, or z */
 	SIMD_FORCE_INLINE int maxAxis() const
 	{
@@ -515,8 +515,8 @@ public:
 #endif
 	}
 
-	/**@brief Return the linear interpolation between this and another vector 
-   * @param v The other vector 
+	/**@brief Return the linear interpolation between this and another vector
+   * @param v The other vector
    * @param t The ration of this to v (t = 0 => return this, t=1 => return other) */
 	SIMD_FORCE_INLINE btVector3 lerp(const btVector3& v, const btScalar& t) const
 	{
@@ -541,7 +541,7 @@ public:
 #endif
 	}
 
-	/**@brief Elementwise multiply this vector by the other 
+	/**@brief Elementwise multiply this vector by the other
    * @param v The other vector */
 	SIMD_FORCE_INLINE btVector3& operator*=(const btVector3& v)
 	{
@@ -604,7 +604,7 @@ public:
 	}
 
 	/**@brief Set each element to the max of the current values and the values of another btVector3
-   * @param other The other btVector3 to compare with 
+   * @param other The other btVector3 to compare with
    */
 	SIMD_FORCE_INLINE void setMax(const btVector3& other)
 	{
@@ -621,7 +621,7 @@ public:
 	}
 
 	/**@brief Set each element to the min of the current values and the values of another btVector3
-   * @param other The other btVector3 to compare with 
+   * @param other The other btVector3 to compare with
    */
 	SIMD_FORCE_INLINE void setMin(const btVector3& other)
 	{
@@ -705,14 +705,14 @@ public:
 	SIMD_FORCE_INLINE void deSerializeDouble(const struct btVector3DoubleData& dataIn);
 
 	/**@brief returns index of maximum dot product between this and vectors in array[]
-         * @param array The other vectors 
-         * @param array_count The number of other vectors 
+         * @param array The other vectors
+         * @param array_count The number of other vectors
          * @param dotOut The maximum dot product */
 	SIMD_FORCE_INLINE long maxDot(const btVector3* array, long array_count, btScalar& dotOut) const;
 
 	/**@brief returns index of minimum dot product between this and vectors in array[]
-         * @param array The other vectors 
-         * @param array_count The number of other vectors 
+         * @param array The other vectors
+         * @param array_count The number of other vectors
          * @param dotOut The minimum dot product */
 	SIMD_FORCE_INLINE long minDot(const btVector3* array, long array_count, btScalar& dotOut) const;
 
@@ -927,8 +927,8 @@ btTriple(const btVector3& v1, const btVector3& v2, const btVector3& v3)
 }
 
 /**@brief Return the linear interpolation between two vectors
- * @param v1 One vector 
- * @param v2 The other vector 
+ * @param v1 One vector
+ * @param v2 The other vector
  * @param t The ration of this to v (t = 0 => return v1, t=1 => return v2) */
 SIMD_FORCE_INLINE btVector3
 lerp(const btVector3& v1, const btVector3& v2, const btScalar& t)
@@ -1176,20 +1176,20 @@ public:
 		return absolute4().maxAxis4();
 	}
 
-	/**@brief Set x,y,z and zero w 
+	/**@brief Set x,y,z and zero w
    * @param x Value of x
    * @param y Value of y
    * @param z Value of z
    */
 
-	/*		void getValue(btScalar *m) const 
+	/*		void getValue(btScalar *m) const
 		{
 			m[0] = m_floats[0];
 			m[1] = m_floats[1];
 			m[2] =m_floats[2];
 		}
 */
-	/**@brief Set the values 
+	/**@brief Set the values
    * @param x Value of x
    * @param y Value of y
    * @param z Value of z

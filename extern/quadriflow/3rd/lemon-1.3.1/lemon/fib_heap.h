@@ -472,4 +472,3 @@ namespace lemon {
 } //namespace lemon
 
 #endif //LEMON_FIB_HEAP_H
-

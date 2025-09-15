@@ -19,7 +19,7 @@ WorldObject::WorldObject():UncontrolledObject()
 	m_internalPose = Frame::Identity();
 }
 
-WorldObject::~WorldObject() 
+WorldObject::~WorldObject()
 {
 }
 

@@ -126,7 +126,7 @@ bool btReducedVector::testDot() const
     bool ret = (ans == rv2.dot(rv1) && ans == rv1.dot(rv2));
     ans = 14+16+9+16+81;
     ret &= (ans==rv2.dot(rv2));
-    
+
     if (!ret)
         printf("btReducedVector testDot failed\n");
     return ret;

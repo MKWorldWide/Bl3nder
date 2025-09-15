@@ -5,28 +5,28 @@ index f005a18a18e..b1d96494500 100644
 @@ -10,7 +10,11 @@
  #ifndef EIGEN_SPARSEDENSEPRODUCT_H
  #define EIGEN_SPARSEDENSEPRODUCT_H
- 
--namespace Eigen { 
+
+-namespace Eigen {
 +#ifdef WITH_TBB
 +#include <tbb/parallel_for.h>
 +#endif
 +
 +namespace Eigen {
- 
+
  namespace internal {
- 
+
 @@ -34,23 +38,21 @@ struct sparse_time_dense_product_impl<SparseLhsType,DenseRhsType,DenseResType, t
    static void run(const SparseLhsType& lhs, const DenseRhsType& rhs, DenseResType& res, const typename Res::Scalar& alpha)
    {
      LhsEval lhsEval(lhs);
--    
+-
 +
      Index n = lhs.outerSize();
 -#ifdef EIGEN_HAS_OPENMP
 -    Eigen::initParallel();
 -    Index threads = Eigen::nbThreads();
 -#endif
--    
+-
 +
      for(Index c=0; c<rhs.cols(); ++c)
      {
@@ -51,7 +51,7 @@ index f005a18a18e..b1d96494500 100644
 @@ -119,16 +121,16 @@ struct sparse_time_dense_product_impl<SparseLhsType,DenseRhsType,DenseResType, t
      Index n = lhs.rows();
      LhsEval lhsEval(lhs);
- 
+
 -#ifdef EIGEN_HAS_OPENMP
 -    Eigen::initParallel();
 -    Index threads = Eigen::nbThreads();

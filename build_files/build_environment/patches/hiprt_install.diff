@@ -4,7 +4,7 @@ index 50eb25e..b13d2da 100644
 +++ b/CMakeLists.txt
 @@ -585,12 +585,16 @@ install(FILES ${HIPRT_ORO_HEADERS}
  		DESTINATION include/contrib/Orochi/ParallelPrimitives)
- 
+
  # add hipfb files
 -file(GLOB HIPRT_HIPFB_FILES "${BASE_OUTPUT_DIR}/${CMAKE_BUILD_TYPE}/*.hipfb")
 -install(FILES ${HIPRT_HIPFB_FILES}
@@ -15,12 +15,12 @@ index 50eb25e..b13d2da 100644
 +	install(FILES ${KERNEL_HIPRT_COMP} ${KERNEL_OROCHI_COMP}
 +			DESTINATION bin)
 +endif()
- 
+
 +# Baked headers.
 +if(BAKE_COMPILED_KERNEL)
 +	install(FILES ${KERNEL_HIPRT_H}
 +			DESTINATION include/hiprt/impl)
 +endif()
- 
+
  # Project: Unit Test
  if(NOT NO_UNITTEST)

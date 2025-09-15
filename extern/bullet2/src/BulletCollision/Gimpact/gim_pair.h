@@ -25,4 +25,3 @@ struct GIM_PAIR
 };
 
 #endif //GIM_PAIR_H
-

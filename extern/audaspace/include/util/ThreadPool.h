@@ -39,7 +39,7 @@ AUD_NAMESPACE_BEGIN
 class AUD_API ThreadPool
 {
 private:
-	/** 
+	/**
 	* A queue of tasks.
 	*/
 	std::queue<std::function<void()>> m_queue;

@@ -3,8 +3,8 @@ Copyright (c) 2003-2006 Gino van den Bergen / Erwin Coumans  http://continuousph
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
-Permission is granted to anyone to use this software for any purpose, 
-including commercial applications, and to alter it and redistribute it freely, 
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
 subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
@@ -37,7 +37,7 @@ public:
 	/**@brief No initialization constructor */
 	btTransform() {}
 	/**@brief Constructor from btQuaternion (optional btVector3 )
-   * @param q Rotation from quaternion 
+   * @param q Rotation from quaternion
    * @param c Translation from Vector (default 0,0,0) */
 	explicit SIMD_FORCE_INLINE btTransform(const btQuaternion& q,
 										   const btVector3& c = btVector3(btScalar(0), btScalar(0), btScalar(0)))
@@ -47,7 +47,7 @@ public:
 	}
 
 	/**@brief Constructor from btMatrix3x3 (optional btVector3)
-   * @param b Rotation from Matrix 
+   * @param b Rotation from Matrix
    * @param c Translation from Vector default (0,0,0)*/
 	explicit SIMD_FORCE_INLINE btTransform(const btMatrix3x3& b,
 										   const btVector3& c = btVector3(btScalar(0), btScalar(0), btScalar(0)))
@@ -122,7 +122,7 @@ public:
 		return q;
 	}
 
-	/**@brief Set from an array 
+	/**@brief Set from an array
    * @param m A pointer to a 16 element array (12 rotation(row major padded on the right by 1), and 3 translation */
 	void setFromOpenGLMatrix(const btScalar* m)
 	{
@@ -169,7 +169,7 @@ public:
 		m_origin.setValue(btScalar(0.0), btScalar(0.0), btScalar(0.0));
 	}
 
-	/**@brief Multiply this Transform by another(this = this * another) 
+	/**@brief Multiply this Transform by another(this = this * another)
    * @param t The other transform */
 	btTransform& operator*=(const btTransform& t)
 	{
@@ -186,7 +186,7 @@ public:
 	}
 
 	/**@brief Return the inverse of this transform times the other transform
-   * @param t The other transform 
+   * @param t The other transform
    * return this.inverse() * the other */
 	btTransform inverseTimes(const btTransform& t) const;
 

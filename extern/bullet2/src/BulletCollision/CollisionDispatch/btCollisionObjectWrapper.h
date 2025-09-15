@@ -35,7 +35,7 @@ public:
 		: m_parent(parent), m_shape(shape), m_collisionObject(collisionObject), m_worldTransform(worldTransform), m_preTransform(NULL), m_partId(partId), m_index(index)
 	{
 	}
-    
+
     btCollisionObjectWrapper(const btCollisionObjectWrapper* parent, const btCollisionShape* shape, const btCollisionObject* collisionObject, const btTransform& worldTransform, const btTransform& preTransform, int partId, int index)
     : m_parent(parent), m_shape(shape), m_collisionObject(collisionObject), m_worldTransform(worldTransform), m_preTransform(&preTransform), m_partId(partId), m_index(index)
     {

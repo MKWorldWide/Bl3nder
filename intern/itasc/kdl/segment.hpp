@@ -95,7 +95,7 @@ namespace KDL {
          * @param qdot ND velocity of the joint
          *
          * @return 6D-velocity at a given point p, expressed
-         * in the base-frame of the segment(root) 
+         * in the base-frame of the segment(root)
          */
 	    Twist twist(const Vector& p, const double& qdot, int dof=0)const;
 
@@ -107,7 +107,7 @@ namespace KDL {
          * @param qdot ND velocity of the joint
          *
          * @return 6D-velocity at frame reference point, expressed
-         * in the base-frame of the segment(root) 
+         * in the base-frame of the segment(root)
          */
 		Twist twist(const Frame& f, const double& qdot, int dof)const;
 

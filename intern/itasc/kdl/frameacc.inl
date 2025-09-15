@@ -1,17 +1,17 @@
 /*****************************************************************************
- * \file  
+ * \file
  *      provides inline functions of rrframes.h
- *       
+ *
  *      Erwin Aertbelien, Div. PMA, Dep. of Mech. Eng., K.U.Leuven
  *
- *  \version 
+ *  \version
  *      ORO_Geometry V0.2
  *
  *  \par History
  *      - $log$
  *
  *  \par Release
- *      $Name:  $ 
+ *      $Name:  $
  ****************************************************************************/
 
 
@@ -48,7 +48,7 @@ VectorAcc operator - (const VectorAcc& r) {
 
 // cross prod.
 VectorAcc operator * (const VectorAcc& r1,const VectorAcc& r2) {
-    return VectorAcc(r1.p*r2.p, 
+    return VectorAcc(r1.p*r2.p,
                     r1.p*r2.v+r1.v*r2.p,
                     r1.dv*r2.p+2*r1.v*r2.v+r1.p*r2.dv
                     );
@@ -74,14 +74,14 @@ VectorAcc operator * (const VectorAcc& r1,double r2) {
 }
 
 VectorAcc operator * (const doubleAcc& r1,const VectorAcc& r2) {
-    return VectorAcc(r1.t*r2.p, 
+    return VectorAcc(r1.t*r2.p,
                    r1.t*r2.v  + r1.d*r2.p,
                    r1.t*r2.dv + 2*r1.d*r2.v + r1.dd*r2.p
                    );
 }
 
 VectorAcc operator * (const VectorAcc& r2,const doubleAcc& r1) {
-    return VectorAcc(r1.t*r2.p, 
+    return VectorAcc(r1.t*r2.p,
                r1.t*r2.v  + r1.d*r2.p,
                r1.t*r2.dv + 2*r1.d*r2.v + r1.dd*r2.p
                );
@@ -155,21 +155,21 @@ doubleAcc dot(const Vector& lhs,const VectorAcc& rhs) {
 
 
 bool Equal(const VectorAcc& r1,const VectorAcc& r2,double eps) {
-    return (Equal(r1.p,r2.p,eps) 
+    return (Equal(r1.p,r2.p,eps)
          && Equal(r1.v,r2.v,eps)
          && Equal(r1.dv,r2.dv,eps)
          );
 }
 
 bool Equal(const Vector& r1,const VectorAcc& r2,double eps) {
-    return (Equal(r1,r2.p,eps) 
+    return (Equal(r1,r2.p,eps)
          && Equal(Vector::Zero(),r2.v,eps)
          && Equal(Vector::Zero(),r2.dv,eps)
          );
 }
 
 bool Equal(const VectorAcc& r1,const Vector& r2,double eps) {
-    return (Equal(r1.p,r2,eps) 
+    return (Equal(r1.p,r2,eps)
          && Equal(r1.v,Vector::Zero(),eps)
          && Equal(r1.dv,Vector::Zero(),eps)
          );
@@ -188,9 +188,9 @@ VectorAcc operator / (const VectorAcc& r2,const doubleAcc& r1) {
 /////////////////// RotationAcc /////////////////////////////////////
 
 RotationAcc operator* (const RotationAcc& r1,const RotationAcc& r2) {
-    return RotationAcc( r1.R  * r2.R, 
-                      r1.w  + r1.R*r2.w,  
-                      r1.dw + r1.w*(r1.R*r2.w) + r1.R*r2.dw 
+    return RotationAcc( r1.R  * r2.R,
+                      r1.w  + r1.R*r2.w,
+                      r1.dw + r1.w*(r1.R*r2.w) + r1.R*r2.dw
                       );
 }
 
@@ -302,7 +302,7 @@ RotationAcc RotationAcc::RotZ(const doubleAcc& angle) {
 }
 
 
-        RRotation RRotation::Rot(const Vector& rotvec,const RDouble& angle) 
+        RRotation RRotation::Rot(const Vector& rotvec,const RDouble& angle)
         // rotvec has arbitrary norm
         // rotation around a constant vector !
         {
@@ -310,7 +310,7 @@ RotationAcc RotationAcc::RotZ(const doubleAcc& angle) {
             return RRotation(Rotation::Rot2(v,angle.t),v*angle.grad);
         }
 
-        RRotation RRotation::Rot2(const Vector& rotvec,const RDouble& angle) 
+        RRotation RRotation::Rot2(const Vector& rotvec,const RDouble& angle)
             // rotvec is normalized.
         {
             return RRotation(Rotation::Rot2(rotvec,angle.t),rotvec*angle.grad);
@@ -322,11 +322,11 @@ bool Equal(const RotationAcc& r1,const RotationAcc& r2,double eps) {
     return (Equal(r1.w,r2.w,eps) && Equal(r1.R,r2.R,eps) && Equal(r1.dw,r2.dw,eps) );
 }
 bool Equal(const Rotation& r1,const RotationAcc& r2,double eps) {
-    return (Equal(Vector::Zero(),r2.w,eps) && Equal(r1,r2.R,eps) && 
+    return (Equal(Vector::Zero(),r2.w,eps) && Equal(r1,r2.R,eps) &&
             Equal(Vector::Zero(),r2.dw,eps) );
 }
 bool Equal(const RotationAcc& r1,const Rotation& r2,double eps) {
-    return (Equal(r1.w,Vector::Zero(),eps) && Equal(r1.R,r2,eps) && 
+    return (Equal(r1.w,Vector::Zero(),eps) && Equal(r1.R,r2,eps) &&
             Equal(r1.dw,Vector::Zero(),eps) );
 }
 
@@ -382,7 +382,7 @@ FrameAcc FrameAcc::Inverse() const
 }
 
 FrameAcc& FrameAcc::operator =(const Frame & arg)
-{ 
+{
     M = arg.M;
     p = arg.p;
     return *this;
@@ -436,7 +436,7 @@ TwistAcc TwistAcc::Zero()
 
 
 void TwistAcc::ReverseSign()
-{   
+{
     vel.ReverseSign();
     rot.ReverseSign();
 }
@@ -511,7 +511,7 @@ TwistAcc operator-(const TwistAcc& lhs,const TwistAcc& rhs)
 }
 
 // unary -
-TwistAcc operator-(const TwistAcc& arg) 
+TwistAcc operator-(const TwistAcc& arg)
 {
     return TwistAcc(-arg.vel,-arg.rot);
 }
@@ -593,4 +593,3 @@ bool Equal(const TwistAcc& a,const Twist& b,double eps) {
         return (Equal(a.rot,b.rot,eps)&&
                 Equal(a.vel,b.vel,eps)  );
 }
-

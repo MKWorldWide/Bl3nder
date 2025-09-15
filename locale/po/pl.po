@@ -28744,4 +28744,3 @@ msgstr "Wyprostuj krzywe włosów"
 
 msgid "Ignore Sharpness"
 msgstr "Ignoruj ostrość"
-

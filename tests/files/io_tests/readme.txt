@@ -1,9 +1,9 @@
 This is a list of files (and needed files) for conformance testing of exporters
-and importers The left hand column is the type of test and/or the folder the test is 
-located in. The right hand column is the name of the blend file the test is in.  
+and importers The left hand column is the type of test and/or the folder the test is
+located in. The right hand column is the name of the blend file the test is in.
 If no blend file is listed then the test has not been created yet.
-If you wish to contribute, please create a blend that is as simple as 
-possible that can still test the functionality.  
+If you wish to contribute, please create a blend that is as simple as
+possible that can still test the functionality.
 Try to limit a blend to testing one thing unless it is a a 'complex test'.
 
 SIMPLE TESTS
@@ -37,7 +37,7 @@ SIMPLE TESTS
 	HIERARCY
 		Parent_Child
 		Parent_Multiple Child
-	
+
 	ARMATURES
 
 	SKINNGING
@@ -52,7 +52,7 @@ SIMPLE TESTS
 
 	LIGHTS
 		Spot
-		
+
 	CAMERAS
 
 	ANIMATION

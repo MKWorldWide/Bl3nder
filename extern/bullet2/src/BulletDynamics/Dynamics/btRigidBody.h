@@ -4,8 +4,8 @@ Copyright (c) 2003-2006 Erwin Coumans  http://continuousphysics.com/Bullet/
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
-Permission is granted to anyone to use this software for any purpose, 
-including commercial applications, and to alter it and redistribute it freely, 
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
 subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
@@ -205,7 +205,7 @@ public:
 	void saveKinematicState(btScalar step);
 
 	void applyGravity();
-    
+
     void clearGravity();
 
 	void setGravity(const btVector3& acceleration);
@@ -343,7 +343,7 @@ public:
 			}
 		}
 	}
-    
+
     void applyPushImpulse(const btVector3& impulse, const btVector3& rel_pos)
     {
         if (m_inverseMass != btScalar(0.))
@@ -355,17 +355,17 @@ public:
             }
         }
     }
-    
+
     btVector3 getPushVelocity() const
     {
         return m_pushVelocity;
     }
-    
+
     btVector3 getTurnVelocity() const
     {
         return m_turnVelocity;
     }
-    
+
     void setPushVelocity(const btVector3& v)
     {
         m_pushVelocity = v;
@@ -395,7 +395,7 @@ public:
         clampVelocity(m_turnVelocity);
         #endif
     }
-    
+
     void applyCentralPushImpulse(const btVector3& impulse)
     {
         m_pushVelocity += impulse * m_linearFactor * m_inverseMass;
@@ -403,7 +403,7 @@ public:
         clampVelocity(m_pushVelocity);
         #endif
     }
-    
+
     void applyTorqueTurnImpulse(const btVector3& torque)
     {
         m_turnVelocity += m_invInertiaTensorWorld * torque * m_angularFactor;
@@ -465,7 +465,7 @@ public:
 		//for kinematic objects, we could also use use:
 		//		return 	(m_worldTransform(rel_pos) - m_interpolationWorldTransform(rel_pos)) / m_kinematicTimeStep;
 	}
-    
+
     btVector3 getPushVelocityInLocalPoint(const btVector3& rel_pos) const
     {
         //we also calculate lin/ang velocity for kinematic objects

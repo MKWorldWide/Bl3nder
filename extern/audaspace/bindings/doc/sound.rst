@@ -5,4 +5,3 @@ Sound
 .. autoclass:: Sound
    :members:
    :noindex:
-

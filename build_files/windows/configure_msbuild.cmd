@@ -3,13 +3,13 @@ set BUILD_PLATFORM_SELECT=
 set MSBUILD_PLATFORM=x64
 
 if "%BUILD_WITH_SCCACHE%"=="1" (
-		echo sccache is only supported with ninja as the build system. 
-		exit /b 1 
+		echo sccache is only supported with ninja as the build system.
+		exit /b 1
 )
 
 if "%WITH_CLANG%"=="1" (
 	REM We want to use an external manifest with Clang
-	set CLANG_CMAKE_ARGS=-T"ClangCl" -DWITH_WINDOWS_EXTERNAL_MANIFEST=ON 
+	set CLANG_CMAKE_ARGS=-T"ClangCl" -DWITH_WINDOWS_EXTERNAL_MANIFEST=ON
 
 	REM Create the build directory, so that we can create the Directory.build.props file
 	if NOT EXIST %BUILD_DIR%\nul (
@@ -67,8 +67,8 @@ if "%MUST_CONFIGURE%"=="1" (
 	cmake ^
 		%BUILD_CMAKE_ARGS% ^
 		-H%BLENDER_DIR% ^
-		-B%BUILD_DIR% 
-	
+		-B%BUILD_DIR%
+
 	if errorlevel 1 (
 		echo "Configuration Failed"
 		exit /b 1

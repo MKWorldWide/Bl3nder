@@ -6,7 +6,7 @@
     email                : firstname.lastname@mech.kuleuven.ac.be
 
  History (only major changes)( AUTHOR-Description ) :
- 
+
  ***************************************************************************
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Lesser General Public            *
@@ -88,7 +88,7 @@ IMETHOD void Vector::x( double _x ) { data[0] = _x; }
 IMETHOD void Vector::y( double _y ) { data[1] = _y; }
 IMETHOD void Vector::z( double _z ) { data[2] = _z; }
 
-Vector operator *(const Vector& lhs,double rhs) 
+Vector operator *(const Vector& lhs,double rhs)
 {
     Vector tmp;
     tmp.data[0] = lhs.data[0]*rhs;
@@ -97,7 +97,7 @@ Vector operator *(const Vector& lhs,double rhs)
     return tmp;
 }
 
-Vector operator *(double lhs,const Vector& rhs) 
+Vector operator *(double lhs,const Vector& rhs)
 {
     Vector tmp;
     tmp.data[0] = lhs*rhs.data[0];
@@ -106,7 +106,7 @@ Vector operator *(double lhs,const Vector& rhs)
     return tmp;
 }
 
-Vector operator /(const Vector& lhs,double rhs) 
+Vector operator /(const Vector& lhs,double rhs)
 {
     Vector tmp;
     tmp.data[0] = lhs.data[0]/rhs;
@@ -209,7 +209,7 @@ Wrench Wrench::Zero()
 
 
 void Wrench::ReverseSign()
-{   
+{
     torque.ReverseSign();
     force.ReverseSign();
 }
@@ -243,7 +243,7 @@ Wrench& Wrench::operator+=(const Wrench& arg)
 double& Wrench::operator()(int i)
 {
     // assert((0<=i)&&(i<6)); done by underlying routines
-    if (i<3) 
+    if (i<3)
         return force(i);
     else
         return torque(i-3);
@@ -252,7 +252,7 @@ double& Wrench::operator()(int i)
 double Wrench::operator()(int i) const
 {
     // assert((0<=i)&&(i<6)); done by underlying routines
-    if (i<3) 
+    if (i<3)
         return force(i);
     else
         return torque(i-3);
@@ -286,7 +286,7 @@ Wrench operator-(const Wrench& lhs,const Wrench& rhs)
 }
 
 // unary -
-Wrench operator-(const Wrench& arg) 
+Wrench operator-(const Wrench& arg)
 {
     return Wrench(-arg.force,-arg.torque);
 }
@@ -314,7 +314,7 @@ Twist Twist::Zero()
 
 
 void Twist::ReverseSign()
-{   
+{
     vel.ReverseSign();
     rot.ReverseSign();
 }
@@ -346,7 +346,7 @@ Twist& Twist::operator+=(const Twist& arg)
 double& Twist::operator()(int i)
 {
     // assert((0<=i)&&(i<6)); done by underlying routines
-    if (i<3) 
+    if (i<3)
         return vel(i);
     else
         return rot(i-3);
@@ -355,7 +355,7 @@ double& Twist::operator()(int i)
 double Twist::operator()(int i) const
 {
     // assert((0<=i)&&(i<6)); done by underlying routines
-    if (i<3) 
+    if (i<3)
         return vel(i);
     else
         return rot(i-3);
@@ -389,7 +389,7 @@ Twist operator-(const Twist& lhs,const Twist& rhs)
 }
 
 // unary -
-Twist operator-(const Twist& arg) 
+Twist operator-(const Twist& arg)
 {
     return Twist(-arg.vel,-arg.rot);
 }
@@ -435,7 +435,7 @@ Frame Frame::Inverse() const
 
 
 Frame& Frame::operator =(const Frame & arg)
-{ 
+{
     M = arg.M;
     p = arg.p;
     return *this;
@@ -514,7 +514,7 @@ Rotation::Rotation( double Xx,double Yx,double Zx,
 }
 
 
-Rotation::Rotation(const Vector& x,const Vector& y,const Vector& z) 
+Rotation::Rotation(const Vector& x,const Vector& y,const Vector& z)
 {
     data[0] = x.data[0];data[3] = x.data[1];data[6] = x.data[2];
     data[1] = y.data[0];data[4] = y.data[1];data[7] = y.data[2];
@@ -532,7 +532,7 @@ Vector Rotation::operator*(const Vector& v) const {
     return Vector(
      data[0]*v.data[0] + data[1]*v.data[1] + data[2]*v.data[2],
      data[3]*v.data[0] + data[4]*v.data[1] + data[5]*v.data[2],
-     data[6]*v.data[0] + data[7]*v.data[1] + data[8]*v.data[2] 
+     data[6]*v.data[0] + data[7]*v.data[1] + data[8]*v.data[2]
     );
 }
 
@@ -631,7 +631,7 @@ void Frame::Integrate(const Twist& t_this,double samplefrequency)
     if (n<epsilon) {
         p += M*(t_this.vel/samplefrequency);
     } else {
-        (*this) = (*this) * 
+        (*this) = (*this) *
             Frame ( Rotation::Rot( t_this.rot, n ),
                     t_this.vel/samplefrequency
                 );
@@ -649,7 +649,7 @@ Vector Rotation::Inverse(const Vector& v) const {
     return Vector(
      data[0]*v.data[0] + data[3]*v.data[1] + data[6]*v.data[2],
      data[1]*v.data[0] + data[4]*v.data[1] + data[7]*v.data[2],
-     data[2]*v.data[0] + data[5]*v.data[1] + data[8]*v.data[2] 
+     data[2]*v.data[0] + data[5]*v.data[1] + data[8]*v.data[2]
     );
 }
 
@@ -691,7 +691,7 @@ double Frame::operator()(int i,int j) {
         else
             return 0.0;
     } else {
-        if (j==3) 
+        if (j==3)
             return p(i);
         else
             return M(i,j);
@@ -707,7 +707,7 @@ double Frame::operator()(int i,int j) const {
         else
             return 0;
     } else {
-        if (j==3) 
+        if (j==3)
             return p(i);
         else
             return M(i,j);
@@ -798,17 +798,17 @@ IMETHOD Vector2 operator -(const Vector2 & lhs,const Vector2& rhs)
     return Vector2(lhs.data[0]-rhs.data[0],lhs.data[1]-rhs.data[1]);
 }
 
-IMETHOD Vector2 operator *(const Vector2& lhs,double rhs) 
+IMETHOD Vector2 operator *(const Vector2& lhs,double rhs)
 {
     return Vector2(lhs.data[0]*rhs,lhs.data[1]*rhs);
 }
 
-IMETHOD Vector2 operator *(double lhs,const Vector2& rhs) 
+IMETHOD Vector2 operator *(double lhs,const Vector2& rhs)
 {
     return Vector2(lhs*rhs.data[0],lhs*rhs.data[1]);
 }
 
-IMETHOD Vector2 operator /(const Vector2& lhs,double rhs) 
+IMETHOD Vector2 operator /(const Vector2& lhs,double rhs)
 {
     return Vector2(lhs.data[0]/rhs,lhs.data[1]/rhs);
 }
@@ -873,7 +873,7 @@ IMETHOD void Vector2::Set3DZX(const Vector& v)
     data[1]=v(0);
 }
 
-IMETHOD void Vector2::Set3DPlane(const Frame& F_someframe_XY,const Vector& v_someframe) 
+IMETHOD void Vector2::Set3DPlane(const Frame& F_someframe_XY,const Vector& v_someframe)
 // projects v in the XY plane of F_someframe_XY, and sets *this to these values
 // expressed wrt someframe.
 {
@@ -896,7 +896,7 @@ IMETHOD Vector2 Rotation2::operator*(const Vector2& v) const {
 IMETHOD double Rotation2::operator()(int i,int j) const {
     FRAMES_CHECKI((0<=i)&&(i<=1)&&(0<=j)&&(j<=1));
     if (i==j) return c;
-    if (i==0) 
+    if (i==0)
         return s;
     else
         return -s;
@@ -922,7 +922,7 @@ IMETHOD Vector2 Rotation2::Inverse(const Vector2& v) const {
 IMETHOD Rotation2 Rotation2::Identity() {
     return Rotation2(1,0);
 }
-     
+
 IMETHOD void Rotation2::SetIdentity()
 {
 	c = 1;
@@ -1000,7 +1000,7 @@ IMETHOD Frame2 Frame2::Inverse() const
 }
 
 IMETHOD Frame2& Frame2::operator =(const Frame2 & arg)
-{ 
+{
     M = arg.M;
     p = arg.p;
     return *this;
@@ -1019,7 +1019,7 @@ IMETHOD double Frame2::operator()(int i,int j) {
         else
             return 0;
     } else {
-        if (j==2) 
+        if (j==2)
             return p(i);
         else
             return M(i,j);
@@ -1035,7 +1035,7 @@ IMETHOD double Frame2::operator()(int i,int j) const {
         else
             return 0;
     } else {
-        if (j==2) 
+        if (j==2)
             return p(i);
         else
             return M(i,j);
@@ -1070,7 +1070,7 @@ IMETHOD bool Equal(const Vector& a,const Vector& b,double eps) {
                 Equal(a.data[1],b.data[1],eps)&&
                 Equal(a.data[2],b.data[2],eps)   );
      }
-     
+
 
 IMETHOD bool Equal(const Frame& a,const Frame& b,double eps) {
         return (Equal(a.p,b.p,eps)&&
@@ -1091,7 +1091,7 @@ IMETHOD bool Equal(const Vector2& a,const Vector2& b,double eps) {
         return (Equal(a.data[0],b.data[0],eps)&&
                 Equal(a.data[1],b.data[1],eps)   );
      }
-     
+
 IMETHOD bool Equal(const Rotation2& a,const Rotation2& b,double eps) {
     return ( Equal(a.c,b.c,eps) && Equal(a.s,b.s,eps) );
 }
@@ -1141,7 +1141,7 @@ IMETHOD void SetToZero(Vector2& v) {
  * This routine returns the rotation matrix R_a_b
  */
 IMETHOD Rotation Rot(const Vector& axis_a_b) {
-    // The formula is 
+    // The formula is
     // V.(V.tr) + st*[V x] + ct*(I-V.(V.tr))
     // can be found by multiplying it with an arbitrary vector p
     // and noting that this vector is rotated.
@@ -1151,8 +1151,8 @@ IMETHOD Rotation Rot(const Vector& axis_a_b) {
     double st = ::sin(angle);
     double vt = 1-ct;
     return Rotation(
-        ct            +  vt*rotvec(0)*rotvec(0), 
-        -rotvec(2)*st +  vt*rotvec(0)*rotvec(1), 
+        ct            +  vt*rotvec(0)*rotvec(0),
+        -rotvec(2)*st +  vt*rotvec(0)*rotvec(1),
         rotvec(1)*st  +  vt*rotvec(0)*rotvec(2),
         rotvec(2)*st  +  vt*rotvec(1)*rotvec(0),
         ct            +  vt*rotvec(1)*rotvec(1),
@@ -1250,14 +1250,14 @@ IMETHOD Wrench addDelta(const Wrench& a,const Wrench&da,double dt) {
  * have to use diff_displ().
  *
  * \param a  : displacement rotational velocity
- * \param da : rotational velocity 
+ * \param da : rotational velocity
  * \return   displacement rotational velocity
  *
  * \warning do not confuse displacement rotational velocities and velocities
  * \warning do not confuse displacement twist and twist.
  *
 IMETHOD Vector addDelta_displ(const Vector& a,const Vector&da,double dt) {
-    return getRot(addDelta(Rot(a),da,dt)); 
+    return getRot(addDelta(Rot(a),da,dt));
 }*/
 
 /**
@@ -1267,15 +1267,15 @@ IMETHOD Vector addDelta_displ(const Vector& a,const Vector&da,double dt) {
  * around a fixed axis for a certain angle.  For this representation you cannot use diff() but
  * have to use diff_displ().
  *
- * \param a  : displacement twist 
- * \param da : twist 
- * \return   displacement twist 
+ * \param a  : displacement twist
+ * \param da : twist
+ * \return   displacement twist
  *
  * \warning do not confuse displacement rotational velocities and velocities
  * \warning do not confuse displacement twist and twist.
  *
 IMETHOD Twist addDelta_displ(const Twist& a,const Twist&da,double dt) {
-    return Twist(addDelta(a.vel,da.vel,dt),addDelta_displ(a.rot,da.rot,dt)); 
+    return Twist(addDelta(a.vel,da.vel,dt),addDelta_displ(a.rot,da.rot,dt));
 }*/
 
 
@@ -1395,4 +1395,3 @@ IMETHOD bool operator!=(const Wrench& a,const Wrench& b) {
 IMETHOD bool operator!=(const Rotation& a,const Rotation& b) {
     return !operator==(a,b);
 }
-

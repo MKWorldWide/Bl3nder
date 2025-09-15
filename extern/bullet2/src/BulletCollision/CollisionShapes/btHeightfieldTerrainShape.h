@@ -4,8 +4,8 @@ Copyright (c) 2003-2009 Erwin Coumans  http://bulletphysics.org
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
-Permission is granted to anyone to use this software for any purpose, 
-including commercial applications, and to alter it and redistribute it freely, 
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
 subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
@@ -48,7 +48,7 @@ subject to the following restrictions:
   system.
 
   The heightfield heights are determined from the data type used for the
-  heightfieldData array.  
+  heightfieldData array.
 
    - PHY_UCHAR: height at a point is the uchar value at the
        grid point, multipled by heightScale.  uchar isn't recommended
@@ -151,7 +151,7 @@ public:
 	/**
 	  The legacy constructor assumes the heightfield has a minimum height
 	  of zero.  Only unsigned char or floats are supported.  For legacy
-	  compatibility reasons, heightScale is calculated as maxHeight / 65535 
+	  compatibility reasons, heightScale is calculated as maxHeight / 65535
 	  (and is only used when useFloatData = false).
  	 */
 	btHeightfieldTerrainShape(int heightStickWidth, int heightStickLength, const void* heightfieldData, btScalar maxHeight, int upAxis, bool useFloatData, bool flipQuadEdges);
@@ -191,7 +191,7 @@ public:
 	//debugging
 	virtual const char* getName() const { return "HEIGHTFIELD"; }
 
-	
+
 	void setUserIndex2(int index)
 	{
 		m_userIndex2 = index;

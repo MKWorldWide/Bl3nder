@@ -23,7 +23,7 @@ CopyPose::CopyPose(unsigned int control_output, unsigned int dynamic_output, dou
 	m_maxerror = armlength/2.0;
 	m_outputControl = (control_output & CTL_ALL);
 	unsigned int _nc = nBitsOn(m_outputControl);
-	if (!_nc) 
+	if (!_nc)
 		return;
 	// reset the constraint set
 	reset(_nc, accuracy, maximum_iterations);
@@ -38,9 +38,9 @@ CopyPose::CopyPose(unsigned int control_output, unsigned int dynamic_output, dou
 	memset(&m_rot, 0, sizeof(m_rot));
 	memset(&m_pos, 0, sizeof(m_pos));
 	if (m_outputControl & CTL_POSITION) {
-		m_pos.alpha = 1.0;		
-		m_pos.K = 20.0;		
-		m_pos.tolerance = 0.05;	
+		m_pos.alpha = 1.0;
+		m_pos.K = 20.0;
+		m_pos.tolerance = 0.05;
 		m_values[m_nvalues].alpha = m_pos.alpha;
 		m_values[m_nvalues].feedback = m_pos.K;
 		m_values[m_nvalues].tolerance = m_pos.tolerance;
@@ -51,7 +51,7 @@ CopyPose::CopyPose(unsigned int control_output, unsigned int dynamic_output, dou
 			m_posData[npos++].id = ID_POSITIONX;
 			if (m_outputDynamic & CTL_POSITIONX)
 				nposCache++;
-		} 
+		}
 		if (m_outputControl & CTL_POSITIONY) {
 		    m_Wy(_nc) = m_pos.alpha/*/(m_pos.tolerance*m_pos.K)*/;
 			m_Cf(_nc++,1)=1.0;
@@ -72,9 +72,9 @@ CopyPose::CopyPose(unsigned int control_output, unsigned int dynamic_output, dou
 		m_pos.ny = npos;
 	}
 	if (m_outputControl & CTL_ROTATION) {
-		m_rot.alpha = 1.0;		
-		m_rot.K = 20.0;		
-		m_rot.tolerance = 0.05;	
+		m_rot.alpha = 1.0;
+		m_rot.K = 20.0;
+		m_rot.tolerance = 0.05;
 		m_values[m_nvalues].alpha = m_rot.alpha;
 		m_values[m_nvalues].feedback = m_rot.K;
 		m_values[m_nvalues].tolerance = m_rot.tolerance;
@@ -361,7 +361,7 @@ bool CopyPose::setControlParameters(struct ConstraintValues* _values, unsigned i
 	while (_nvalues > 0) {
 		if (_values->id >= ID_POSITION && _values->id <= ID_POSITIONZ && (m_outputControl & CTL_POSITION)) {
 			updateState(_values, &m_pos, CTL_POSITIONX, timestep);
-		} 
+		}
 		if (_values->id >= ID_ROTATION && _values->id <= ID_ROTATIONZ && (m_outputControl & CTL_ROTATION)) {
 			updateState(_values, &m_rot, CTL_ROTATIONX, timestep);
 		}
@@ -462,13 +462,13 @@ const ConstraintValues* CopyPose::getControlParameters(unsigned int* _nvalues)
 		updateValues(y.rot, &m_values[i++], &m_rot, CTL_ROTATIONX);
 	}
 	if (_nvalues)
-		*_nvalues=m_nvalues; 
-	return m_values; 
+		*_nvalues=m_nvalues;
+	return m_values;
 }
 
 double CopyPose::getMaxTimestep(double& timestep)
 {
-	// CopyPose should not have any limit on linear velocity: 
+	// CopyPose should not have any limit on linear velocity:
 	// in case the target is out of reach, this can be very high.
 	// We will simply limit on rotation
 	e_scalar maxChidot = m_chidot.block(3,0,3,1).array().abs().maxCoeff();

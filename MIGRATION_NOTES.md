@@ -1,11 +1,13 @@
 # Migration Notes: Repository Modernization
 
 ## Overview
+
 This document outlines the changes made to modernize the repository's development workflow and infrastructure.
 
 ## Changes Made
 
 ### 1. CI/CD Pipeline
+
 - **Updated CI Workflow**:
   - Added dependency caching for Python and Node.js
   - Implemented concurrency control to cancel outdated workflow runs
@@ -14,6 +16,7 @@ This document outlines the changes made to modernize the repository's developmen
   - Added workflow timeout to prevent hanging jobs
 
 ### 2. Documentation
+
 - **Enhanced Documentation Workflow**:
   - Set up GitHub Pages deployment for documentation
   - Added link checking to prevent broken links
@@ -21,6 +24,7 @@ This document outlines the changes made to modernize the repository's developmen
   - Added support for PR previews
 
 ### 3. Development Experience
+
 - **Code Quality**:
   - Added Python code formatting with Black
   - Improved linting configuration
@@ -29,28 +33,33 @@ This document outlines the changes made to modernize the repository's developmen
 ## Required Actions
 
 ### For Maintainers
+
 1. **Enable GitHub Pages**:
    - Go to Repository Settings > Pages
    - Set source to "GitHub Actions"
    - Save the configuration
 
 2. **Set Up Codecov** (optional but recommended):
+
    - Sign in to [Codecov](https://codecov.io/)
    - Add the repository
    - Add the `CODECOV_TOKEN` secret to GitHub repository settings
 
 3. **Review and Merge**:
+
    - Review the changes in the pull request
    - Ensure all checks pass
    - Merge the changes
 
 ### For Contributors
+
 1. **Update Local Environment**:
+
    ```bash
    # Install pre-commit hooks (recommended)
    pip install pre-commit
    pre-commit install
-   
+
    # Install development dependencies
    pip install -r requirements-dev.txt
    ```

@@ -33,19 +33,19 @@ namespace KDL
      *
      * \warning An object constructed with the default constructor provides
      * a valid, but inert, object. Many of the member functions will do
-     * the correct thing and have no affect on this object, but some 
-     * member functions can _NOT_ deal with an inert/empty object. These 
-     * functions will assert() and exit the program instead. The intended use 
+     * the correct thing and have no affect on this object, but some
+     * member functions can _NOT_ deal with an inert/empty object. These
+     * functions will assert() and exit the program instead. The intended use
      * case for the default constructor (in an RTT/OCL setting) is outlined in
      * code below - the default constructor plus the resize() function allow
      * use of JntArray objects whose size is set within a configureHook() call
      * (typically based on a size determined from a property).
-	 
+
 \code
 class MyTask : public RTT::TaskContext
 {
    JntArray		j;
-   MyTask() 
+   MyTask()
    {}			// invokes j's default constructor
 
    bool configureHook()
@@ -62,7 +62,7 @@ class MyTask : public RTT::TaskContext
 };
 \endcode
 
-     */	
+     */
 
     class JntArray
     {
@@ -89,22 +89,22 @@ class MyTask : public RTT::TaskContext
          * @post all elements in data have 0 value
          */
         JntArray(unsigned int size);
-        /** Copy constructor 
+        /** Copy constructor
          * @note Will correctly copy an empty object
          */
         JntArray(const JntArray& arg);
         ~JntArray();
-        /** Resize the array 
-         * @warning This causes a dynamic allocation (and potentially 	
+        /** Resize the array
+         * @warning This causes a dynamic allocation (and potentially
          * also a dynamic deallocation). This _will_ negatively affect
-         * real-time performance! 
+         * real-time performance!
          *
          * @post newSize == rows()
          * @post NULL != data
          * @post all elements in data have 0 value
          */
         void resize(unsigned int newSize);
-		
+
         JntArray& operator = ( const JntArray& arg);
         /**
          * get_item operator for the joint array
@@ -125,7 +125,7 @@ class MyTask : public RTT::TaskContext
         /**
          * access operator for the joint array. Use pointer here to allow
 		 * access to sequential joint angles (required for ndof joints)
-         * 
+         *
          *
          * @return the joint value at position i, NULL if i is outside the valid range
          */

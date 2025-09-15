@@ -22,7 +22,7 @@
 
 AUD_NAMESPACE_BEGIN
 
-MutableSound::MutableSound(std::shared_ptr<ISound> sound) : 
+MutableSound::MutableSound(std::shared_ptr<ISound> sound) :
 m_sound(sound)
 {
 }

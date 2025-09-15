@@ -14,7 +14,7 @@ index 5196c0409f8..b4206a41dea 100644
 @@ -505,7 +505,7 @@ void WrapperRegistry::addConstants(PyObject *module)
    }
  }
- 
+
 -void WrapperRegistry::runPreInit()
 +void WrapperRegistry::runPreInit(PyObject *name_space)
  {
@@ -36,11 +36,11 @@ index 5196c0409f8..b4206a41dea 100644
 +    }
    }
  }
- 
+
 @@ -698,16 +706,23 @@ PyObject *WrapperRegistry::initModule()
  //******************************************************
  // Register members and exposed functions
- 
+
 -void setup(const std::string &filename, const std::vector<std::string> &args)
 +void setup(const bool python_lifecycle,
 +           const std::string &filename,
@@ -55,7 +55,7 @@ index 5196c0409f8..b4206a41dea 100644
 +  }
 +  WrapperRegistry::instance().runPreInit(name_space);
  }
- 
+
 -void finalize()
 +void finalize(const bool python_lifecycle)
  {
@@ -65,14 +65,14 @@ index 5196c0409f8..b4206a41dea 100644
 +  }
    WrapperRegistry::instance().cleanup();
  }
- 
+
 diff --git a/extern/mantaflow/helper/pwrapper/registry.h b/extern/mantaflow/helper/pwrapper/registry.h
 index d9d2bbb624b..2273d0b9bb1 100644
 --- a/extern/mantaflow/helper/pwrapper/registry.h
 +++ b/extern/mantaflow/helper/pwrapper/registry.h
 @@ -48,8 +48,11 @@ template<class T> struct Namify {
  namespace Pb {
- 
+
  // internal registry access
 -void setup(const std::string &filename, const std::vector<std::string> &args);
 -void finalize();

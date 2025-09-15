@@ -274,7 +274,7 @@ ea04fee Python API: read sound data and create sound buffers as well as getting 
 36a7252 Pkgconfig: use cmake configured library directory.
 5503908 Doxygen: disable html timestamps.
 
-Initial Release of Audaspace 1.0 
+Initial Release of Audaspace 1.0
 ================================
 
 Audaspace has been the internal audio library of blender since blender 2.5. It is now released as a standalone library to be used in other projects as well.

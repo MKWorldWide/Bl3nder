@@ -42,7 +42,7 @@ class AUD_API ImpulseResponse
 private:
 	/**
 	* A tri-dimensional array (channels, parts, values) The impulse response is divided in channels and those channels are divided
-	* in parts of N/2 samples. Those parts are transformed to the frequency domain transform which generates uni-dimensional 
+	* in parts of N/2 samples. Those parts are transformed to the frequency domain transform which generates uni-dimensional
 	* arrays of fftwtf_complex data (complex numbers).
 	*/
 	std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::complex<sample_t>>>>>> m_processedIR;

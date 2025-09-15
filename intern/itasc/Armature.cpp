@@ -82,44 +82,44 @@ Armature::JointConstraint_struct::JointConstraint_struct(SegmentMap::const_itera
 	values[2].number = 1;
 	switch (segment->second.segment.getJoint().getType()) {
 	case Joint::RotX:
-		value[0].id = ID_JOINT_RX;		
-		values[0].id = ID_JOINT_RX;		
+		value[0].id = ID_JOINT_RX;
+		values[0].id = ID_JOINT_RX;
 		v_nr = 1;
 		break;
 	case Joint::RotY:
-		value[0].id = ID_JOINT_RY;		
-		values[0].id = ID_JOINT_RY;		
+		value[0].id = ID_JOINT_RY;
+		values[0].id = ID_JOINT_RY;
 		v_nr = 1;
 		break;
 	case Joint::RotZ:
-		value[0].id = ID_JOINT_RZ;		
-		values[0].id = ID_JOINT_RZ;		
+		value[0].id = ID_JOINT_RZ;
+		values[0].id = ID_JOINT_RZ;
 		v_nr = 1;
 		break;
 	case Joint::TransX:
-		value[0].id = ID_JOINT_TX;		
-		values[0].id = ID_JOINT_TX;		
+		value[0].id = ID_JOINT_TX;
+		values[0].id = ID_JOINT_TX;
 		v_nr = 1;
 		break;
 	case Joint::TransY:
-		value[0].id = ID_JOINT_TY;		
-		values[0].id = ID_JOINT_TY;		
+		value[0].id = ID_JOINT_TY;
+		values[0].id = ID_JOINT_TY;
 		v_nr = 1;
 		break;
 	case Joint::TransZ:
-		value[0].id = ID_JOINT_TZ;		
-		values[0].id = ID_JOINT_TZ;		
+		value[0].id = ID_JOINT_TZ;
+		values[0].id = ID_JOINT_TZ;
 		v_nr = 1;
 		break;
 	case Joint::Sphere:
-		values[0].id = value[0].id = ID_JOINT_RX;		
+		values[0].id = value[0].id = ID_JOINT_RX;
 		values[1].id = value[1].id = ID_JOINT_RY;
-		values[2].id = value[2].id = ID_JOINT_RZ;		
+		values[2].id = value[2].id = ID_JOINT_RZ;
 		v_nr = 3;
 		break;
 	case Joint::Swing:
-		values[0].id = value[0].id = ID_JOINT_RX;		
-		values[1].id = value[1].id = ID_JOINT_RZ;		
+		values[0].id = value[0].id = ID_JOINT_RX;
+		values[1].id = value[1].id = ID_JOINT_RZ;
 		v_nr = 2;
 		break;
 	case Joint::None:
@@ -445,7 +445,7 @@ bool Armature::updateJoint(const Timestamp& timestamp, JointLockCallback& callba
 {
 	if (!m_finalized)
 		return false;
-	
+
 	// integration and joint limit
 	// for spherical joint we must use a more sophisticated method
 	unsigned int q_nr;
@@ -598,7 +598,7 @@ bool Armature::updateJoint(const Timestamp& timestamp, JointLockCallback& callba
 						callback.lockJoint(q_nr, joint->ndof, qdot);
 						goto end_loop;
 					}
-				} else 
+				} else
 					unlocked++;
 			}
 		}
@@ -648,7 +648,7 @@ void Armature::updateJacobian()
 				Jq(i,j)=(*m_jac)(i,j);
 		}
 	}
-	// remember that this object has moved 
+	// remember that this object has moved
 	m_updated = true;
 }
 
@@ -767,7 +767,7 @@ bool Armature::setControlParameter(unsigned int constraintId, unsigned int value
 			}
 		}
 		if (m_finalized) {
-			for (i=0; i<pConstraint->v_nr; i++) 
+			for (i=0; i<pConstraint->v_nr; i++)
 				m_Wy(pConstraint->y_nr+i) = pConstraint->values[i].alpha/*/(pConstraint->values.tolerance*pConstraint->values.feedback)*/;
 		}
 	}
@@ -775,4 +775,3 @@ bool Armature::setControlParameter(unsigned int constraintId, unsigned int value
 }
 
 }
-

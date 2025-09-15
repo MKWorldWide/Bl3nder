@@ -45,7 +45,7 @@
 */
 
 #define ASM_LN "\n"
-   
+
 #if defined(MY_CPU_AMD64) && defined(__PIC__) \
     && ((defined (__GNUC__) && (__GNUC__ < 5)) || defined(__clang__))
 
@@ -222,7 +222,7 @@ void __declspec(naked) Z7_FASTCALL z7_x86_cpuid(UInt32 p[4], UInt32 func)
  where ECX value is first parameter for FASTCALL / NO_INLINE func,
  So the caller of MY_cpuidex_HACK() sets ECX as subFunction, and
  old MSVC for __cpuid() doesn't change ECX and cpuid instruction gets (subFunction) value.
- 
+
 DON'T remove Z7_NO_INLINE and Z7_FASTCALL for MY_cpuidex_HACK(): !!!
 */
 static
@@ -531,7 +531,7 @@ static UInt64 x86_xgetbv_0(UInt32 num)
   // return a;
 
 #elif defined(_MSC_VER) && !defined(MY_CPU_AMD64)
-  
+
   UInt32 a, d;
   __asm {
     push eax
@@ -562,7 +562,7 @@ static UInt64 x86_xgetbv_0(UInt32 num)
       // (1 << 0) |  // x87
         (1 << 1)   // SSE
       | (1 << 2);  // AVX
-  
+
 #endif
 }
 

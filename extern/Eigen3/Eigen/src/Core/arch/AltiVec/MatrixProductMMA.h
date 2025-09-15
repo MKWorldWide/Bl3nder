@@ -126,7 +126,7 @@ template<typename Scalar, typename Packet>
 EIGEN_ALWAYS_INLINE void ploadRhsMMA(const Scalar* rhs, Packet& rhsV)
 {
   rhsV = ploadRhs<Scalar, Packet>((const Scalar*)(rhs));
-} 
+}
 
 template<>
 EIGEN_ALWAYS_INLINE void ploadRhsMMA<double, PacketBlock<Packet2d, 2> >(const double* rhs, PacketBlock<Packet2d, 2>& rhsV)
@@ -626,4 +626,3 @@ void gemm_complexMMA(const DataMapper& res, const LhsScalar* blockAc, const RhsS
 } // end namespace Eigen
 
 #endif // EIGEN_MATRIX_PRODUCT_MMA_ALTIVEC_H
-

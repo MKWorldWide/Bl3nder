@@ -101,4 +101,3 @@ std::istream& operator >>(std::istream& is, Jacobian& jac) {
 }
 
 }
-

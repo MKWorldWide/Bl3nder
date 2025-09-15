@@ -13,11 +13,11 @@ if errorlevel 1 (
 			goto RETRY
 		)
 		echo.
-		echo Error: Download of external libraries failed. 
+		echo Error: Download of external libraries failed.
 		echo Until this is resolved you CANNOT make a successful blender build.
 		echo.
 		exit /b 1
 )
-REM re-detect the dependencies after updating the libraries so any python version 
-REM changes are accounted for. 
+REM re-detect the dependencies after updating the libraries so any python version
+REM changes are accounted for.
 call "%~dp0\find_dependencies.cmd"

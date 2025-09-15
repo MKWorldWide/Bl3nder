@@ -11,7 +11,7 @@
 
 namespace iTaSC {
 
-WDLSSolver::WDLSSolver() : m_lambda(0.5), m_epsilon(0.1) 
+WDLSSolver::WDLSSolver() : m_lambda(0.5), m_epsilon(0.1)
 {
 	// maximum joint velocity
 	m_qmax = 50.0;

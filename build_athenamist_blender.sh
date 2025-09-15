@@ -129,12 +129,12 @@ if [[ "$BLENDER_FOUND" == false ]]; then
     echo -e "${YELLOW}Please install Blender first from: https://www.blender.org/download/${NC}"
     echo ""
     echo -e "${BLUE}🔧 Installing AthenaMist AI Agent as standalone...${NC}"
-    
+
     # Install AthenaMist as standalone
     STANDALONE_DIR="$HOME/AthenaMistBlender"
     mkdir -p "$STANDALONE_DIR"
     cp -R "$RESOURCES_DIR/athenamist_integration" "$STANDALONE_DIR/"
-    
+
     echo -e "${GREEN}✓ AthenaMist installed to: $STANDALONE_DIR${NC}"
     echo ""
     echo -e "${CYAN}To run AthenaMist AI Agent:${NC}"
@@ -254,4 +254,4 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     open "${BUILD_DIR}/${APP_NAME}.app"
 fi
 
-echo -e "${GREEN}✨ All done! Happy creating! 🎮${NC}" 
+echo -e "${GREEN}✨ All done! Happy creating! 🎮${NC}"

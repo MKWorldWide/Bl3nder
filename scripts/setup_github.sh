@@ -40,7 +40,7 @@ check_git_status() {
         print_error "Git is not installed. Please install Git first."
         exit 1
     fi
-    
+
     if [ ! -d ".git" ]; then
         print_error "This is not a Git repository. Please initialize Git first."
         exit 1
@@ -54,12 +54,12 @@ check_github_cli() {
         print_warning "Install GitHub CLI: https://cli.github.com/"
         return 1
     fi
-    
+
     if ! gh auth status >/dev/null 2>&1; then
         print_warning "GitHub CLI is not authenticated. Please run 'gh auth login' first."
         return 1
     fi
-    
+
     return 0
 }
 
@@ -69,9 +69,9 @@ create_github_repo() {
     local description="AI-Enhanced Blender Fork with Advanced Rendering and Workflow Automation"
     local visibility="public"
     local homepage="https://github.com/your-org/bl3nder"
-    
+
     print_status "Creating GitHub repository..."
-    
+
     if gh repo create "$repo_name" \
         --description "$description" \
         --public \
@@ -90,13 +90,13 @@ create_github_repo() {
 # Function to set up repository settings
 setup_repo_settings() {
     print_status "Setting up repository settings..."
-    
+
     # Enable features
     gh repo edit --enable-projects --enable-discussions --enable-wiki=false
-    
+
     # Set topics
     gh repo edit --add-topic "3d,ai,blender,rendering,computer-graphics,machine-learning,open-source,python,c-plus-plus,real-time,progressive-rendering,workflow-automation,scene-analysis,performance-optimization"
-    
+
     print_success "Repository settings configured!"
 }
 
@@ -157,13 +157,13 @@ Thank you to all contributors, the Blender Foundation, and the open source commu
 **Welcome to the future of AI-enhanced 3D creation!** 🚀
 
 *Bl3nder - Where AI meets 3D creativity*"
-    
+
     print_status "Creating initial release..."
-    
+
     # Create tag
     git tag -a "$tag_name" -m "Release $version"
     git push origin "$tag_name"
-    
+
     # Create release
     if gh release create "$tag_name" \
         --title "$release_title" \
@@ -181,7 +181,7 @@ Thank you to all contributors, the Blender Foundation, and the open source commu
 # Function to set up branch protection
 setup_branch_protection() {
     print_status "Setting up branch protection..."
-    
+
     # Protect main branch
     gh api repos/:owner/:repo/branches/main/protection \
         --method PUT \
@@ -189,112 +189,112 @@ setup_branch_protection() {
         --field enforce_admins=true \
         --field required_pull_request_reviews='{"required_approving_review_count":2,"dismiss_stale_reviews":true,"require_code_owner_reviews":true}' \
         --field restrictions='{"users":[],"teams":["bl3nder-maintainers"]}'
-    
+
     print_success "Branch protection configured!"
 }
 
 # Function to create teams
 create_teams() {
     print_status "Creating teams..."
-    
+
     # Create maintainers team
     gh api orgs/:org/teams \
         --method POST \
         --field name="bl3nder-maintainers" \
         --field description="Bl3nder project maintainers" \
         --field privacy="closed"
-    
+
     # Create AI team
     gh api orgs/:org/teams \
         --method POST \
         --field name="ai-team" \
         --field description="AI features and AthenaMist integration team" \
         --field privacy="closed"
-    
+
     # Create rendering team
     gh api orgs/:org/teams \
         --method POST \
         --field name="rendering-team" \
         --field description="Render engine development team" \
         --field privacy="closed"
-    
+
     # Create documentation team
     gh api orgs/:org/teams \
         --method POST \
         --field name="documentation-team" \
         --field description="Documentation and user guides team" \
         --field privacy="closed"
-    
+
     # Create automation team
     gh api orgs/:org/teams \
         --method POST \
         --field name="automation-team" \
         --field description="CI/CD and automation team" \
         --field privacy="closed"
-    
+
     # Create testing team
     gh api orgs/:org/teams \
         --method POST \
         --field name="testing-team" \
         --field description="Testing and quality assurance team" \
         --field privacy="closed"
-    
+
     print_success "Teams created successfully!"
 }
 
 # Function to set up projects
 setup_projects() {
     print_status "Setting up projects..."
-    
+
     # Create main development project
     gh api repos/:owner/:repo/projects \
         --method POST \
         --field name="Bl3nder Development" \
         --field description="Main development project for Bl3nder" \
         --field visibility="public"
-    
+
     # Create AI features project
     gh api repos/:owner/:repo/projects \
         --method POST \
         --field name="AI Features" \
         --field description="AI-related features and improvements" \
         --field visibility="public"
-    
+
     # Create render engines project
     gh api repos/:owner/:repo/projects \
         --method POST \
         --field name="Render Engines" \
         --field description="Render engine development and improvements" \
         --field visibility="public"
-    
+
     print_success "Projects created successfully!"
 }
 
 # Function to enable features
 enable_features() {
     print_status "Enabling repository features..."
-    
+
     # Enable security features
     gh api repos/:owner/:repo/vulnerability-alerts \
         --method PUT
-    
+
     gh api repos/:owner/:repo/automated-security-fixes \
         --method PUT
-    
+
     # Enable dependency graph
     gh api repos/:owner/:repo/dependency-graph \
         --method PUT
-    
+
     print_success "Repository features enabled!"
 }
 
 # Function to push all changes
 push_changes() {
     print_status "Pushing all changes to GitHub..."
-    
+
     # Add all files
     git add .
-    
+
     # Commit changes
     git commit -m "Initial public release of Bl3nder
 
@@ -308,10 +308,10 @@ push_changes() {
 This release represents a major milestone in AI-enhanced 3D creation,
 bringing together cutting-edge AI technology with the world's most
 powerful open-source 3D creation suite."
-    
+
     # Push to main branch
     git push origin main
-    
+
     print_success "All changes pushed to GitHub!"
 }
 
@@ -349,11 +349,11 @@ main() {
     echo "🚀 Bl3nder GitHub Setup Script"
     echo "================================"
     echo
-    
+
     # Check prerequisites
     check_git_status
     check_github_cli
-    
+
     # Ask for confirmation
     echo "This script will:"
     echo "1. Create a new GitHub repository"
@@ -365,12 +365,12 @@ main() {
     echo
     read -p "Do you want to continue? (y/N): " -n 1 -r
     echo
-    
+
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         print_warning "Setup cancelled."
         exit 0
     fi
-    
+
     # Execute setup steps
     push_changes
     create_github_repo
@@ -380,10 +380,10 @@ main() {
     setup_branch_protection
     enable_features
     create_initial_release
-    
+
     # Show next steps
     show_next_steps
 }
 
 # Run main function
-main "$@" 
+main "$@"

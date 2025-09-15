@@ -34,7 +34,7 @@ typedef struct
 
   Byte *bufBase;
   ISeqInStreamPtr stream;
-  
+
   UInt32 blockSize;
   UInt32 keepSizeBefore;
   UInt32 keepSizeAfter;
@@ -63,7 +63,7 @@ typedef struct
         && (p)->streamPos == (p)->pos \
         && (!(p)->directInput || (p)->directInputRem == 0))
 */
-      
+
 int MatchFinder_NeedMove(CMatchFinder *p);
 /* Byte *MatchFinder_GetPointerToCurrentPos(CMatchFinder *p); */
 void MatchFinder_MoveBlock(CMatchFinder *p);
@@ -94,7 +94,7 @@ void MatchFinder_Construct(CMatchFinder *p);
 #define MatchFinder_SET_STREAM(p, _stream_) { \
   (p)->stream = _stream_; \
   (p)->directInput = 0; }
-  
+
 
 int MatchFinder_Create(CMatchFinder *p, UInt32 historySize,
     UInt32 keepAddBufferBefore, UInt32 matchMaxLen, UInt32 keepAddBufferAfter,

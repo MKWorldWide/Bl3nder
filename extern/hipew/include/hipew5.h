@@ -56,7 +56,7 @@ typedef enum hipDeviceAttribute_t {
   hipDeviceAttributeConcurrentManagedAccess,          ///< Device can coherently access managed memory concurrently with the CPU
   hipDeviceAttributeCooperativeLaunch,                ///< Support cooperative launch
   hipDeviceAttributeCooperativeMultiDeviceLaunch,     ///< Support cooperative launch on multiple devices
-  hipDeviceAttributeDeviceOverlap,               ///< Cuda only. Device can concurrently copy memory and execute a kernel.  
+  hipDeviceAttributeDeviceOverlap,               ///< Cuda only. Device can concurrently copy memory and execute a kernel.
                                                       ///< Deprecated. Use instead asyncEngineCount.
   hipDeviceAttributeDirectManagedMemAccessFromHost,   ///< Host can directly access managed memory on
                                                       ///< the device without migration

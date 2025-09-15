@@ -54,7 +54,7 @@
         </Loop>
       </CustomListItems>
     </Expand>
-  </Type>  
+  </Type>
   <!-- visualizer for regular Map (SimpleMapSlot slot type) -->
   <Type Name="blender::Map&lt;*&gt;">
     <DisplayString>Size={occupied_and_removed_slots_ - removed_slots_}</DisplayString>
@@ -88,7 +88,7 @@
         </Loop>
       </CustomListItems>
     </Expand>
-  </Type>  
+  </Type>
   <!-- visualizer for regular Set (SimpleSetSlot slot type) -->
   <Type Name="blender::Set&lt;*&gt;">
     <DisplayString>Size={occupied_and_removed_slots_ - removed_slots_}</DisplayString>
@@ -113,5 +113,5 @@
     <Expand>
       <ExpandedItem>*($T1*)buffer_.buffer_.buffer_,nd</ExpandedItem>
     </Expand>
-  </Type>  
+  </Type>
 </AutoVisualizer>

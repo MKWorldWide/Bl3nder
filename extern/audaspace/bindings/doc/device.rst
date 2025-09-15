@@ -5,4 +5,3 @@ Device
 .. autoclass:: Device
    :members:
    :noindex:
-

@@ -260,4 +260,3 @@ namespace lemon {
 } //END OF NAMESPACE LEMON
 
 #endif //LEMON_GLPK_H
-

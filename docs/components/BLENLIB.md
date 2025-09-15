@@ -72,7 +72,7 @@ The vector system provides optimized mathematical operations for 3D graphics:
 ```cpp
 // Vector types for different precision needs
 float2 vec2;      // 2D float vector
-float3 vec3;      // 3D float vector  
+float3 vec3;      // 3D float vector
 float4 vec4;      // 4D float vector
 double2 dvec2;    // 2D double vector
 double3 dvec3;    // 3D double vector
@@ -393,4 +393,4 @@ vertex = bmesh.ops.create_vert(bm, co=(1.0, 2.0, 3.0))
 *BlenLib serves as the foundation of Blender's technical architecture. Its performance and reliability are critical to the entire system's success.*
 
 **Last Updated**: 2024-12-19
-**Version**: 1.0 
+**Version**: 1.0

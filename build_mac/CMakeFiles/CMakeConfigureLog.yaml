@@ -17,19 +17,19 @@ events:
       - "CMakeLists.txt:113 (project)"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
-      Compiler: /usr/bin/cc 
-      Build flags: 
-      Id flags:  
-      
+      Compiler: /usr/bin/cc
+      Build flags:
+      Id flags:
+
       The output was:
       0
-      
-      
+
+
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
-      
+
       The C compiler identification is AppleClang, found in:
         /Users/sovereign/Projects/DigitalGardens/Aeternum/blender/build_mac/CMakeFiles/4.0.2/CompilerIdC/a.out
-      
+
   -
     kind: "message-v1"
     backtrace:
@@ -68,8 +68,8 @@ events:
         # 199 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h" 2 3 4
         # 208 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityMacros.h" 2 3 4
         # 2 "apple-sdk.c" 2
-        
-        
+
+
       Found apple sysroot: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
   -
     kind: "message-v1"
@@ -80,19 +80,19 @@ events:
       - "CMakeLists.txt:113 (project)"
     message: |
       Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
-      Compiler: /usr/bin/c++ 
-      Build flags: 
-      Id flags:  
-      
+      Compiler: /usr/bin/c++
+      Build flags:
+      Id flags:
+
       The output was:
       0
-      
-      
+
+
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
-      
+
       The CXX compiler identification is AppleClang, found in:
         /Users/sovereign/Projects/DigitalGardens/Aeternum/blender/build_mac/CMakeFiles/4.0.2/CompilerIdCXX/a.out
-      
+
   -
     kind: "message-v1"
     backtrace:
@@ -131,8 +131,8 @@ events:
         # 199 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h" 2 3 4
         # 208 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityMacros.h" 2 3 4
         # 2 "apple-sdk.cpp" 2
-        
-        
+
+
       Found apple sysroot: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
   -
     kind: "try_compile-v1"
@@ -158,7 +158,7 @@ events:
       cached: true
       stdout: |
         Change Dir: '/Users/sovereign/Projects/DigitalGardens/Aeternum/blender/build_mac/CMakeFiles/CMakeScratch/TryCompile-mleO3x'
-        
+
         Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_46395/fast
         /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_46395.dir/build.make CMakeFiles/cmTC_46395.dir/build
         Building C object CMakeFiles/cmTC_46395.dir/CMakeCCompilerABI.c.o
@@ -200,7 +200,7 @@ events:
         Framework search paths:
         	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks
         /usr/bin/cc  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_46395.dir/CMakeCCompilerABI.c.o -o cmTC_46395
-        
+
       exitCode: 0
   -
     kind: "message-v1"
@@ -229,8 +229,8 @@ events:
         collapse include dir [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include] ==> [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include]
         collapse include dir [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include] ==> [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include]
         implicit include dirs: [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include;/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include]
-      
-      
+
+
   -
     kind: "message-v1"
     backtrace:
@@ -309,8 +309,8 @@ events:
         implicit objs: []
         implicit dirs: [/usr/local/lib;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift]
         implicit fwks: [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks]
-      
-      
+
+
   -
     kind: "message-v1"
     backtrace:
@@ -351,7 +351,7 @@ events:
       cached: true
       stdout: |
         Change Dir: '/Users/sovereign/Projects/DigitalGardens/Aeternum/blender/build_mac/CMakeFiles/CMakeScratch/TryCompile-H2B3At'
-        
+
         Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_62c45/fast
         /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_62c45.dir/build.make CMakeFiles/cmTC_62c45.dir/build
         Building CXX object CMakeFiles/cmTC_62c45.dir/CMakeCXXCompilerABI.cpp.o
@@ -395,7 +395,7 @@ events:
         Framework search paths:
         	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks
         /usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_62c45.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_62c45
-        
+
       exitCode: 0
   -
     kind: "message-v1"
@@ -426,8 +426,8 @@ events:
         collapse include dir [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include] ==> [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include]
         collapse include dir [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include] ==> [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include]
         implicit include dirs: [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1;/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include;/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include]
-      
-      
+
+
   -
     kind: "message-v1"
     backtrace:
@@ -509,8 +509,8 @@ events:
         implicit objs: []
         implicit dirs: [/usr/local/lib;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift]
         implicit fwks: [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks]
-      
-      
+
+
   -
     kind: "message-v1"
     backtrace:
@@ -551,7 +551,7 @@ events:
       cached: true
       stdout: |
         Change Dir: '/Users/sovereign/Projects/DigitalGardens/Aeternum/blender/build_mac/CMakeFiles/CMakeScratch/TryCompile-hrOrxX'
-        
+
         Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_66e75/fast
         /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_66e75.dir/build.make CMakeFiles/cmTC_66e75.dir/build
         Building C object CMakeFiles/cmTC_66e75.dir/CheckSymbolExists.c.o
@@ -562,7 +562,7 @@ events:
         1 error generated.
         make[1]: *** [CMakeFiles/cmTC_66e75.dir/CheckSymbolExists.c.o] Error 1
         make: *** [cmTC_66e75/fast] Error 2
-        
+
       exitCode: 2
   -
     kind: "try_compile-v1"
@@ -588,7 +588,7 @@ events:
       cached: true
       stdout: |
         Change Dir: '/Users/sovereign/Projects/DigitalGardens/Aeternum/blender/build_mac/CMakeFiles/CMakeScratch/TryCompile-tUdYLV'
-        
+
         Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_7e827/fast
         /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_7e827.dir/build.make CMakeFiles/cmTC_7e827.dir/build
         Building C object CMakeFiles/cmTC_7e827.dir/HAVE_EXECINFO_H.c.o
@@ -596,7 +596,7 @@ events:
         Linking C executable cmTC_7e827
         /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7e827.dir/link.txt --verbose=1
         /usr/bin/cc  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_7e827.dir/HAVE_EXECINFO_H.c.o -o cmTC_7e827
-        
+
       exitCode: 0
   -
     kind: "try_compile-v1"
@@ -623,7 +623,7 @@ events:
       cached: true
       stdout: |
         Change Dir: '/Users/sovereign/Projects/DigitalGardens/Aeternum/blender/build_mac/CMakeFiles/CMakeScratch/TryCompile-n7YFLK'
-        
+
         Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_a0bf0/fast
         /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_a0bf0.dir/build.make CMakeFiles/cmTC_a0bf0.dir/build
         Building CXX object CMakeFiles/cmTC_a0bf0.dir/src.cxx.o
@@ -631,7 +631,7 @@ events:
         Linking CXX executable cmTC_a0bf0
         /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a0bf0.dir/link.txt --verbose=1
         /usr/bin/c++  -mmacosx-version-min=11.2  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk -mmacosx-version-min=11.2 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_a0bf0.dir/src.cxx.o -o cmTC_a0bf0
-        
+
       exitCode: 0
   -
     kind: "try_compile-v1"
@@ -659,7 +659,7 @@ events:
       cached: true
       stdout: |
         Change Dir: '/Users/sovereign/Projects/DigitalGardens/Aeternum/blender/build_mac/CMakeFiles/CMakeScratch/TryCompile-TmqhkU'
-        
+
         Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_fe266/fast
         /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_fe266.dir/build.make CMakeFiles/cmTC_fe266.dir/build
         Building C object CMakeFiles/cmTC_fe266.dir/CheckSymbolExists.c.o
@@ -667,6 +667,6 @@ events:
         Linking C executable cmTC_fe266
         /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fe266.dir/link.txt --verbose=1
         /usr/bin/cc  -mmacosx-version-min=11.2  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk -mmacosx-version-min=11.2 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_fe266.dir/CheckSymbolExists.c.o -o cmTC_fe266  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libbz2.tbd
-        
+
       exitCode: 0
 ...

@@ -12,5 +12,5 @@ index 2e34715d2..329933383 100644
 +    // creating a relevant GPU device before using Storm.
 +    return true;
  }
- 
+
  TfTokenVector

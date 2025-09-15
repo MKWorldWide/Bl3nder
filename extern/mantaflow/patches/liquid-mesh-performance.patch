@@ -13,7 +13,7 @@ index 8757958d4b0..f5d7147c34f 100644
 @@ -1020,8 +1021,6 @@ struct ComputeAveragedLevelsetWeight : public KernelBase {
      const Vec3 gridPos = Vec3(i, j, k) + Vec3(0.5);  // shifted by half cell
      Real phiv = radius * 1.0;                        // outside
- 
+
 -    // loop over neighborhood, similar to ComputeUnionLevelsetPindex
 -    const Real sradiusInv = 1. / (4. * radius * radius);
      const int r = int(radius) + 1;

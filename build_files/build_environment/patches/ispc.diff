@@ -2,7 +2,7 @@ diff -Naur ispc-1.17.0.org/CMakeLists.txt ispc-1.17.0/CMakeLists.txt
 --- ispc-1.17.0.org/CMakeLists.txt	2022-01-15 01:35:15 -0700
 +++ ispc-1.17.0/CMakeLists.txt	2022-02-12 12:44:24 -0700
 @@ -443,7 +447,7 @@
- 
+
  # Include directories
  target_include_directories(${PROJECT_NAME} PRIVATE
 -                           ${LLVM_INCLUDE_DIRS}
@@ -22,7 +22,7 @@ diff -Naur ispc-1.17.0.org/CMakeLists.txt ispc-1.17.0/CMakeLists.txt
 @@ -546,6 +550,29 @@
      endif()
  endif()
- 
+
 +# Link against libstdc++.a which must be provided to the linker after
 +# LLVM and CLang libraries.
 +# This is needed because some of LLVM/CLang dependencies are using
@@ -53,7 +53,7 @@ diff -Naur ispc-1.17.0.org/cmake/GenerateBuiltins.cmake ispc-1.17.0/cmake/Genera
 --- ispc-1.17.0.org/cmake/GenerateBuiltins.cmake	2022-01-15 01:35:15 -0700
 +++ ispc-1.17.0/cmake/GenerateBuiltins.cmake	2022-02-12 12:44:24 -0700
 @@ -124,6 +124,8 @@
- 
+
      if ("${bit}" STREQUAL "32" AND ${arch} STREQUAL "x86")
          set(target_arch "i686")
 +        # Blender: disable 32bit due to build issues on Linux and being unnecessary.

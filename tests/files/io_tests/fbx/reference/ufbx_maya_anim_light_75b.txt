@@ -6,4 +6,3 @@
 
 ==== Lights: 1
 - Light 'Light' POINT col:(0.148, 0.095, 0.440) energy:3.072
-

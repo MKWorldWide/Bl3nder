@@ -31,12 +31,12 @@ BinauralReader::BinauralReader(std::shared_ptr<IReader> reader, std::shared_ptr<
 {
 	if(m_hrtfs->isEmpty())
 		AUD_THROW(StateException, "The provided HRTF object is empty");
-	if(m_reader->getSpecs().channels != 1) 
+	if(m_reader->getSpecs().channels != 1)
 		AUD_THROW(StateException, "The sound must have only one channel");
 	if(m_reader->getSpecs().rate != m_hrtfs->getSpecs().rate)
 		AUD_THROW(StateException, "The sound and the HRTFs must have the same rate");
 	m_M = m_L = m_N / 2;
-	
+
 	m_RealAzimuth = m_Azimuth = m_source->getAzimuth();
 	m_RealElevation = m_Elevation = m_source->getElevation();
 	auto irs = m_hrtfs->getImpulseResponse(m_RealAzimuth, m_RealElevation);

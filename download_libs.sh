@@ -15,4 +15,4 @@ tar -xzf libs.tar.gz
 # Clean up
 rm libs.tar.gz
 
-cd ../.. 
+cd ../..

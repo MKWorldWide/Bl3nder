@@ -31,7 +31,7 @@ AUD_NAMESPACE_BEGIN
 /**
 * This represents a barrier mechanism for thread sychronization.
 */
-class Barrier 
+class Barrier
 {
 private:
 	/**
@@ -43,7 +43,7 @@ private:
 	* Condition varieble used to sync threads.
 	*/
 	std::condition_variable m_condition;
-	
+
 	/**
 	* Number of threads that need to reach the barrier for it to lift.
 	*/

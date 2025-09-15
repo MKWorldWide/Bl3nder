@@ -1,12 +1,12 @@
 /** \file itasc/kdl/utilities/traits.h
  * \ingroup intern_itasc
  */
-#ifndef KDLPV_TRAITS_H 
-#define KDLPV_TRAITS_H 
+#ifndef KDLPV_TRAITS_H
+#define KDLPV_TRAITS_H
 
 #include "utility.h"
 
- 
+
 // forwards declarations :
 namespace KDL {
    class Frame;
@@ -28,7 +28,7 @@ namespace KDL {
  * matrix is NOT a 3x3 matrix containing the derivative of the elements of a rotation matrix.  The derivative
  * of the rotation matrix is a Vector corresponding the rotational velocity.  Mostly used in template classes
  * and routines to derive a correct type when needed.
- * 
+ *
  * You can see this as a compile-time lookuptable to find the type of the derivative.
  *
  * Example
@@ -109,6 +109,3 @@ struct Traits<KDL::VectorVel> {
 
 
 #endif
-
-
-

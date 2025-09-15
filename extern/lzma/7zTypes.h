@@ -409,10 +409,10 @@ typedef struct
 {
   ILookInStream vt;
   ISeekInStreamPtr realStream;
- 
+
   size_t pos;
   size_t size; /* it's data size */
-  
+
   /* the following variables must be set outside */
   Byte *buf;
   size_t bufSize;

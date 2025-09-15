@@ -1,24 +1,24 @@
 
 /*****************************************************************************
- * \file  
- *      class for automatic differentiation on scalar values and 1st 
+ * \file
+ *      class for automatic differentiation on scalar values and 1st
  *      derivatives and 2nd derivative.
- *       
+ *
  *      Erwin Aertbelien, Div. PMA, Dep. of Mech. Eng., K.U.Leuven
  *
- * \version 
+ * \version
  *      ORO_Geometry V0.2
  *
  * \par Note
- *      VC6++ contains a bug, concerning the use of inlined friend functions 
- *      in combination with namespaces.  So, try to avoid inlined friend 
- *      functions !  
+ *      VC6++ contains a bug, concerning the use of inlined friend functions
+ *      in combination with namespaces.  So, try to avoid inlined friend
+ *      functions !
  *
  * \par History
- *      - $log$ 
+ *      - $log$
  *
  * \par Release
- *      $Name:  $ 
+ *      $Name:  $
  ****************************************************************************/
 
 #ifndef Rall2D_H
@@ -32,24 +32,24 @@
 namespace KDL {
 
 /**
- * Rall2d contains a value, and its gradient and its 2nd derivative, and defines an algebraic 
+ * Rall2d contains a value, and its gradient and its 2nd derivative, and defines an algebraic
  * structure on this pair.
  *  This template class has 3 template parameters :
  *  -   T contains the type of the value.
- *  -   V contains the type of the gradient (can be a vector-like type).  
- *  -   S defines a scalar type that can operate on Rall1d.  This is the type that 
- *      is used to give back values of Norm() etc. 
+ *  -   V contains the type of the gradient (can be a vector-like type).
+ *  -   S defines a scalar type that can operate on Rall1d.  This is the type that
+ *      is used to give back values of Norm() etc.
  *
- * S is usefull when you recurse a Rall1d object into itself to create a 2nd, 3th, 4th,.. 
+ * S is usefull when you recurse a Rall1d object into itself to create a 2nd, 3th, 4th,..
  * derivatives. (e.g. Rall1d< Rall1d<double>, Rall1d<double>, double> ).
  *
- * S is always passed by value. 
+ * S is always passed by value.
  *
  * \par Class Type
  * Concrete implementation
  */
 template <class T,class V=T,class S=T>
-class Rall2d                      
+class Rall2d
     {
     public :
         T t;    //!< value
@@ -71,7 +71,7 @@ class Rall2d
             //if one defines this constructor, it's better optimized then the
             //automatically generated one ( that one set's up a loop to copy
             // word by word.
-        
+
         // = Member functions to access internal structures :
         INLINE T& Value() {
             return t;
@@ -374,7 +374,7 @@ INLINE  Rall2d<T,V,S> cosh(const Rall2d<T,V,S>& arg)
 
 template <class T,class V,class S>
 INLINE  Rall2d<T,V,S> tanh(const Rall2d<T,V,S>& arg)
-    {       
+    {
     T v1 = tanh(arg.t);
     T v2 = S(1)-sqr(v1);
     return Rall2d<T,V,S>(v1,v2*arg.d, v2*(arg.dd-(S(2)*v1*sqr(arg.d))));
@@ -390,7 +390,7 @@ INLINE  Rall2d<T,V,S> sqr(const Rall2d<T,V,S>& arg)
     }
 
 template <class T,class V,class S>
-INLINE  Rall2d<T,V,S> pow(const Rall2d<T,V,S>& arg,double m) 
+INLINE  Rall2d<T,V,S> pow(const Rall2d<T,V,S>& arg,double m)
     {
     Rall2d<T,V,S> tmp;
     tmp.t = pow(arg.t,m);
@@ -478,7 +478,7 @@ INLINE  Rall2d<T,V,S> hypot(const Rall2d<T,V,S>& y,const Rall2d<T,V,S>& x)
 // returns sqrt(y*y+x*x), but is optimized for accuracy and speed.
 
 template <class T,class V,class S>
-INLINE  S Norm(const Rall2d<T,V,S>& value) 
+INLINE  S Norm(const Rall2d<T,V,S>& value)
 {
     return Norm(value.t);
 }
@@ -492,7 +492,7 @@ INLINE  Rall2d<T,V,S> LinComb(S alfa,const Rall2d<T,V,S>& a,
         return Rall2d<T,V,S>(
             LinComb(alfa,a.t,beta,b.t),
             LinComb(alfa,a.d,beta,b.d),
-            LinComb(alfa,a.dd,beta,b.dd) 
+            LinComb(alfa,a.dd,beta,b.dd)
         );
 }
 

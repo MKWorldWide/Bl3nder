@@ -50,7 +50,7 @@ struct btSolverAnalyticsData
 ATTRIBUTE_ALIGNED16(class)
 btSequentialImpulseConstraintSolver : public btConstraintSolver
 {
-	
+
 
 protected:
 	btAlignedObjectArray<btSolverBody> m_tmpSolverBodyPool;

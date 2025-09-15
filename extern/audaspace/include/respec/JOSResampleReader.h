@@ -36,7 +36,7 @@ private:
 	typedef void (JOSResampleReader::*resample_f)(double target_factor, int length, sample_t* buffer);
 
 	/**
-	 * The half filter length for HIGH quality setting. 
+	 * The half filter length for HIGH quality setting.
 	 */
 	static const int m_len_high;
 	/**

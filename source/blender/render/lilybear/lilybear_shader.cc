@@ -15,7 +15,7 @@ namespace blender::lilybear {
 
 /**
  * 🎨 Lilybear Shader Management
- * 
+ *
  * Manages shaders for the Lilybear render engine:
  * - Progressive rendering shaders
  * - AI denoising shaders
@@ -38,128 +38,128 @@ class ShaderModule {
   GPUShader *denoising_shader_;
   GPUShader *compositing_shader_;
   GPUShader *utility_shader_;
-  
+
   /* Uniform Buffers */
   GPUUniformBuf *settings_ubo_;
   GPUUniformBuf *performance_ubo_;
   GPUUniformBuf *scene_ubo_;
-  
+
   /* Shader State */
   bool is_initialized_;
-  
+
  public:
   ShaderModule();
   ~ShaderModule();
-  
+
   /**
    * Initialize shader module
    * Creates all required shaders
    */
   bool init();
-  
+
   /**
    * Get progressive shader
    * Returns the progressive rendering shader
    */
   GPUShader *get_progressive_shader() const;
-  
+
   /**
    * Get denoising shader
    * Returns the AI denoising shader
    */
   GPUShader *get_denoising_shader() const;
-  
+
   /**
    * Get compositing shader
    * Returns the compositing shader
    */
   GPUShader *get_compositing_shader() const;
-  
+
   /**
    * Get utility shader
    * Returns the utility shader
    */
   GPUShader *get_utility_shader() const;
-  
+
   /**
    * Get settings uniform buffer
    * Returns the settings uniform buffer
    */
   GPUUniformBuf *get_settings_ubo() const;
-  
+
   /**
    * Get performance uniform buffer
    * Returns the performance uniform buffer
    */
   GPUUniformBuf *get_performance_ubo() const;
-  
+
   /**
    * Get scene uniform buffer
    * Returns the scene uniform buffer
    */
   GPUUniformBuf *get_scene_ubo() const;
-  
+
   /**
    * Update settings uniform buffer
    * Updates the settings uniform buffer with new data
    */
   void update_settings_ubo(const RenderSettings &settings);
-  
+
   /**
    * Update performance uniform buffer
    * Updates the performance uniform buffer with new data
    */
   void update_performance_ubo(const PerformanceMetrics &metrics);
-  
+
   /**
    * Update scene uniform buffer
    * Updates the scene uniform buffer with new data
    */
   void update_scene_ubo(const SceneData &scene_data);
-  
+
   /**
    * Is initialized
    * Returns whether the shader module is initialized
    */
   bool is_initialized() const;
-  
+
   /**
    * Free shader module
    * Frees all shader resources
    */
   void module_free();
-  
+
  private:
   /**
    * Create progressive shader
    * Creates the progressive rendering shader
    */
   bool create_progressive_shader();
-  
+
   /**
    * Create denoising shader
    * Creates the AI denoising shader
    */
   bool create_denoising_shader();
-  
+
   /**
    * Create compositing shader
    * Creates the compositing shader
    */
   bool create_compositing_shader();
-  
+
   /**
    * Create utility shader
    * Creates the utility shader
    */
   bool create_utility_shader();
-  
+
   /**
    * Create uniform buffers
    * Creates all uniform buffers
    */
   bool create_uniform_buffers();
-  
+
   /**
    * Cleanup shaders
    * Frees all shader resources
@@ -192,40 +192,40 @@ bool ShaderModule::init()
   if (is_initialized_) {
     return true;
   }
-  
+
   /* Create progressive shader */
   if (!create_progressive_shader()) {
     CLOG_ERROR(LOG_LILYBEAR, "Failed to create progressive shader");
     return false;
   }
-  
+
   /* Create denoising shader */
   if (!create_denoising_shader()) {
     CLOG_ERROR(LOG_LILYBEAR, "Failed to create denoising shader");
     return false;
   }
-  
+
   /* Create compositing shader */
   if (!create_compositing_shader()) {
     CLOG_ERROR(LOG_LILYBEAR, "Failed to create compositing shader");
     return false;
   }
-  
+
   /* Create utility shader */
   if (!create_utility_shader()) {
     CLOG_ERROR(LOG_LILYBEAR, "Failed to create utility shader");
     return false;
   }
-  
+
   /* Create uniform buffers */
   if (!create_uniform_buffers()) {
     CLOG_ERROR(LOG_LILYBEAR, "Failed to create uniform buffers");
     return false;
   }
-  
+
   is_initialized_ = true;
   CLOG_INFO(LOG_LILYBEAR, 1, "Shader module initialized successfully");
-  
+
   return true;
 }
 
@@ -295,7 +295,7 @@ void ShaderModule::module_free()
   if (!is_initialized_) {
     return;
   }
-  
+
   cleanup_shaders();
   is_initialized_ = false;
   CLOG_INFO(LOG_LILYBEAR, 1, "Shader module freed");
@@ -309,12 +309,12 @@ bool ShaderModule::create_progressive_shader()
 {
   /* Create progressive rendering shader */
   progressive_shader_ = GPU_shader_create_from_info_name("lilybear_progressive");
-  
+
   if (!progressive_shader_) {
     CLOG_ERROR(LOG_LILYBEAR, "Failed to create progressive shader");
     return false;
   }
-  
+
   CLOG_INFO(LOG_LILYBEAR, 2, "Progressive shader created successfully");
   return true;
 }
@@ -323,12 +323,12 @@ bool ShaderModule::create_denoising_shader()
 {
   /* Create AI denoising shader */
   denoising_shader_ = GPU_shader_create_from_info_name("lilybear_denoising");
-  
+
   if (!denoising_shader_) {
     CLOG_ERROR(LOG_LILYBEAR, "Failed to create denoising shader");
     return false;
   }
-  
+
   CLOG_INFO(LOG_LILYBEAR, 2, "Denoising shader created successfully");
   return true;
 }
@@ -337,12 +337,12 @@ bool ShaderModule::create_compositing_shader()
 {
   /* Create compositing shader */
   compositing_shader_ = GPU_shader_create_from_info_name("lilybear_compositing");
-  
+
   if (!compositing_shader_) {
     CLOG_ERROR(LOG_LILYBEAR, "Failed to create compositing shader");
     return false;
   }
-  
+
   CLOG_INFO(LOG_LILYBEAR, 2, "Compositing shader created successfully");
   return true;
 }
@@ -351,12 +351,12 @@ bool ShaderModule::create_utility_shader()
 {
   /* Create utility shader */
   utility_shader_ = GPU_shader_create_from_info_name("lilybear_utility");
-  
+
   if (!utility_shader_) {
     CLOG_ERROR(LOG_LILYBEAR, "Failed to create utility shader");
     return false;
   }
-  
+
   CLOG_INFO(LOG_LILYBEAR, 2, "Utility shader created successfully");
   return true;
 }
@@ -369,21 +369,21 @@ bool ShaderModule::create_uniform_buffers()
     CLOG_ERROR(LOG_LILYBEAR, "Failed to create settings uniform buffer");
     return false;
   }
-  
+
   /* Create performance uniform buffer */
   performance_ubo_ = GPU_uniformbuf_create(sizeof(PerformanceMetrics));
   if (!performance_ubo_) {
     CLOG_ERROR(LOG_LILYBEAR, "Failed to create performance uniform buffer");
     return false;
   }
-  
+
   /* Create scene uniform buffer */
   scene_ubo_ = GPU_uniformbuf_create(sizeof(SceneData));
   if (!scene_ubo_) {
     CLOG_ERROR(LOG_LILYBEAR, "Failed to create scene uniform buffer");
     return false;
   }
-  
+
   CLOG_INFO(LOG_LILYBEAR, 2, "Uniform buffers created successfully");
   return true;
 }
@@ -407,7 +407,7 @@ void ShaderModule::cleanup_shaders()
     GPU_shader_free(utility_shader_);
     utility_shader_ = nullptr;
   }
-  
+
   /* Free uniform buffers */
   if (settings_ubo_) {
     GPU_uniformbuf_free(settings_ubo_);
@@ -421,7 +421,7 @@ void ShaderModule::cleanup_shaders()
     GPU_uniformbuf_free(scene_ubo_);
     scene_ubo_ = nullptr;
   }
-  
+
   CLOG_INFO(LOG_LILYBEAR, 2, "Shaders cleaned up");
 }
 
@@ -461,4 +461,4 @@ void free_shader_module()
   }
 }
 
-}  // namespace blender::lilybear 
+}  // namespace blender::lilybear

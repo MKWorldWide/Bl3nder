@@ -979,4 +979,3 @@ namespace lemon {
 } //END OF NAMESPACE LEMON
 
 #endif
-

@@ -324,4 +324,4 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     open "${DMG_NAME}"
 fi
 
-echo -e "${GREEN}✨ All done! Happy testing! 🎮${NC}" 
+echo -e "${GREEN}✨ All done! Happy testing! 🎮${NC}"

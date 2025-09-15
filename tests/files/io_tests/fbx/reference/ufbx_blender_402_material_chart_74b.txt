@@ -1,16 +1,16 @@
 ==== Meshes: 6
 - Mesh 'Plane' vtx:4 face:1 loop:4 edge:4
-    - 0 1 3 2 
-    - 0/1 1/3 2/3 0/2 
+    - 0 1 3 2
+    - 0/1 1/3 2/3 0/2
   - attr 'position' FLOAT_VECTOR POINT
     - (-1.000, 0.000, -1.000)
     - (1.000, 0.000, -1.000)
     - (-1.000, 0.000, 1.000)
     - (1.000, 0.000, 1.000)
   - attr 'sharp_edge' BOOLEAN EDGE
-    - 0 0 0 0 
+    - 0 0 0 0
   - attr 'material_index' INT FACE
-    - 0 
+    - 0
   - attr 'custom_normal' INT16_2D CORNER
     - (0, 0)
     - (0, 0)
@@ -22,20 +22,20 @@
     - (1.000, 1.000)
     - (0.000, 1.000)
   - 1 materials
-    - 'BaseColor' 
+    - 'BaseColor'
 
 - Mesh 'Plane.001' vtx:4 face:1 loop:4 edge:4
-    - 0 1 3 2 
-    - 0/1 1/3 2/3 0/2 
+    - 0 1 3 2
+    - 0/1 1/3 2/3 0/2
   - attr 'position' FLOAT_VECTOR POINT
     - (-1.000, 0.000, -1.000)
     - (1.000, 0.000, -1.000)
     - (-1.000, 0.000, 1.000)
     - (1.000, 0.000, 1.000)
   - attr 'sharp_edge' BOOLEAN EDGE
-    - 0 0 0 0 
+    - 0 0 0 0
   - attr 'material_index' INT FACE
-    - 0 
+    - 0
   - attr 'custom_normal' INT16_2D CORNER
     - (0, 0)
     - (0, 0)
@@ -47,20 +47,20 @@
     - (1.000, 1.000)
     - (0.000, 1.000)
   - 1 materials
-    - 'BaseTexture' 
+    - 'BaseTexture'
 
 - Mesh 'Plane.002' vtx:4 face:1 loop:4 edge:4
-    - 0 1 3 2 
-    - 0/1 1/3 2/3 0/2 
+    - 0 1 3 2
+    - 0/1 1/3 2/3 0/2
   - attr 'position' FLOAT_VECTOR POINT
     - (-1.000, 0.000, -1.000)
     - (1.000, 0.000, -1.000)
     - (-1.000, 0.000, 1.000)
     - (1.000, 0.000, 1.000)
   - attr 'sharp_edge' BOOLEAN EDGE
-    - 0 0 0 0 
+    - 0 0 0 0
   - attr 'material_index' INT FACE
-    - 0 
+    - 0
   - attr 'custom_normal' INT16_2D CORNER
     - (0, 0)
     - (0, 0)
@@ -72,20 +72,20 @@
     - (1.000, 1.000)
     - (0.000, 1.000)
   - 1 materials
-    - 'EmissiveColor' 
+    - 'EmissiveColor'
 
 - Mesh 'Plane.003' vtx:4 face:1 loop:4 edge:4
-    - 0 1 3 2 
-    - 0/1 1/3 2/3 0/2 
+    - 0 1 3 2
+    - 0/1 1/3 2/3 0/2
   - attr 'position' FLOAT_VECTOR POINT
     - (-1.000, 0.000, -1.000)
     - (1.000, 0.000, -1.000)
     - (-1.000, 0.000, 1.000)
     - (1.000, 0.000, 1.000)
   - attr 'sharp_edge' BOOLEAN EDGE
-    - 0 0 0 0 
+    - 0 0 0 0
   - attr 'material_index' INT FACE
-    - 0 
+    - 0
   - attr 'custom_normal' INT16_2D CORNER
     - (0, 0)
     - (0, 0)
@@ -97,20 +97,20 @@
     - (1.000, 1.000)
     - (0.000, 1.000)
   - 1 materials
-    - 'EmissiveFactor' 
+    - 'EmissiveFactor'
 
 - Mesh 'Plane.004' vtx:4 face:1 loop:4 edge:4
-    - 0 1 3 2 
-    - 0/1 1/3 2/3 0/2 
+    - 0 1 3 2
+    - 0/1 1/3 2/3 0/2
   - attr 'position' FLOAT_VECTOR POINT
     - (-1.000, 0.000, -1.000)
     - (1.000, 0.000, -1.000)
     - (-1.000, 0.000, 1.000)
     - (1.000, 0.000, 1.000)
   - attr 'sharp_edge' BOOLEAN EDGE
-    - 0 0 0 0 
+    - 0 0 0 0
   - attr 'material_index' INT FACE
-    - 0 
+    - 0
   - attr 'custom_normal' INT16_2D CORNER
     - (0, 0)
     - (0, 0)
@@ -122,20 +122,20 @@
     - (1.000, 1.000)
     - (0.000, 1.000)
   - 1 materials
-    - 'EmissiveTexture' 
+    - 'EmissiveTexture'
 
 - Mesh 'Plane.005' vtx:4 face:1 loop:4 edge:4
-    - 0 1 3 2 
-    - 0/1 1/3 2/3 0/2 
+    - 0 1 3 2
+    - 0/1 1/3 2/3 0/2
   - attr 'position' FLOAT_VECTOR POINT
     - (-1.000, 0.000, -1.000)
     - (1.000, 0.000, -1.000)
     - (-1.000, 0.000, 1.000)
     - (1.000, 0.000, 1.000)
   - attr 'sharp_edge' BOOLEAN EDGE
-    - 0 0 0 0 
+    - 0 0 0 0
   - attr 'material_index' INT FACE
-    - 0 
+    - 0
   - attr 'custom_normal' INT16_2D CORNER
     - (0, 0)
     - (0, 0)
@@ -147,7 +147,7 @@
     - (1.000, 1.000)
     - (0.000, 1.000)
   - 1 materials
-    - 'EmissiveTextureFactor' 
+    - 'EmissiveTextureFactor'
 
 ==== Objects: 8
 - Obj 'BaseColor' MESH data:'Plane'
@@ -275,4 +275,3 @@
 ==== Images: 2
 - Image 'chart_bright_purple_srgb.png' 4x4 32bpp
 - Image 'chart_purple_srgb.png' 4x4 24bpp
-

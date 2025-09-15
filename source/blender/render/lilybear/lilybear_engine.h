@@ -14,7 +14,7 @@ namespace blender::lilybear {
 
 /**
  * 🚀 Lilybear Render Engine
- * 
+ *
  * Advanced render engine with AI-powered live rendering capabilities.
  * Provides real-time progressive rendering with intelligent optimization.
  */
@@ -196,23 +196,23 @@ struct LilybearPerformanceMetrics {
   float render_time_ms;         /* Time spent on rendering per frame */
   float gpu_utilization;        /* GPU utilization percentage */
   float memory_usage_mb;        /* GPU memory usage in MB */
-  
+
   /* Quality Metrics */
   float current_quality;        /* Current rendering quality (0.0 - 1.0) */
   float target_quality;         /* Target quality level */
   int samples_per_pixel;        /* Current samples per pixel */
   float noise_level;            /* Current noise level estimate */
-  
+
   /* AI Metrics */
   float ai_processing_time_ms;  /* Time spent on AI processing */
   int ai_suggestions_count;     /* Number of active AI suggestions */
   float ai_optimization_score;  /* AI optimization effectiveness score */
-  
+
   /* Live Rendering Metrics */
   bool live_rendering_active;   /* Whether live rendering is active */
   float live_update_frequency;  /* Live update frequency in Hz */
   int progressive_passes;       /* Number of progressive passes completed */
-  
+
   /* System Metrics */
   float cpu_utilization;        /* CPU utilization percentage */
   float system_memory_usage_mb; /* System memory usage in MB */
@@ -229,16 +229,16 @@ struct LilybearPerformanceTargets {
   float max_frame_time_ms;      /* Maximum acceptable frame time */
   float max_gpu_utilization;    /* Maximum GPU utilization */
   float max_memory_usage_mb;    /* Maximum memory usage */
-  
+
   /* Quality Targets */
   float min_quality;            /* Minimum acceptable quality */
   float target_quality;         /* Target quality level */
   float max_noise_level;        /* Maximum acceptable noise level */
-  
+
   /* AI Targets */
   float max_ai_processing_time_ms; /* Maximum AI processing time */
   int max_ai_suggestions;       /* Maximum number of AI suggestions */
-  
+
   /* Adaptive Behavior */
   bool adaptive_quality;        /* Enable adaptive quality adjustment */
   bool adaptive_sampling;       /* Enable adaptive sampling */
@@ -269,23 +269,23 @@ struct LilybearRenderSettings {
   LilybearQualityLevel quality_level; /* Base quality level */
   int base_samples;             /* Base samples per pixel */
   float quality_factor;         /* Quality adjustment factor */
-  
+
   /* Live Rendering Settings */
   bool enable_live_rendering;   /* Enable live rendering mode */
   float live_update_rate;       /* Live update rate in Hz */
   int progressive_passes;       /* Number of progressive passes */
-  
+
   /* AI Settings */
   bool enable_ai_integration;   /* Enable AI integration */
   bool enable_ai_suggestions;   /* Enable AI suggestions */
   bool enable_ai_optimization;  /* Enable AI optimization */
   float ai_confidence_threshold; /* Minimum AI confidence for suggestions */
-  
+
   /* Performance Settings */
   bool enable_adaptive_quality; /* Enable adaptive quality adjustment */
   bool enable_performance_monitoring; /* Enable performance monitoring */
   float performance_target_fps; /* Target FPS for adaptive rendering */
-  
+
   /* Advanced Settings */
   bool enable_intelligent_sampling; /* Enable intelligent sampling */
   bool enable_real_time_denoising; /* Enable real-time denoising */
@@ -347,4 +347,4 @@ void log_lilybear_performance(const LilybearPerformanceMetrics &metrics);
  * Outputs AI suggestion details to log
  */
 void log_lilybear_ai_suggestion(const LilybearAISuggestion &suggestion);
-} 
+}

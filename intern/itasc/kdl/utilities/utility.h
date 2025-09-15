@@ -1,18 +1,18 @@
-/***************************************************************************** 
+/*****************************************************************************
  *  	Erwin Aertbelien, Div. PMA, Dep. of Mech. Eng., K.U.Leuven
  *
- * \version 
+ * \version
  *		ORO_Geometry V0.2
  *
  *	\par History
  *		- $log$
  *
  *	\par Release
- *		$Name:  $ 
+ *		$Name:  $
  * \file
  *    Included by most lrl-files to provide some general
  *    functions and macro definitions.
- *  
+ *
  * \par history
  *   - changed layout of the comments to accommodate doxygen
  */
@@ -60,7 +60,7 @@
 namespace KDL {
 
 #ifdef __GNUC__
-    // so that sin,cos can be overloaded and complete 
+    // so that sin,cos can be overloaded and complete
     // resolution of overloaded functions work.
     using ::sin;
     using ::cos;
@@ -87,7 +87,7 @@ namespace KDL {
     inline double sin(double a) {
         return ::sin(a);
     }
-    
+
     inline double cos(double a) {
         return ::cos(a);
     }
@@ -127,15 +127,15 @@ namespace KDL {
     inline double atan2(double a,double b) {
         return ::atan2(a,b);
     }
-#endif  
+#endif
 
 
 
 
 
-/** 
+/**
  * Auxiliary class for argument types (Trait-template class )
- * 
+ *
  * Is used to pass doubles by value, and arbitrary objects by const reference.
  * This is TWICE as fast (2 x less memory access) and avoids bugs in VC6++ concerning
  * the assignment of the result of intrinsic functions to const double&-typed variables,
@@ -164,7 +164,7 @@ public:
 
 
 
-/** 
+/**
  * /note linkage
  * Something fishy about the difference between C++ and C
  * in C++ const values default to INTERNAL linkage, in C they default
@@ -172,7 +172,7 @@ public:
  * because they, for at least some of them, can be changed by the user.
  * If you want to explicitly declare internal linkage, use "static".
  */
-//! 
+//!
 extern int          STREAMBUFFERSIZE;
 
 //! maximal length of a file name
@@ -201,7 +201,7 @@ extern int          VSIZE;
 #ifndef _MFC_VER
 #undef max
 inline double max(double a,double b) {
-    if (b<a) 
+    if (b<a)
         return a;
     else
         return b;
@@ -209,7 +209,7 @@ inline double max(double a,double b) {
 
 #undef min
 inline double min(double a,double b) {
-    if (b<a) 
+    if (b<a)
         return b;
     else
         return a;

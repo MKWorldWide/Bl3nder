@@ -1300,7 +1300,7 @@ btLCP::btLCP(int _n, int _nskip, int _nub, btScalar *_Adata, btScalar *_x, btSca
         i1 = dRandInt(n-nub)+nub;
         i2 = dRandInt(n-nub)+nub;
       }
-      while (i1 > i2); 
+      while (i1 > i2);
       //printf ("--> %d %d\n",i1,i2);
       btSwapProblem (m_A,m_x,m_b,m_w,m_lo,m_hi,m_p,m_state,m_findex,n,i1,i2,m_nskip,0);
     }

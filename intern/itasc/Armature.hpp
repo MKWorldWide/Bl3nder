@@ -80,7 +80,7 @@ public:
 		JointConstraint_struct(SegmentMap::const_iterator _segment, unsigned int _y_nr, ConstraintCallback _function, void* _param, bool _freeParam, bool _substep);
 		~JointConstraint_struct();
 	};
-	typedef std::vector<JointConstraint_struct*> JointConstraintList;	
+	typedef std::vector<JointConstraint_struct*> JointConstraintList;
 
 	struct Joint_struct {
 		KDL::Joint::JointType	type;
@@ -95,7 +95,7 @@ public:
 			type(_type), ndof(_ndof), rest(_rest)  { useLimit=locked=false; min=0.0; max=0.0; }
 	};
 	typedef std::vector<Joint_struct> JointList;
-	
+
 protected:
     virtual void updateJacobian();
 

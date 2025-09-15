@@ -222,16 +222,16 @@ void BKE_depsgraph_update(Depsgraph *depsgraph) {
 void BKE_scene_update_tagged(Depsgraph *depsgraph) {
   // 1. Scene evaluation
   BKE_scene_eval(depsgraph);
-  
+
   // 2. Object evaluation
   BKE_object_eval(depsgraph);
-  
+
   // 3. Geometry evaluation
   BKE_mesh_eval(depsgraph);
-  
+
   // 4. Material evaluation
   BKE_material_eval(depsgraph);
-  
+
   // 5. Animation evaluation
   BKE_anim_eval(depsgraph);
 }
@@ -378,7 +378,7 @@ modifier.levels = 2
 void print_object_hierarchy(Object *obj, int depth) {
   for (int i = 0; i < depth; i++) printf("  ");
   printf("Object: %s\n", obj->name);
-  
+
   LISTBASE_FOREACH (Object *, child, &obj->children) {
     print_object_hierarchy(child, depth + 1);
   }
@@ -428,4 +428,4 @@ void print_memory_usage() {
 *BlenKernel is the heart of Blender's data management system. Its reliability and performance are essential for the entire application's success.*
 
 **Last Updated**: 2024-12-19
-**Version**: 1.0 
+**Version**: 1.0

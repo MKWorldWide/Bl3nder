@@ -91,4 +91,3 @@ lzo1x_decompress_safe   ( const lzo_bytep src, lzo_uint  src_len,
 #endif
 
 #endif /* already included */
-

@@ -104894,4 +104894,3 @@ msgstr "Suavizar por Ângulo"
 
 msgid "Maximum face angle for smooth edges"
 msgstr "Ângulo máximo da face para arestas suaves"
-

@@ -112,7 +112,7 @@ Blend File Structure:
 
 **Rendering Pipeline**:
 ```
-Scene Data → Geometry Processing → Material Evaluation → 
+Scene Data → Geometry Processing → Material Evaluation →
 Lighting Calculation → Sampling → Image Generation → Output
 ```
 
@@ -263,4 +263,4 @@ Scene
 *This architecture documentation provides a comprehensive overview of Blender's system design. For detailed implementation information, refer to the source code and specific component documentation.*
 
 **Last Updated**: 2024-12-19
-**Version**: 1.0 
+**Version**: 1.0

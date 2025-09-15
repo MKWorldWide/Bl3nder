@@ -148771,4 +148771,3 @@ msgstr "Góc mặt tối đa cho các cạnh mịn"
 
 msgid "Ignore Sharpness"
 msgstr "Bỏ Qua Độ Sắc Nét"
-

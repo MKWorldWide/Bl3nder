@@ -41,7 +41,7 @@ std::shared_ptr<IHandle> PlaybackCategory::play(std::shared_ptr<ISound> sound)
 	auto handle = m_device->play(vs);
 	if(handle == nullptr)
 		return nullptr;
-	switch (m_status) 
+	switch (m_status)
 	{
 	case STATUS_PAUSED:
 		handle->pause();
@@ -55,7 +55,7 @@ std::shared_ptr<IHandle> PlaybackCategory::play(std::shared_ptr<ISound> sound)
 	data->id = m_currentID;
 	handle->setStopCallback(cleanHandleCallback, data);
 	m_device->unlock();
-	
+
 	m_currentID++;
 	return handle;
 }
@@ -104,7 +104,7 @@ void PlaybackCategory::setVolume(float volume)
 	m_volumeStorage->setVolume(volume);
 }
 
-void PlaybackCategory::stop() 
+void PlaybackCategory::stop()
 {
 	m_device->lock();
 	for(auto i = m_handles.begin(); i != m_handles.end();)
@@ -113,7 +113,7 @@ void PlaybackCategory::stop()
 		if(i->second->getStatus() == STATUS_INVALID)
 			i = m_handles.erase(i);
 		else
-			i++;			
+			i++;
 	}
 	m_device->unlock();
 	m_status = STATUS_STOPPED;

@@ -120,4 +120,3 @@ msgstr "Restaŭri lasta kunsido"
 
 msgid "Recent"
 msgstr "Freŝaj"
-

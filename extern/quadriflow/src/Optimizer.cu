@@ -112,7 +112,7 @@ double scale, glm::dvec3& v1, glm::dvec3& v2) {
 	v2 = o1p + (q1 * ((best_j & 1) * scale) + t1 * (((best_j & 2) >> 1) * scale));
 }
 
-__global__ 
+__global__
 void cudaUpdateOrientation(int* phase, int num_phases, glm::dvec3* N, glm::dvec3* Q, Link* adj, int* adjOffset, int num_adj) {
 	int pi = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -197,7 +197,7 @@ void cudaPropagateOrientationLower(glm::ivec2* toUpper, glm::dvec3* Q, glm::dvec
 }
 
 
-__global__ 
+__global__
 void cudaUpdatePosition(int* phase, int num_phases, glm::dvec3* N, glm::dvec3* Q, Link* adj, int* adjOffset, int num_adj, glm::dvec3* V, glm::dvec3* O, double scale) {
 	int pi = blockIdx.x * blockDim.x + threadIdx.x;
 

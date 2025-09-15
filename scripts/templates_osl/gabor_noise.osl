@@ -10,8 +10,7 @@ shader gabor_noise(
 	Gabor = noise("gabor", Point,
 	              "direction", Direction,
 	              "anisotropic", Anisotropic,
-	              "do_filter", 1, // Set to 0 to disable filtering/anti-aliasing 
+	              "do_filter", 1, // Set to 0 to disable filtering/anti-aliasing
 	              "bandwidth", Bandwidth,
 	              "impulses", Impulses);
 }
-

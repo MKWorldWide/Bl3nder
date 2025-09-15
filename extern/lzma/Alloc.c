@@ -131,13 +131,13 @@ static void PrintAddr(void *p)
     PrintHex(size, 10); \
     PrintAddr(ptr); \
     PrintLn(); }
- 
+
 #define PRINT_FREE(name, cnt, ptr) if (ptr) { \
     Print(name " "); \
     PrintDec(--cnt, 10); \
     PrintAddr(ptr); \
     PrintLn(); }
- 
+
 #else
 
 #ifdef _WIN32
@@ -187,7 +187,7 @@ void *MyAlloc(size_t size)
 void MyFree(void *address)
 {
   PRINT_FREE("Free    ", g_allocCount, address)
-  
+
   free(address);
 }
 
@@ -402,7 +402,7 @@ static int posix_memalign(void **ptr, size_t align, size_t size)
 static void *SzAlignedAlloc(ISzAllocPtr pp, size_t size)
 {
   #ifndef USE_posix_memalign
-  
+
   void *p;
   void *pAligned;
   size_t newSize;
@@ -416,7 +416,7 @@ static void *SzAlignedAlloc(ISzAllocPtr pp, size_t size)
     return NULL;
 
   p = MyAlloc(newSize);
-  
+
   if (!p)
     return NULL;
   pAligned = MY_ALIGN_PTR_UP_PLUS(p, ALLOC_ALIGN_SIZE);
@@ -482,7 +482,7 @@ static void *AlignOffsetAlloc_Alloc(ISzAllocPtr pp, size_t size)
 
   if (alignSize < sizeof(void *))
     alignSize = sizeof(void *);
-  
+
   if (p->offset >= alignSize)
     return NULL;
 
@@ -494,7 +494,7 @@ static void *AlignOffsetAlloc_Alloc(ISzAllocPtr pp, size_t size)
     return NULL;
 
   adr = ISzAlloc_Alloc(p->baseAlloc, newSize);
-  
+
   if (!adr)
     return NULL;
 

@@ -24,7 +24,7 @@ namespace blender::lilybear {
 
 /**
  * 🚀 Lilybear Render Instance Implementation
- * 
+ *
  * Provides concrete implementation of the render instance with:
  * - GPU resource management
  * - Progressive rendering pipeline
@@ -64,7 +64,7 @@ Instance::Instance() : is_initialized_(false),
   resolution_ = int2(1920, 1080);
   render_rect_ = {0, 1920, 0, 1080};
   visible_rect_ = {0, 1920, 0, 1080};
-  
+
   /* Initialize performance targets */
   performance_targets_.target_fps = 30.0f;
   performance_targets_.max_frame_time = 33.33f;
@@ -76,7 +76,7 @@ Instance::Instance() : is_initialized_(false),
   performance_targets_.adaptive_quality = true;
   performance_targets_.adaptive_sampling = true;
   performance_targets_.intelligent_optimization = true;
-  
+
   /* Initialize render stats */
   render_stats_.total_frames = 0;
   render_stats_.total_render_time = 0.0;
@@ -106,13 +106,13 @@ bool Instance::init(const int2 &resolution,
   if (is_initialized_) {
     return true;
   }
-  
+
   /* Store render context */
   engine_ = engine;
   depsgraph_ = depsgraph;
   camera_object_ = camera_object;
   render_layer_ = render_layer;
-  
+
   /* Store resolution and view */
   resolution_ = resolution;
   if (rect) {
@@ -121,46 +121,46 @@ bool Instance::init(const int2 &resolution,
   if (visible_rect) {
     visible_rect_ = *visible_rect;
   }
-  
+
   /* Create GPU textures */
   if (!create_textures()) {
     CLOG_ERROR(LOG_LILYBEAR, "Failed to create textures for render instance");
     return false;
   }
-  
+
   /* Create framebuffers */
   if (!create_framebuffers()) {
     CLOG_ERROR(LOG_LILYBEAR, "Failed to create framebuffers for render instance");
     return false;
   }
-  
+
   /* Create shaders */
   if (!create_shaders()) {
     CLOG_ERROR(LOG_LILYBEAR, "Failed to create shaders for render instance");
     return false;
   }
-  
+
   /* Create uniform buffers */
   if (!create_uniform_buffers()) {
     CLOG_ERROR(LOG_LILYBEAR, "Failed to create uniform buffers for render instance");
     return false;
   }
-  
+
   /* Initialize live rendering */
   live_rendering_ = new LiveRenderingInstance();
   if (!live_rendering_->init(resolution_, RenderSettings())) {
     CLOG_WARN(LOG_LILYBEAR, "Failed to initialize live rendering");
   }
-  
+
   /* Initialize AI integration */
   ai_integration_ = new AIIntegrationInstance();
   if (!ai_integration_->init()) {
     CLOG_WARN(LOG_LILYBEAR, "Failed to initialize AI integration");
   }
-  
+
   is_initialized_ = true;
   CLOG_INFO(LOG_LILYBEAR, 1, "Render instance initialized successfully");
-  
+
   return true;
 }
 
@@ -169,24 +169,24 @@ void Instance::cleanup()
   if (!is_initialized_) {
     return;
   }
-  
+
   /* Stop live rendering */
   if (live_rendering_active_) {
     stop_live_rendering();
   }
-  
+
   /* Cleanup live rendering */
   if (live_rendering_) {
     delete live_rendering_;
     live_rendering_ = nullptr;
   }
-  
+
   /* Cleanup AI integration */
   if (ai_integration_) {
     delete ai_integration_;
     ai_integration_ = nullptr;
   }
-  
+
   /* Cleanup GPU resources */
   if (color_texture_) {
     GPU_texture_free(color_texture_);
@@ -212,7 +212,7 @@ void Instance::cleanup()
     GPU_texture_free(metallic_texture_);
     metallic_texture_ = nullptr;
   }
-  
+
   if (main_framebuffer_) {
     GPU_framebuffer_free(main_framebuffer_);
     main_framebuffer_ = nullptr;
@@ -221,7 +221,7 @@ void Instance::cleanup()
     GPU_framebuffer_free(accumulation_framebuffer_);
     accumulation_framebuffer_ = nullptr;
   }
-  
+
   if (progressive_shader_) {
     GPU_shader_free(progressive_shader_);
     progressive_shader_ = nullptr;
@@ -234,7 +234,7 @@ void Instance::cleanup()
     GPU_shader_free(compositing_shader_);
     compositing_shader_ = nullptr;
   }
-  
+
   if (settings_ubo_) {
     GPU_uniformbuf_free(settings_ubo_);
     settings_ubo_ = nullptr;
@@ -243,7 +243,7 @@ void Instance::cleanup()
     GPU_uniformbuf_free(performance_ubo_);
     performance_ubo_ = nullptr;
   }
-  
+
   is_initialized_ = false;
   CLOG_INFO(LOG_LILYBEAR, 1, "Render instance cleaned up");
 }
@@ -258,16 +258,16 @@ void Instance::start_live_rendering()
     CLOG_ERROR(LOG_LILYBEAR, "Cannot start live rendering: not initialized");
     return;
   }
-  
+
   if (live_rendering_active_) {
     CLOG_WARN(LOG_LILYBEAR, "Live rendering already active");
     return;
   }
-  
+
   if (live_rendering_) {
     live_rendering_->start();
   }
-  
+
   live_rendering_active_ = true;
   CLOG_INFO(LOG_LILYBEAR, 1, "Live rendering started");
 }
@@ -277,11 +277,11 @@ void Instance::stop_live_rendering()
   if (!live_rendering_active_) {
     return;
   }
-  
+
   if (live_rendering_) {
     live_rendering_->stop();
   }
-  
+
   live_rendering_active_ = false;
   CLOG_INFO(LOG_LILYBEAR, 1, "Live rendering stopped");
 }
@@ -294,39 +294,39 @@ void Instance::render_frame_progressive(RenderEngine *engine,
     CLOG_ERROR(LOG_LILYBEAR, "Cannot render frame: not initialized");
     return;
   }
-  
+
   is_rendering_ = true;
   const double start_time = BLI_time_now_seconds();
-  
+
   /* Update performance metrics */
   update_performance_metrics();
-  
+
   /* Apply adaptive quality */
   apply_adaptive_quality();
-  
+
   /* Render progressive passes */
   const int num_passes = int(16.0f * quality_factor_);
   for (int pass = 0; pass < num_passes; pass++) {
     render_progressive_pass(pass);
-    
+
     /* Check if we should stop early */
     if (current_metrics_.frame_time > performance_targets_.max_frame_time) {
       break;
     }
   }
-  
+
   /* Apply denoising */
   apply_denoising();
-  
+
   /* Composite final result */
   composite_final_result();
-  
+
   /* Update statistics */
   const double render_time = BLI_time_now_seconds() - start_time;
   render_stats_.total_frames++;
   render_stats_.total_render_time += render_time;
   render_stats_.average_frame_time = render_stats_.total_render_time / render_stats_.total_frames;
-  
+
   is_rendering_ = false;
   CLOG_INFO(LOG_LILYBEAR, 2, "Frame rendered in %.3f seconds", render_time);
 }
@@ -340,7 +340,7 @@ void Instance::store_metadata(RenderResult *render_result)
   if (!is_initialized_ || !render_result) {
     return;
   }
-  
+
   /* Store render metadata for AI analysis */
   // TODO: Implement metadata storage
   CLOG_INFO(LOG_LILYBEAR, 2, "Render metadata stored for AI analysis");
@@ -351,14 +351,14 @@ void Instance::analyze_scene_for_ai()
   if (!is_initialized_ || !ai_integration_) {
     return;
   }
-  
+
   /* Analyze scene for AI suggestions */
   SceneData scene_data;
   // TODO: Populate scene data from current scene
-  
+
   std::vector<AISuggestion> suggestions;
   ai_integration_->analyze_scene(scene_data, current_metrics_, suggestions);
-  
+
   CLOG_INFO(LOG_LILYBEAR, 2, "Scene analyzed, generated %d AI suggestions", suggestions.size());
 }
 
@@ -367,7 +367,7 @@ void Instance::process_ai_suggestions(Depsgraph *depsgraph)
   if (!is_initialized_ || !ai_integration_) {
     return;
   }
-  
+
   /* Process AI suggestions */
   // TODO: Implement AI suggestion processing
   CLOG_INFO(LOG_LILYBEAR, 2, "AI suggestions processed");
@@ -378,7 +378,7 @@ void Instance::apply_ai_optimizations(Scene *scene)
   if (!is_initialized_ || !ai_integration_ || !scene) {
     return;
   }
-  
+
   /* Apply AI optimizations to scene */
   // TODO: Implement AI optimization application
   CLOG_INFO(LOG_LILYBEAR, 2, "AI optimizations applied to scene");
@@ -391,11 +391,11 @@ void Instance::apply_ai_optimizations(Scene *scene)
 void Instance::update_live_rendering_quality(float quality_factor)
 {
   quality_factor_ = CLAMP(quality_factor, 0.1f, 2.0f);
-  
+
   if (live_rendering_) {
     live_rendering_->update_quality(quality_factor_);
   }
-  
+
   CLOG_INFO(LOG_LILYBEAR, 2, "Live rendering quality updated to %.2f", quality_factor_);
 }
 
@@ -419,7 +419,7 @@ void Instance::view_update(bContext *context, Depsgraph *depsgraph)
   if (!is_initialized_) {
     return;
   }
-  
+
   /* Update viewport for live rendering */
   if (live_rendering_) {
     live_rendering_->update(context, depsgraph);
@@ -431,7 +431,7 @@ void Instance::view_draw(bContext *context, Depsgraph *depsgraph)
   if (!is_initialized_) {
     return;
   }
-  
+
   /* Draw viewport with live rendering */
   if (live_rendering_) {
     live_rendering_->draw(context, depsgraph);
@@ -459,7 +459,7 @@ bool Instance::create_textures()
                                          GPU_RGBA16F,
                                          GPU_TEXTURE_USAGE_SHADER_READ | GPU_TEXTURE_USAGE_ATTACHMENT,
                                          nullptr);
-  
+
   /* Create depth texture */
   depth_texture_ = GPU_texture_create_2d("lilybear_depth",
                                          resolution_.x,
@@ -468,7 +468,7 @@ bool Instance::create_textures()
                                          GPU_DEPTH_COMPONENT24,
                                          GPU_TEXTURE_USAGE_SHADER_READ | GPU_TEXTURE_USAGE_ATTACHMENT,
                                          nullptr);
-  
+
   /* Create normal texture */
   normal_texture_ = GPU_texture_create_2d("lilybear_normal",
                                           resolution_.x,
@@ -477,7 +477,7 @@ bool Instance::create_textures()
                                           GPU_RGBA16F,
                                           GPU_TEXTURE_USAGE_SHADER_READ | GPU_TEXTURE_USAGE_ATTACHMENT,
                                           nullptr);
-  
+
   /* Create albedo texture */
   albedo_texture_ = GPU_texture_create_2d("lilybear_albedo",
                                           resolution_.x,
@@ -486,7 +486,7 @@ bool Instance::create_textures()
                                           GPU_RGBA16F,
                                           GPU_TEXTURE_USAGE_SHADER_READ | GPU_TEXTURE_USAGE_ATTACHMENT,
                                           nullptr);
-  
+
   /* Create roughness texture */
   roughness_texture_ = GPU_texture_create_2d("lilybear_roughness",
                                              resolution_.x,
@@ -495,7 +495,7 @@ bool Instance::create_textures()
                                              GPU_R16F,
                                              GPU_TEXTURE_USAGE_SHADER_READ | GPU_TEXTURE_USAGE_ATTACHMENT,
                                              nullptr);
-  
+
   /* Create metallic texture */
   metallic_texture_ = GPU_texture_create_2d("lilybear_metallic",
                                             resolution_.x,
@@ -504,8 +504,8 @@ bool Instance::create_textures()
                                             GPU_R16F,
                                             GPU_TEXTURE_USAGE_SHADER_READ | GPU_TEXTURE_USAGE_ATTACHMENT,
                                             nullptr);
-  
-  return (color_texture_ && depth_texture_ && normal_texture_ && 
+
+  return (color_texture_ && depth_texture_ && normal_texture_ &&
           albedo_texture_ && roughness_texture_ && metallic_texture_);
 }
 
@@ -515,11 +515,11 @@ bool Instance::create_framebuffers()
   main_framebuffer_ = GPU_framebuffer_create("lilybear_main");
   GPU_framebuffer_texture_attach(main_framebuffer_, color_texture_, 0, 0);
   GPU_framebuffer_texture_attach(main_framebuffer_, depth_texture_, 0, 0);
-  
+
   /* Create accumulation framebuffer */
   accumulation_framebuffer_ = GPU_framebuffer_create("lilybear_accumulation");
   GPU_framebuffer_texture_attach(accumulation_framebuffer_, color_texture_, 0, 0);
-  
+
   return (main_framebuffer_ && accumulation_framebuffer_);
 }
 
@@ -527,13 +527,13 @@ bool Instance::create_shaders()
 {
   /* Create progressive shader */
   progressive_shader_ = GPU_shader_create_from_info_name("lilybear_progressive");
-  
+
   /* Create denoising shader */
   denoising_shader_ = GPU_shader_create_from_info_name("lilybear_denoising");
-  
+
   /* Create compositing shader */
   compositing_shader_ = GPU_shader_create_from_info_name("lilybear_compositing");
-  
+
   return (progressive_shader_ && denoising_shader_ && compositing_shader_);
 }
 
@@ -541,10 +541,10 @@ bool Instance::create_uniform_buffers()
 {
   /* Create settings uniform buffer */
   settings_ubo_ = GPU_uniformbuf_create(sizeof(RenderSettings));
-  
+
   /* Create performance uniform buffer */
   performance_ubo_ = GPU_uniformbuf_create(sizeof(PerformanceMetrics));
-  
+
   return (settings_ubo_ && performance_ubo_);
 }
 
@@ -575,14 +575,14 @@ void Instance::apply_adaptive_quality()
   if (!performance_targets_.adaptive_quality) {
     return;
   }
-  
+
   /* Adjust quality based on performance targets */
   if (current_metrics_.frame_time > performance_targets_.max_frame_time) {
     quality_factor_ = MAX(quality_factor_ * 0.9f, performance_targets_.min_quality);
   } else if (current_metrics_.frame_time < performance_targets_.max_frame_time * 0.8f) {
     quality_factor_ = MIN(quality_factor_ * 1.1f, 2.0f);
   }
-  
+
   /* Update live rendering quality */
   update_live_rendering_quality(quality_factor_);
 }
@@ -608,4 +608,4 @@ void Instance::composite_final_result()
   CLOG_INFO(LOG_LILYBEAR, 2, "Composited final result");
 }
 
-}  // namespace blender::lilybear 
+}  // namespace blender::lilybear

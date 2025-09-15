@@ -46,4 +46,4 @@ struct ERAInput {
   float4 velocity;
 };
 
-}  // namespace blender::eevee 
+}  // namespace blender::eevee

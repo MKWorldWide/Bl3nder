@@ -48,4 +48,3 @@ typedef void* DynamicLibrary;
 #  define dynamic_library_close(lib)         dlclose(lib)
 #  define dynamic_library_find(lib, symbol)  dlsym(lib, symbol)
 #endif
-

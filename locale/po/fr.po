@@ -151390,4 +151390,3 @@ msgstr "Angle de face maximal pour les arêtes lisses"
 
 msgid "Ignore Sharpness"
 msgstr "Ignorer la dureté"
-

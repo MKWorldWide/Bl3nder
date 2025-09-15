@@ -14,6 +14,6 @@ exit /b 1
 
 :detect_blender_done
 
-%PYTHON% -B %BLENDER_DIR%\release\datafiles\blender_icons_geom_update.py 
+%PYTHON% -B %BLENDER_DIR%\release\datafiles\blender_icons_geom_update.py
 
 :EOF

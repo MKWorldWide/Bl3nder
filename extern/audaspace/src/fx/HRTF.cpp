@@ -72,9 +72,9 @@ std::pair<std::shared_ptr<ImpulseResponse>, std::shared_ptr<ImpulseResponse>> HR
 		}
 	}
 	elevation = el;
-	dif = 0; 
+	dif = 0;
 	minDif = 360;
-	
+
 	for(auto elem : m_hrtfs[elevation])
 	{
 		dif = std::fabs(azimuth - elem.first);

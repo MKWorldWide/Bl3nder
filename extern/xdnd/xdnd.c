@@ -18,7 +18,7 @@
  */
 
 
-/* 
+/*
    Released 1998-08-07
    Changes:
 
@@ -488,7 +488,7 @@ void xdnd_set_actions (DndClass * dnd, Window window, Atom * actions, char **des
     xdnd_xfree (s);
 }
 
-/* returns 1 on error or no actions, otherwise result must be free'd 
+/* returns 1 on error or no actions, otherwise result must be free'd
    xdnd_get_actions (window, &actions, &descriptions);
    free (actions); free (descriptions); */
 int xdnd_get_actions (DndClass * dnd, Window window, Atom ** actions, char ***descriptions)
@@ -1126,7 +1126,7 @@ Atom xdnd_drag (DndClass * dnd, Window from, Atom action, Atom * typelist)
             dnd_debug1 ("ClientMessage recieved");
             if (xevent.xclient.message_type == dnd->XdndStatus && !dnd->internal_drag) {
                 dnd_debug1 ("  XdndStatus recieved");
-                if (dnd->stage == XDND_DRAG_STAGE_ENTERED 
+                if (dnd->stage == XDND_DRAG_STAGE_ENTERED
 #if XDND_VERSION < 3
                         && XDND_STATUS_TARGET_WIN (&xevent) == dnd->dropper_window
 #endif
@@ -1265,7 +1265,7 @@ int xdnd_handle_drop_events (DndClass * dnd, XEvent * xevent)
             int error;
             dnd_debug1 ("  property is Xdnd_NON_PROTOCOL_ATOM - getting selection");
             error = xdnd_get_selection (dnd, dnd->dragger_window, xevent->xselection.property, xevent->xany.window);
-/* error is not actually used, i think future versions of the protocol maybe should return 
+/* error is not actually used, i think future versions of the protocol maybe should return
    an error status to the calling window with the XdndFinished client message */
             if (dnd_version_at_least (dnd->dragging_version, 2)) {
 #if XDND_VERSION >= 3
@@ -1349,7 +1349,7 @@ int xdnd_handle_drop_events (DndClass * dnd, XEvent * xevent)
                     for (;;) {
                         int xd, yd;
                         new_child = 0;
-                        if (!XTranslateCoordinates (dnd->display, parent, child, 
+                        if (!XTranslateCoordinates (dnd->display, parent, child,
                                     XDND_POSITION_ROOT_X (xevent), XDND_POSITION_ROOT_Y (xevent),
                                     &xd, &yd, &new_child))
                             break;
@@ -1596,5 +1596,3 @@ Atom xdnd_get_drop (Display * display, XEvent * xevent, Atom * typelist, Atom * 
     }
     return action;
 }
-
-

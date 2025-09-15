@@ -15,7 +15,7 @@ This file was generated from a default startup scene, by altering the written ID
 --- a/source/blender/blenloader/intern/writefile.cc
 +++ b/source/blender/blenloader/intern/writefile.cc
 @@ -1894,7 +1894,14 @@ void BLO_write_struct_list_by_name(BlendWriter *writer, const char *struct_name,
- 
+
  void blo_write_id_struct(BlendWriter *writer, int struct_id, const void *id_address, const ID *id)
  {
 -  writestruct_at_address_nr(writer->wd, GS(id->name), struct_id, 1, id_address, id);
@@ -28,6 +28,6 @@ This file was generated from a default startup scene, by altering the written ID
 +  }
 +  writestruct_at_address_nr(writer->wd, filecode, struct_id, 1, id_address, id);
  }
- 
+
  int BLO_get_struct_id_by_name(const BlendWriter *writer, const char *struct_name)
 ```

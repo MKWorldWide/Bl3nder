@@ -9,7 +9,7 @@ diff -Naur orig/CMakeLists.txt external_openimageio/CMakeLists.txt
 +    #add_subdirectory (src/testtex)
      add_subdirectory (src/iv)
  endif ()
- 
+
 diff -Naur orig/src/cmake/compiler.cmake external_openimageio/src/cmake/compiler.cmake
 --- orig/src/cmake/compiler.cmake	2020-05-10 21:43:52 -0600
 +++ external_openimageio/src/cmake/compiler.cmake	2020-05-13 17:02:54 -0600
@@ -19,5 +19,5 @@ diff -Naur orig/src/cmake/compiler.cmake external_openimageio/src/cmake/compiler
      add_compile_definitions (JAS_WIN_MSVC_BUILD)
 +    add_compile_definitions (OPJ_STATIC)
  endif (MSVC)
- 
+
  if (${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD"

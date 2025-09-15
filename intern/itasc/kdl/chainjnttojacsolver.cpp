@@ -80,4 +80,3 @@ namespace KDL
         return 0;
     }
 }
-

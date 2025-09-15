@@ -3,7 +3,7 @@
 
 const char *blf_get_icon_svg(int icon)
 {
-	switch (icon) 
+	switch (icon)
 	{
 		@SVG_CONTENTS_C@
 	default:

@@ -3,13 +3,13 @@ index 2bb1f30d0..adcc7422e 100644
 --- a/cmake/defaults/Packages.cmake
 +++ b/cmake/defaults/Packages.cmake
 @@ -152,7 +152,7 @@ endif()
- 
- 
+
+
  # --TBB
 -find_package(TBB REQUIRED COMPONENTS tbb)
 +find_package(TBB)
  add_definitions(${TBB_DEFINITIONS})
- 
+
  # --math
 diff --git a/cmake/defaults/msvcdefaults.cmake b/cmake/defaults/msvcdefaults.cmake
 index 0f7fb7ef6..a467341ed 100644
@@ -18,7 +18,7 @@ index 0f7fb7ef6..a467341ed 100644
 @@ -140,9 +140,6 @@ _add_define("WIN32_LEAN_AND_MEAN")
  # for all translation units.
  set(_PXR_CXX_FLAGS "${_PXR_CXX_FLAGS} /bigobj")
- 
+
 -# Enable PDB generation.
 -set(_PXR_CXX_FLAGS "${_PXR_CXX_FLAGS} /Zi")
 -
@@ -38,11 +38,11 @@ index cb6ad44c5..c6c1a604b 100644
 +    defined(_M_ARM64)
  #define ARCH_CPU_ARM
  #endif
- 
+
 @@ -57,7 +58,8 @@
  // Bits
  //
- 
+
 -#if defined(__x86_64__) || defined(__aarch64__) || defined(_M_X64)
 +#if defined(__x86_64__) || defined(__aarch64__) || defined(_M_X64) || \
 +    defined(_M_ARM64)
@@ -84,7 +84,7 @@ index d78598a84..2f44a5f89 100644
    return t;
 +#endif
  }
- 
+
  /// Get a "stop" tick time for measuring an interval of time.  See
 @@ -125,6 +136,10 @@ ArchGetStartTickTime()
  inline uint64_t
@@ -103,13 +103,13 @@ index d78598a84..2f44a5f89 100644
    return t;
 +#endif
  }
- 
+
 -#if defined (doxygen) ||                                                       \
 -    (!defined(ARCH_OS_DARWIN) && defined(ARCH_CPU_INTEL) &&                    \
 -     (defined(ARCH_COMPILER_CLANG) || defined(ARCH_COMPILER_GCC)))
 +// BLENDER: avoid using rdtsc instruction that is not supported on older CPUs.
 +#if 0
- 
+
  /// A simple timer class for measuring an interval of time using the
  /// ArchTickTimer facilities.
 diff --git a/pxr/imaging/hioOpenVDB/CMakeLists.txt b/pxr/imaging/hioOpenVDB/CMakeLists.txt
@@ -119,7 +119,7 @@ index e32762cea..d2c08d3da 100644
 @@ -20,6 +20,12 @@ else()
      LIST(APPEND __VDB_IMATH_LIBS ${OPENEXR_Half_LIBRARY})
  endif()
- 
+
 +if (WIN32)
 +    # OpenVDB uses constants from <cmath> that aren't available on
 +    # Windows unless this is defined.
@@ -141,7 +141,7 @@ index 53c026689..e99a5ac17 100644
 +#    bin
      plugin
  )
- 
+
 diff --git a/cmake/macros/Private.cmake b/cmake/macros/Private.cmake
 index f0bc34ed8..c39db4bc4 100644
 --- a/cmake/macros/Private.cmake

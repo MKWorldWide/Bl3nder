@@ -12,9 +12,9 @@
 
 #define VMA_IMPLEMENTATION
 
-/* 
- * Disabling internal asserts of VMA. 
- * 
+/*
+ * Disabling internal asserts of VMA.
+ *
  * Blender can destroy logical device before all the resources are freed. This is because static
  * resources are freed as a last step during quiting. As long as Vulkan isn't feature complete
  * we don't want to change this behavior. So for now we just disable the asserts.

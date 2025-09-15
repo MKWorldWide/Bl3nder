@@ -9,10 +9,10 @@ We're thrilled you're interested in contributing to Bl3nder! This guide will hel
    # Fork and clone the repository
    git clone https://github.com/your-username/Bl3nder.git
    cd Bl3nder
-   
+
    # Install development dependencies
    pip install -r requirements-dev.txt
-   
+
    # Set up pre-commit hooks
    pre-commit install
    ```

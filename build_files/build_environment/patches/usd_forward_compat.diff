@@ -5,7 +5,7 @@ index 55c6d71e1..5d0fcbcfa 100644
 @@ -102,7 +102,8 @@ TF_REGISTRY_FUNCTION(TfType) {
      TfType::Define<Usd_CrateFile::TimeSamples>();
  }
- 
+
 -#define DEFAULT_NEW_VERSION "0.10.0"
 +// BLENDER: Keep USD files forward compatible for longer.
 +#define DEFAULT_NEW_VERSION "0.9.0"

@@ -471,4 +471,3 @@ namespace lemon {
 } //namespace lemon
 
 #endif //LEMON_PAIRING_HEAP_H
-

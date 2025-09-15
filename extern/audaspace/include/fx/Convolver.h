@@ -149,7 +149,7 @@ public:
 	void getNext(sample_t* inBuffer, sample_t* outBuffer, int& length, bool& eos);
 
 	/**
-	* Resets all the internally stored data so the convolution of a new sound can be started. 
+	* Resets all the internally stored data so the convolution of a new sound can be started.
 	*/
 	void reset();
 

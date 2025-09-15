@@ -50,7 +50,7 @@ public:
 		CTL_ALL=0x3F,
 	};
 
-	// use a combination of CTL_.. in control_output to specify which 
+	// use a combination of CTL_.. in control_output to specify which
     CopyPose(unsigned int control_output=CTL_ALL, unsigned int dynamic_output=CTL_NONE, double armlength=1.0, double accuracy=1e-6, unsigned int maximum_iterations=100);
     virtual ~CopyPose();
 

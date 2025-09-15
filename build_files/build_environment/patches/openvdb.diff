@@ -4,12 +4,12 @@ diff -Naur openvdb-12.0.0/openvdb/openvdb/CMakeLists.txt openvdb/openvdb/openvdb
 @@ -148,6 +148,15 @@
    endif()
  endif()
- 
+
 +add_compile_definitions(
-+  #Blender: prevent implicit TBB linkage 
-+  __TBB_NO_IMPLICIT_LINKAGE 
-+  #Blender: OpenEXR is static 
-+  OPENVDB_OPENEXR_STATICLIB 
++  #Blender: prevent implicit TBB linkage
++  __TBB_NO_IMPLICIT_LINKAGE
++  #Blender: OpenEXR is static
++  OPENVDB_OPENEXR_STATICLIB
 +  #Blender: Link the debug python libs rather than the release ones
 +  $<$<CONFIG:Debug>:Py_DEBUG>
 +)
@@ -19,7 +19,7 @@ diff -Naur openvdb-12.0.0/openvdb/openvdb/CMakeLists.txt openvdb/openvdb/openvdb
    find_package(Blosc ${MINIMUM_BLOSC_VERSION} REQUIRED)
 @@ -608,7 +617,12 @@
  # imported targets.
- 
+
  if(OPENVDB_CORE_SHARED)
 -  add_library(openvdb_shared SHARED ${OPENVDB_LIBRARY_SOURCE_FILES})
 +  if(WIN32)
@@ -29,7 +29,7 @@ diff -Naur openvdb-12.0.0/openvdb/openvdb/CMakeLists.txt openvdb/openvdb/openvdb
 +    add_library(openvdb_shared SHARED ${OPENVDB_LIBRARY_SOURCE_FILES})
 +  endif()
  endif()
- 
+
  if(OPENVDB_CORE_STATIC)
 diff -Naur openvdb-12.0.0/openvdb/openvdb/python/CMakeLists.txt openvdb/openvdb/openvdb/python/CMakeLists.txt
 --- openvdb-12.0.0/openvdb/openvdb/python/CMakeLists.txt	2024-10-31 16:59:05.000000000 -0700
@@ -39,11 +39,11 @@ diff -Naur openvdb-12.0.0/openvdb/openvdb/python/CMakeLists.txt openvdb/openvdb/
  "Include the OpenVDB Python unit test. Requires a python interpreter]=]
  ${OPENVDB_BUILD_UNITTESTS})
 -
-+#blender: prevent double _d for the python module 
++#blender: prevent double _d for the python module
 +set(CMAKE_DEBUG_POSTFIX "")
 +add_compile_definitions($<$<CONFIG:Debug>:Py_DEBUG> __TBB_NO_IMPLICIT_LINKAGE)
  #########################################################################
- 
+
  message(STATUS "----------------------------------------------------")
 diff -Naur openvdb-12.0.0/openvdb/openvdb/version.rc.in openvdb/openvdb/openvdb/version.rc.in
 --- openvdb-12.0.0/openvdb/openvdb/version.rc.in	1969-12-31 16:00:00.000000000 -0800

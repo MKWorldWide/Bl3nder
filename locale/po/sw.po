@@ -117232,4 +117232,3 @@ msgstr "Upeo wa pembe ya uso kwa kingo laini"
 
 msgid "Ignore Sharpness"
 msgstr "Puuza Ukali"
-

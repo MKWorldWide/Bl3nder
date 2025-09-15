@@ -40,7 +40,7 @@ public:
 		case DLS_EPSILON:
 			m_epsilon = value;
 			break;
-		}	
+		}
 	}
 };
 

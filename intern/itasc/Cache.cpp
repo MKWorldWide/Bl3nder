@@ -552,7 +552,7 @@ const void *Cache::getPreviousCacheItem(const void *device, int id, unsigned int
 	CacheItem *item;
 
 	if (device) {
-		it = m_cache.find(device);	
+		it = m_cache.find(device);
 	} else {
 		it = m_cache.begin();
 	}
@@ -616,7 +616,7 @@ double *Cache::addCacheVectorIfDifferent(const void *device, int channel, CacheT
 			break;
 		*ref++ = *v++;
 	}
-	if (i) 
+	if (i)
 		olddata = (double*)addCacheItem(device, channel, timestamp, newdata, length*sizeof(double));
 	return olddata;
 }

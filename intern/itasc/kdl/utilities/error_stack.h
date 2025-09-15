@@ -1,12 +1,12 @@
 /***************************************************************************
-  tag: Erwin Aertbelien  Mon Jan 10 16:38:39 CET 2005  error_stack.h 
+  tag: Erwin Aertbelien  Mon Jan 10 16:38:39 CET 2005  error_stack.h
 
                         error_stack.h -  description
                            -------------------
     begin                : Mon January 10 2005
     copyright            : (C) 2005 Erwin Aertbelien
     email                : erwin.aertbelien@mech.kuleuven.ac.be
- 
+
  ***************************************************************************
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Lesser General Public            *
@@ -24,13 +24,13 @@
  *   Fifth Floor, Boston, MA 02110-1301, USA.                               *
  *                                                                         *
  ***************************************************************************/
- 
- 
-/** 
- * \file 
- * \version 
+
+
+/**
+ * \file
+ * \version
  *      ORO_Geometry V0.2
- *   
+ *
  * \par history
  *   - changed layout of the comments to accommodate doxygen
  */
@@ -66,4 +66,3 @@ void IOTracePopStr(char* buffer,int size);
 }
 
 #endif
-

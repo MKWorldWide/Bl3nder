@@ -387,7 +387,3 @@ IMETHOD void posrandom(FrameVel& F) {
 } // namespace
 
 #endif
-
-
-
-

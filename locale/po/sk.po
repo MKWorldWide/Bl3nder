@@ -151387,4 +151387,3 @@ msgstr "Maximálny uhol plôšky pre hladké hrany"
 
 msgid "Ignore Sharpness"
 msgstr "Ignorovať ostrosť"
-

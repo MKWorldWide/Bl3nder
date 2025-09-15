@@ -3803,4 +3803,3 @@ msgstr "Comutați Consola de sistem"
 msgctxt "Operator"
 msgid "Toggle System Console"
 msgstr "Comutați Consola de sistem"
-

@@ -24,7 +24,7 @@ namespace blender::lilybear {
 
 /**
  * 🚀 Lilybear Render Engine
- * 
+ *
  * Advanced render engine with AI-powered live rendering capabilities.
  * Features:
  * - Real-time progressive rendering
@@ -77,10 +77,10 @@ static void lilybear_render(RenderEngine *engine, Depsgraph *depsgraph)
 
     /* Initialize with live rendering enabled */
     instance->init(size, &rect, &visible_rect, engine, depsgraph, camera_original_ob, layer);
-    
+
     /* Start live rendering pipeline */
     instance->start_live_rendering();
-    
+
     /* Render frame with progressive refinement */
     instance->render_frame_progressive(engine, layer, viewname);
   };
@@ -142,7 +142,7 @@ static void lilybear_view_draw(RenderEngine *engine, bContext *context, Depsgrap
 
 /**
  * Lilybear Render Engine Type
- * 
+ *
  * Advanced render engine with:
  * - Live rendering capabilities
  * - AI-powered scene optimization
@@ -185,13 +185,13 @@ RenderEngineType DRW_engine_viewport_lilybear_type = {
 void register_lilybear_engine()
 {
   DRW_engines_register(&DRW_engine_viewport_lilybear_type);
-  
+
   /* Initialize AI integration */
   // TODO: Initialize AI integration when namespace is implemented
-  
+
   /* Initialize live rendering system */
   // TODO: Initialize live rendering when namespace is implemented
-  
+
   CLOG_INFO(LOG_LILYBEAR, 1, "Lilybear render engine registered successfully");
 }
 
@@ -203,10 +203,10 @@ void unregister_lilybear_engine()
 {
   /* Cleanup AI integration */
   // TODO: Cleanup AI integration when namespace is implemented
-  
+
   /* Cleanup live rendering system */
   // TODO: Cleanup live rendering when namespace is implemented
-  
+
   CLOG_INFO(LOG_LILYBEAR, 1, "Lilybear render engine unregistered");
 }
 
@@ -230,13 +230,13 @@ bool is_lilybear_available()
 uint32_t get_lilybear_capabilities()
 {
   uint32_t capabilities = 0;
-  
+
   capabilities |= LILYBEAR_CAP_LIVE_RENDERING;
   capabilities |= LILYBEAR_CAP_AI_INTEGRATION;
   capabilities |= LILYBEAR_CAP_PROGRESSIVE_RENDERING;
   capabilities |= LILYBEAR_CAP_ADAPTIVE_QUALITY;
   capabilities |= LILYBEAR_CAP_REAL_TIME_FEEDBACK;
-  
+
   return capabilities;
 }
 
@@ -332,7 +332,7 @@ LilybearPerformanceMetrics get_performance_metrics(RenderEngine *engine)
   if (instance) {
     return instance->get_performance_metrics();
   }
-  
+
   /* Return default metrics if no instance */
   LilybearPerformanceMetrics metrics = {};
   return metrics;
@@ -348,4 +348,4 @@ void set_performance_targets(RenderEngine *engine, const LilybearPerformanceTarg
   if (instance) {
     instance->set_performance_targets(targets);
   }
-} 
+}

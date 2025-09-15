@@ -5,4 +5,3 @@ Sequence Entry
 .. autoclass:: SequenceEntry
    :members:
    :noindex:
-

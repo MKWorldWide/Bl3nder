@@ -78,7 +78,7 @@ namespace KDL {
 
 //        virtual ~TreeFkSolverVel(){};
 //    };
-    
+
     /**
      * \brief This <strong>abstract</strong> class encapsulates a solver
      * for the forward acceleration kinematics for a KDL::Tree.

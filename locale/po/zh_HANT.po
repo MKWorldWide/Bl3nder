@@ -73701,4 +73701,3 @@ msgstr "隨機化的種子值"
 
 msgid "Preserve the length of the curves on a segment basis"
 msgstr "依分段保留曲線長度"
-

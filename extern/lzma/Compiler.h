@@ -54,7 +54,7 @@
 // winnt.h: 'Int64ShllMod32'
 #pragma warning(disable : 4514) // unreferenced inline function has been removed
 #endif
-    
+
 #if _MSC_VER < 1300
 // #pragma warning(disable : 4702) // unreachable code
 // Bra.c : -O1:

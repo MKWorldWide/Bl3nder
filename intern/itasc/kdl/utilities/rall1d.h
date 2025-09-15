@@ -1,26 +1,26 @@
- 
+
 /*****************************************************************************
- * \file  
- *      class for automatic differentiation on scalar values and 1st 
+ * \file
+ *      class for automatic differentiation on scalar values and 1st
  *      derivatives .
- *       
+ *
  *      Erwin Aertbelien, Div. PMA, Dep. of Mech. Eng., K.U.Leuven
  *
- * \version 
+ * \version
  *      ORO_Geometry V0.2
  *
  * \par Note
- *      VC6++ contains a bug, concerning the use of inlined friend functions 
- *      in combination with namespaces.  So, try to avoid inlined friend 
- *      functions !  
+ *      VC6++ contains a bug, concerning the use of inlined friend functions
+ *      in combination with namespaces.  So, try to avoid inlined friend
+ *      functions !
  *
  * \par History
- *      - $log$ 
+ *      - $log$
  *
  * \par Release
- *      $Name:  $ 
+ *      $Name:  $
  ****************************************************************************/
- 
+
 #ifndef Rall1D_H
 #define Rall1D_H
 #include <assert.h>
@@ -31,14 +31,14 @@ namespace KDL {
  * Rall1d contains a value, and its gradient, and defines an algebraic structure on this pair.
  *  This template class has 3 template parameters :
  *  -   T contains the type of the value.
- *  -   V contains the type of the gradient (can be a vector-like type).  
- *  -   S defines a scalar type that can operate on Rall1d.  This is the type that 
- *      is used to give back values of Norm() etc. 
+ *  -   V contains the type of the gradient (can be a vector-like type).
+ *  -   S defines a scalar type that can operate on Rall1d.  This is the type that
+ *      is used to give back values of Norm() etc.
  *
- * S is usefull when you recurse a Rall1d object into itself to create a 2nd, 3th, 4th,.. 
+ * S is usefull when you recurse a Rall1d object into itself to create a 2nd, 3th, 4th,..
  * derivatives. (e.g. Rall1d< Rall1d<double>, Rall1d<double>, double> ).
  *
- * S is always passed by value. 
+ * S is always passed by value.
  *
  * \par Class Type
  * Concrete implementation
@@ -72,7 +72,7 @@ class Rall1d
         //if one defines this constructor, it's better optimized then the
         //automatically generated one ( this one set's up a loop to copy
         // word by word.
-        
+
         INLINE T& Value() {
             return t;
         }
@@ -155,11 +155,11 @@ class Rall1d
 
 
         // = operators
-        /* gives warnings on cygwin 
-        
+        /* gives warnings on cygwin
+
          template <class T2,class V2,class S2>
          friend INLINE  Rall1d<T2,V2,S2> operator /(const Rall1d<T2,V2,S2>& lhs,const Rall1d<T2,V2,S2>& rhs);
-         
+
          friend INLINE  Rall1d<T,V,S> operator *(const Rall1d<T,V,S>& lhs,const Rall1d<T,V,S>& rhs);
          friend INLINE  Rall1d<T,V,S> operator +(const Rall1d<T,V,S>& lhs,const Rall1d<T,V,S>& rhs);
          friend INLINE  Rall1d<T,V,S> operator -(const Rall1d<T,V,S>& lhs,const Rall1d<T,V,S>& rhs);
@@ -192,15 +192,15 @@ class Rall1d
          friend INLINE  S Norm(const Rall1d<T,V,S>& value) ;
          friend INLINE  Rall1d<T,V,S> tanh(const Rall1d<T,V,S>& arg);
          friend INLINE  Rall1d<T,V,S> atan2(const Rall1d<T,V,S>& y,const Rall1d<T,V,S>& x);
-         
+
         // = Utility functions to improve performance
 
          friend INLINE  Rall1d<T,V,S> LinComb(S alfa,const Rall1d<T,V,S>& a,
             const T& beta,const Rall1d<T,V,S>& b );
-        
+
          friend INLINE  void LinCombR(S alfa,const Rall1d<T,V,S>& a,
             const T& beta,const Rall1d<T,V,S>& b,Rall1d<T,V,S>& result );
-        
+
         // = Setting value of a Rall1d object to 0 or 1
 
          friend INLINE  void SetToZero(Rall1d<T,V,S>& value);
@@ -356,7 +356,7 @@ INLINE  Rall1d<T,V,S> sqr(const Rall1d<T,V,S>& arg)
     }
 
 template <class T,class V,class S>
-INLINE  Rall1d<T,V,S> pow(const Rall1d<T,V,S>& arg,double m) 
+INLINE  Rall1d<T,V,S> pow(const Rall1d<T,V,S>& arg,double m)
     {
     T v;
     v=(pow(arg.t,m));
@@ -369,7 +369,7 @@ INLINE  Rall1d<T,V,S> sqrt(const Rall1d<T,V,S>& arg)
     T v;
     v=sqrt(arg.t);
     return Rall1d<T,V,S>(v, (0.5/v)*arg.grad);
-    }   
+    }
 
 template <class T,class V,class S>
 INLINE  Rall1d<T,V,S> atan(const Rall1d<T,V,S>& x)
@@ -413,15 +413,15 @@ INLINE  Rall1d<T,V,S> abs(const Rall1d<T,V,S>& x)
 
 
 template <class T,class V,class S>
-INLINE  S Norm(const Rall1d<T,V,S>& value) 
+INLINE  S Norm(const Rall1d<T,V,S>& value)
 {
     return Norm(value.t);
 }
 
 template <class T,class V,class S>
 INLINE  Rall1d<T,V,S> tanh(const Rall1d<T,V,S>& arg)
-{       
-    T v(tanh(arg.t));       
+{
+    T v(tanh(arg.t));
     return Rall1d<T,V,S>(v,arg.grad/sqr(cosh(arg.t)));
 }
 

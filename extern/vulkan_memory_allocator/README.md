@@ -12,7 +12,7 @@ Easy to integrate Vulkan memory allocation library.
 
 **Build status:**
 
-- Windows: [![Build status](https://ci.appveyor.com/api/projects/status/4vlcrb0emkaio2pn/branch/master?svg=true)](https://ci.appveyor.com/project/adam-sawicki-amd/vulkanmemoryallocator/branch/master)  
+- Windows: [![Build status](https://ci.appveyor.com/api/projects/status/4vlcrb0emkaio2pn/branch/master?svg=true)](https://ci.appveyor.com/project/adam-sawicki-amd/vulkanmemoryallocator/branch/master)
 - Linux: [![Build Status](https://app.travis-ci.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.svg?branch=master)](https://app.travis-ci.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator)
 
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.svg)](http://isitmaintained.com/project/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator "Average time to resolve an issue")
@@ -177,7 +177,7 @@ See **[Documentation](https://gpuopen-librariesandsdks.github.io/VulkanMemoryAll
 - **[Vulkan Best Practice for Mobile Developers](https://github.com/ARM-software/vulkan_best_practice_for_mobile_developers)** from ARM. License: MIT.
 - **[RPCS3](https://github.com/RPCS3/rpcs3)** - PlayStation 3 emulator/debugger. License: GNU GPLv2.
 - **[PPSSPP](https://github.com/hrydgard/ppsspp)** - Playstation Portable emulator/debugger. License: GNU GPLv2+.
-- **[Wicked Engine](https://github.com/turanszkij/WickedEngine)** - 3D engine with modern graphics 
+- **[Wicked Engine](https://github.com/turanszkij/WickedEngine)** - 3D engine with modern graphics
 
 [Many other projects on GitHub](https://github.com/search?q=AMD_VULKAN_MEMORY_ALLOCATOR_H&type=Code) and some game development studios that use Vulkan in their games.
 

@@ -37,7 +37,7 @@ public:
         m_indices.clear();
         m_vecs.clear();
 	}
-	
+
     btReducedVector(int sz): m_sz(sz)
     {
         m_indices.resize(0);
@@ -45,11 +45,11 @@ public:
         m_indices.clear();
         m_vecs.clear();
     }
-    
+
     btReducedVector(int sz, const btAlignedObjectArray<int>& indices, const btAlignedObjectArray<btVector3>& vecs): m_sz(sz), m_indices(indices), m_vecs(vecs)
     {
     }
-    
+
     void simplify()
     {
         btAlignedObjectArray<int> old_indices(m_indices);
@@ -67,7 +67,7 @@ public:
             }
         }
     }
-    
+
     btReducedVector operator+(const btReducedVector& other)
     {
 		btReducedVector ret(m_sz);
@@ -120,7 +120,7 @@ public:
         ret.simplify();
         return ret;
     }
-    
+
     btReducedVector operator-(const btReducedVector& other)
     {
 		btReducedVector ret(m_sz);
@@ -161,7 +161,7 @@ public:
         ret.simplify();
 		return ret;
     }
-    
+
     bool operator==(const btReducedVector& other) const
     {
         if (m_sz != other.m_sz)
@@ -177,12 +177,12 @@ public:
         }
         return true;
     }
-    
+
     bool operator!=(const btReducedVector& other) const
     {
         return !(*this == other);
     }
-	
+
 	btReducedVector& operator=(const btReducedVector& other)
 	{
 		if (this == &other)
@@ -194,7 +194,7 @@ public:
 		m_vecs.copyFromArray(other.m_vecs);
 		return *this;
 	}
-    
+
     btScalar dot(const btReducedVector& other) const
     {
         btScalar ret = 0;
@@ -213,7 +213,7 @@ public:
         }
         return ret;
     }
-    
+
     btScalar dot(const btAlignedObjectArray<btVector3>& other) const
     {
         btScalar ret = 0;
@@ -223,27 +223,27 @@ public:
         }
         return ret;
     }
-    
+
     btScalar length2() const
     {
         return this->dot(*this);
     }
-	
+
 	void normalize();
-    
+
     // returns the projection of this onto other
     btReducedVector proj(const btReducedVector& other) const;
-    
+
     bool testAdd() const;
-    
+
     bool testMinus() const;
-    
+
     bool testDot() const;
-    
+
     bool testMultiply() const;
-    
+
     void test() const;
-    
+
     void print() const
     {
         for (int i = 0; i < m_indices.size(); ++i)
@@ -252,8 +252,8 @@ public:
         }
         printf("\n");
     }
-    
-    
+
+
     void sort()
     {
         std::vector<TwoInts> tuples;

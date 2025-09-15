@@ -40,7 +40,7 @@ if NOT EXIST "%BUILD_VS_LIBDIR%\.git" (
 					goto RETRY
 				)
 				echo.
-				echo Error: Download of external libraries failed. 
+				echo Error: Download of external libraries failed.
 				echo Until this is resolved you CANNOT make a successful blender build.
 				echo.
 				exit /b 1

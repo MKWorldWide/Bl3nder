@@ -15,7 +15,7 @@ UncontrolledObject::UncontrolledObject():Object(UnControlled),
 {
 }
 
-UncontrolledObject::~UncontrolledObject() 
+UncontrolledObject::~UncontrolledObject()
 {
 }
 

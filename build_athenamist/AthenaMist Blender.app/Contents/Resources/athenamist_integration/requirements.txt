@@ -31,4 +31,4 @@ pytest-cov>=3.0.0
 
 # Optional: Advanced UI features
 # pillow>=9.0.0
-# matplotlib>=3.5.0 
+# matplotlib>=3.5.0

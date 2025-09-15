@@ -142,7 +142,7 @@ void MovingFrame::updateJacobian()
 	Twist m_jac;
 	e_matrix& Ju = m_JuArray[0];
 
-    //Jacobian is always identity at position on the object, 
+    //Jacobian is always identity at position on the object,
 	//we ust change the reference to the world.
 	//instead of going through complicated jacobian operation, implemented direct formula
 	Ju(1,3) = m_internalPose.p.z();

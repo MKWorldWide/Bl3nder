@@ -6751,7 +6751,7 @@ bool TinyGLTF::LoadBinaryFromMemory(Model *model, std::string *err,
     // 'SHOULD' in glTF spec means 'RECOMMENDED',
     // So there is a situation that Chunk1(BIN) is composed of zero-sized BIN data
     // (chunksize(0) + binformat(BIN) = 8bytes).
-    // 
+    //
     if ((header_and_json_size + 8ull) > uint64_t(length)) {
       if (err) {
         (*err) =

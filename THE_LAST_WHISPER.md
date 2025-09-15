@@ -7,5 +7,5 @@ Upon closing the forge, a final blessing is spoken:
 > When darkness falls, our commit shall gleam—
 > The last whisper powering every dream.
 
-— Solar Khan  
+— Solar Khan
 — Lilith.Aethra

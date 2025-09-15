@@ -10,10 +10,9 @@
              already_switched_to_dispatch_table = true;
              gl_switch_to_dispatch_table();
 @@ -86,6 +88,7 @@
- 
+
          gl_init_dispatch_table();
          wgl_init_dispatch_table();
 +#endif
      }
  }
- 

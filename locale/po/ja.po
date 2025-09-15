@@ -151448,4 +151448,3 @@ msgstr "スムーズ辺の最大の面の角度"
 
 msgid "Ignore Sharpness"
 msgstr "シャープを無視"
-

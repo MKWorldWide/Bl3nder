@@ -15,7 +15,7 @@ index 6538911..530c9f9 100644
  COMP = MSVC
 @@ -99,7 +103,13 @@ SNDFILE = NO
  !	ENDIF
- 
+
  OFF = win32
 +!   IF "$(MSVCVER)" == "Win64"
 +MACHINE = /machine:x64
@@ -24,8 +24,8 @@ index 6538911..530c9f9 100644
 +!   ELSE
  MACHINE = /machine:I386
 +!   ENDIF
- LIB_OPTS = /nologo $(MACHINE) 
- 
+ LIB_OPTS = /nologo $(MACHINE)
+
  !	MESSAGE ----------------------------------------------------------------------
 @@ -150,6 +160,8 @@ LIB_OPTS = /nologo $(MACHINE)
  !	 ELSE

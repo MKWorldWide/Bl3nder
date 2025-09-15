@@ -2,8 +2,8 @@
 
 ## 📢 Official Public Release
 
-**Date**: December 19, 2024  
-**Version**: AthenaMist Blender v1.0.0  
+**Date**: December 19, 2024
+**Version**: AthenaMist Blender v1.0.0
 **Status**: 🎉 **FULLY PUBLIC** - Open for Community Contributions
 
 ---
@@ -312,10 +312,10 @@ make install
 
 *Bl3nder - Where AI meets 3D creativity*
 
-**Download Now**: [GitHub Releases](https://github.com/your-org/bl3nder/releases)  
-**Join the Community**: [GitHub Discussions](https://github.com/your-org/bl3nder/discussions)  
+**Download Now**: [GitHub Releases](https://github.com/your-org/bl3nder/releases)
+**Join the Community**: [GitHub Discussions](https://github.com/your-org/bl3nder/discussions)
 **Start Contributing**: [Contributing Guide](CONTRIBUTING.md)
 
 ---
 
-*This public release represents a major milestone in the democratization of AI-enhanced 3D creation. We're excited to see what the global community will create with Bl3nder!* 
+*This public release represents a major milestone in the democratization of AI-enhanced 3D creation. We're excited to see what the global community will create with Bl3nder!*

@@ -151387,4 +151387,3 @@ msgstr "Angle de cara màxim per a arestes suavitzades"
 
 msgid "Ignore Sharpness"
 msgstr "Ignorar agudesa"
-

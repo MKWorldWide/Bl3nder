@@ -1,7 +1,7 @@
 ==== Meshes: 1
 - Mesh 'Mesh' vtx:517 face:1022 loop:3066 edge:1536
-    - 2 3 1 1 0 ... 235 478 478 233 234 
-    - 0/1 0/2 8/9 8/10 16/17 ... 7/287 7/395 199/453 199/455 199/461 
+    - 2 3 1 1 0 ... 235 478 478 233 234
+    - 0/1 0/2 8/9 8/10 16/17 ... 7/287 7/395 199/453 199/455 199/461
   - attr 'position' FLOAT_VECTOR POINT
     - (-0.540, -0.735, -0.314)
     - (-0.584, -0.373, -0.289)
@@ -120,7 +120,7 @@
   - rot 0.021, 0.000, -1.571 (XYZ)
   - scl 342.509, 342.509, 342.509
   - 33 vertex groups
-    - 'Bip001 L Thigh' 'Bip001 L Toe0' 'Bip001 Pelvis' 'Bip001 R Toe0' 'Bip001 Spine' ... 'Bip001 R Hand' 'Bone001' 'Bone003' 'Bone002' 'Bone004' 
+    - 'Bip001 L Thigh' 'Bip001 L Toe0' 'Bip001 Pelvis' 'Bip001 R Toe0' 'Bip001 Spine' ... 'Bip001 R Hand' 'Bone001' 'Bone003' 'Bone002' 'Bone004'
   - 1 modifiers
     - ARMATURE 'Bip001'
 
@@ -384,4 +384,3 @@
       -0.889 0.343 -0.304 -403.638
       0.343 0.058 -0.937 156.541
       -0.304 -0.937 -0.170 360.455
-

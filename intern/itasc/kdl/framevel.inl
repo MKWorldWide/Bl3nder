@@ -1,17 +1,17 @@
 /*****************************************************************************
- * \file  
+ * \file
  *      provides inline functions of rframes.h
- *       
+ *
  *      Erwin Aertbelien, Div. PMA, Dep. of Mech. Eng., K.U.Leuven
  *
- *  \version 
+ *  \version
  *      ORO_Geometry V0.2
  *
  *  \par History
  *      - $log$
  *
  *  \par Release
- *      $Name:  $ 
+ *      $Name:  $
  ****************************************************************************/
 
 
@@ -113,15 +113,15 @@ RotationVel& RotationVel::operator = (const Rotation& arg) {
 }
 
 VectorVel   RotationVel::UnitX() const {
-	return VectorVel(R.UnitX(),w*R.UnitX()); 
+	return VectorVel(R.UnitX(),w*R.UnitX());
 }
 
 VectorVel   RotationVel::UnitY() const {
-	return VectorVel(R.UnitY(),w*R.UnitY()); 
+	return VectorVel(R.UnitY(),w*R.UnitY());
 }
 
 VectorVel   RotationVel::UnitZ() const {
-	return VectorVel(R.UnitZ(),w*R.UnitZ()); 
+	return VectorVel(R.UnitZ(),w*R.UnitZ());
 }
 
 
@@ -189,7 +189,7 @@ RotationVel RotationVel::RotZ(const doubleVel& angle) {
 }
 
 
-RotationVel RotationVel::Rot(const Vector& rotvec,const doubleVel& angle) 
+RotationVel RotationVel::Rot(const Vector& rotvec,const doubleVel& angle)
 // rotvec has arbitrary norm
 // rotation around a constant vector !
 {
@@ -198,7 +198,7 @@ RotationVel RotationVel::Rot(const Vector& rotvec,const doubleVel& angle)
     return RotationVel(Rotation::Rot2(v,angle.t),v*angle.grad);
 }
 
-RotationVel RotationVel::Rot2(const Vector& rotvec,const doubleVel& angle) 
+RotationVel RotationVel::Rot2(const Vector& rotvec,const doubleVel& angle)
     // rotvec is normalized.
 {
     return RotationVel(Rotation::Rot2(rotvec,angle.t),rotvec*angle.grad);
@@ -380,7 +380,7 @@ TwistVel TwistVel::Zero()
 
 
 void TwistVel::ReverseSign()
-{   
+{
     vel.ReverseSign();
     rot.ReverseSign();
 }
@@ -455,7 +455,7 @@ TwistVel operator-(const TwistVel& lhs,const TwistVel& rhs)
 }
 
 // unary -
-TwistVel operator-(const TwistVel& arg) 
+TwistVel operator-(const TwistVel& arg)
 {
     return TwistVel(-arg.vel,-arg.rot);
 }

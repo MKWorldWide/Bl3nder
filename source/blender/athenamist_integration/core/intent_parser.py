@@ -44,43 +44,43 @@ class Intent:
 class IntentParser:
     """
     Natural language intent parser for Blender AI Agent.
-    
+
     This class understands user input and converts it into actionable
     intents that can be executed by the workflow engine.
     """
-    
+
     def __init__(self):
         """Initialize the intent parser with patterns and models."""
         self.patterns = self._load_patterns()
         self.context_analyzer = ContextAnalyzer()
         self.intent_classifier = IntentClassifier()
-    
+
     def parse(self, user_input: str, context: Dict[str, Any] = None) -> Intent:
         """
         Parse user input into an actionable intent.
-        
+
         Args:
             user_input: Natural language input from user
             context: Current Blender context and scene state
-            
+
         Returns:
             Parsed intent with type, confidence, and parameters
         """
         # Normalize input
         normalized_input = self._normalize_input(user_input)
-        
+
         # Analyze context if provided
         scene_context = self.context_analyzer.analyze(context) if context else {}
-        
+
         # Classify intent
         intent_type, confidence = self.intent_classifier.classify(normalized_input)
-        
+
         # Extract parameters
         parameters = self._extract_parameters(normalized_input, intent_type)
-        
+
         # Generate suggestions
         suggestions = self._generate_suggestions(intent_type, parameters, scene_context)
-        
+
         return Intent(
             type=intent_type,
             confidence=confidence,
@@ -88,15 +88,15 @@ class IntentParser:
             context=scene_context,
             suggestions=suggestions
         )
-    
+
     def _normalize_input(self, user_input: str) -> str:
         """Normalize user input for better parsing."""
         # Convert to lowercase
         normalized = user_input.lower()
-        
+
         # Remove extra whitespace
         normalized = re.sub(r'\s+', ' ', normalized).strip()
-        
+
         # Handle common abbreviations
         abbreviations = {
             'obj': 'object',
@@ -107,12 +107,12 @@ class IntentParser:
             'light': 'lighting',
             'render': 'rendering'
         }
-        
+
         for abbrev, full in abbreviations.items():
             normalized = re.sub(r'\b' + abbrev + r'\b', full, normalized)
-        
+
         return normalized
-    
+
     def _load_patterns(self) -> Dict[IntentType, List[str]]:
         """Load intent recognition patterns."""
         return {
@@ -155,11 +155,11 @@ class IntentParser:
                 r'make\s+(?:a\s+)?render'
             ]
         }
-    
+
     def _extract_parameters(self, user_input: str, intent_type: IntentType) -> Dict[str, Any]:
         """Extract parameters from user input based on intent type."""
         parameters = {}
-        
+
         if intent_type == IntentType.CREATE_OBJECT:
             # Extract object type and properties
             object_match = re.search(r'create\s+(?:a\s+)?(\w+)(?:\s+with\s+(.+))?', user_input)
@@ -167,19 +167,19 @@ class IntentParser:
                 parameters['object_type'] = object_match.group(1)
                 if object_match.group(2):
                     parameters['properties'] = self._parse_properties(object_match.group(2))
-        
+
         elif intent_type == IntentType.CREATE_MATERIAL:
             # Extract material properties
             material_match = re.search(r'looks?\s+like\s+(\w+)', user_input)
             if material_match:
                 parameters['material_type'] = material_match.group(1)
-            
+
             # Extract additional properties
             if 'realistic' in user_input:
                 parameters['realistic'] = True
             if 'procedural' in user_input:
                 parameters['procedural'] = True
-        
+
         elif intent_type == IntentType.ANIMATE_OBJECT:
             # Extract animation properties
             if 'bounce' in user_input:
@@ -190,35 +190,35 @@ class IntentParser:
                 parameters['animation_type'] = 'scale'
             else:
                 parameters['animation_type'] = 'custom'
-        
+
         return parameters
-    
+
     def _parse_properties(self, properties_text: str) -> Dict[str, Any]:
         """Parse object properties from text."""
         properties = {}
-        
+
         # Parse size
         size_match = re.search(r'size\s+(\d+)', properties_text)
         if size_match:
             properties['size'] = float(size_match.group(1))
-        
+
         # Parse position
         pos_match = re.search(r'at\s+\(([^)]+)\)', properties_text)
         if pos_match:
             coords = pos_match.group(1).split(',')
             properties['position'] = [float(x.strip()) for x in coords]
-        
+
         # Parse color
         color_match = re.search(r'color\s+(\w+)', properties_text)
         if color_match:
             properties['color'] = color_match.group(1)
-        
+
         return properties
-    
+
     def _generate_suggestions(self, intent_type: IntentType, parameters: Dict[str, Any], context: Dict[str, Any]) -> List[str]:
         """Generate helpful suggestions based on intent and context."""
         suggestions = []
-        
+
         if intent_type == IntentType.CREATE_OBJECT:
             object_type = parameters.get('object_type', '')
             if object_type == 'tree':
@@ -233,7 +233,7 @@ class IntentParser:
                     "Add subdivision surface for organic look",
                     "Use array modifier for repetition"
                 ])
-        
+
         elif intent_type == IntentType.CREATE_MATERIAL:
             material_type = parameters.get('material_type', '')
             if material_type == 'metal':
@@ -248,13 +248,13 @@ class IntentParser:
                     "Use bump mapping for surface detail",
                     "Consider adding knots and variations"
                 ])
-        
+
         return suggestions
 
 
 class ContextAnalyzer:
     """Analyzes current Blender context and scene state."""
-    
+
     def analyze(self, context: Dict[str, Any]) -> Dict[str, Any]:
         """Analyze current scene context."""
         scene_context = {
@@ -266,7 +266,7 @@ class ContextAnalyzer:
             'user_preferences': self._analyze_user_preferences()
         }
         return scene_context
-    
+
     def _analyze_objects(self) -> List[Dict[str, Any]]:
         """Analyze objects in the scene."""
         objects = []
@@ -282,7 +282,7 @@ class ContextAnalyzer:
             }
             objects.append(obj_data)
         return objects
-    
+
     def _analyze_materials(self) -> List[Dict[str, Any]]:
         """Analyze materials in the scene."""
         materials = []
@@ -294,7 +294,7 @@ class ContextAnalyzer:
             }
             materials.append(mat_data)
         return materials
-    
+
     def _analyze_lights(self) -> List[Dict[str, Any]]:
         """Analyze lights in the scene."""
         lights = []
@@ -308,7 +308,7 @@ class ContextAnalyzer:
                 }
                 lights.append(light_data)
         return lights
-    
+
     def _analyze_camera(self) -> Dict[str, Any]:
         """Analyze camera settings."""
         camera = None
@@ -316,7 +316,7 @@ class ContextAnalyzer:
             if obj.type == 'CAMERA':
                 camera = obj
                 break
-        
+
         if camera:
             return {
                 'name': camera.name,
@@ -325,7 +325,7 @@ class ContextAnalyzer:
                 'fov': camera.data.angle
             }
         return {}
-    
+
     def _analyze_render_settings(self) -> Dict[str, Any]:
         """Analyze render settings."""
         scene = bpy.context.scene
@@ -335,7 +335,7 @@ class ContextAnalyzer:
             'resolution_y': scene.render.resolution_y,
             'samples': getattr(scene.cycles, 'samples', 128) if scene.render.engine == 'CYCLES' else None
         }
-    
+
     def _analyze_user_preferences(self) -> Dict[str, Any]:
         """Analyze user preferences and recent actions."""
         # This would integrate with a learning system
@@ -348,25 +348,25 @@ class ContextAnalyzer:
 
 class IntentClassifier:
     """Classifies user input into intent types."""
-    
+
     def __init__(self):
         """Initialize the intent classifier."""
         self.keywords = self._load_keywords()
-    
+
     def classify(self, user_input: str) -> tuple[IntentType, float]:
         """Classify user input into intent type with confidence score."""
         scores = {}
-        
+
         for intent_type, keywords in self.keywords.items():
             score = self._calculate_score(user_input, keywords)
             scores[intent_type] = score
-        
+
         # Find best match
         best_intent = max(scores, key=scores.get)
         confidence = scores[best_intent]
-        
+
         return best_intent, confidence
-    
+
     def _load_keywords(self) -> Dict[IntentType, List[str]]:
         """Load keywords for intent classification."""
         return {
@@ -381,19 +381,19 @@ class IntentClassifier:
             IntentType.CREATE_TEXTURE: ['texture', 'pattern', 'surface', 'detail', 'bump'],
             IntentType.HELP_REQUEST: ['help', 'how', 'what', 'why', 'tutorial', 'guide']
         }
-    
+
     def _calculate_score(self, user_input: str, keywords: List[str]) -> float:
         """Calculate confidence score for intent classification."""
         score = 0.0
         input_words = user_input.split()
-        
+
         for keyword in keywords:
             if keyword in user_input:
                 score += 1.0
             for word in input_words:
                 if keyword in word or word in keyword:
                     score += 0.5
-        
+
         # Normalize score
         return min(score / len(keywords), 1.0)
 
@@ -401,7 +401,7 @@ class IntentClassifier:
 # Example usage
 if __name__ == "__main__":
     parser = IntentParser()
-    
+
     # Test intent parsing
     test_inputs = [
         "Create a realistic tree",
@@ -409,7 +409,7 @@ if __name__ == "__main__":
         "Animate this object with a bouncing motion",
         "Optimize this scene for rendering"
     ]
-    
+
     for input_text in test_inputs:
         intent = parser.parse(input_text)
         print(f"Input: {input_text}")
@@ -417,4 +417,4 @@ if __name__ == "__main__":
         print(f"Confidence: {intent.confidence:.2f}")
         print(f"Parameters: {intent.parameters}")
         print(f"Suggestions: {intent.suggestions}")
-        print("-" * 50) 
+        print("-" * 50)

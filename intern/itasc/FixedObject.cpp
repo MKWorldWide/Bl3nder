@@ -16,7 +16,7 @@ FixedObject::FixedObject():UncontrolledObject(),
 {
 }
 
-FixedObject::~FixedObject() 
+FixedObject::~FixedObject()
 {
 	m_frameArray.clear();
 }

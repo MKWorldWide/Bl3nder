@@ -151387,4 +151387,3 @@ msgstr "Ángulo máximo entre caras para sombrear los bordes como suaves"
 
 msgid "Ignore Sharpness"
 msgstr "Ignorar definidos"
-

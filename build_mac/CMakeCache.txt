@@ -439,7 +439,7 @@ WITH_GPU_RENDER_TESTS:BOOL=OFF
 
 //Enable GPU render related unit testing that doesn't work in background
 // mode. These tests require an environment with a display server
-// to run. Requires WITH_GPU_RENDER_TESTS 
+// to run. Requires WITH_GPU_RENDER_TESTS
 WITH_GPU_RENDER_TESTS_HEADED:BOOL=OFF
 
 //Enable GPU render related unit testing using Vulkan
@@ -1028,4 +1028,3 @@ ZLIB_INCLUDE_DIR-ADVANCED:INTERNAL=1
 ZLIB_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ZLIB_LIBRARY_RELEASE
 ZLIB_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
-

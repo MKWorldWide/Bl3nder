@@ -9,19 +9,19 @@
  1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
  2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
  3. This notice may not be removed or altered from any source distribution.
- 
+
  Copyright (c) 2016 Theodore Gast, Chuyuan Fu, Chenfanfu Jiang, Joseph Teran
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy of
  this software and associated documentation files (the "Software"), to deal in
  the Software without restriction, including without limitation the rights to
  use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
  of the Software, and to permit persons to whom the Software is furnished to do
  so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in all
  copies or substantial portions of the Software.
- 
+
  If the code is used in an article, the following paper shall be cited:
  @techreport{qrsvd:2016,
  title={Implicit-shifted Symmetric QR Singular Value Decomposition of 3x3 Matrices},
@@ -29,7 +29,7 @@
  year={2016},
  institution={University of California Los Angeles}
  }
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -103,11 +103,11 @@ static inline btScalar copySign(btScalar x, btScalar y) {
  c -s  0
  A ( s  c  0 )
  0  0  1
- 
+
  c and s are always computed so that
  ( c -s ) ( a )  =  ( * )
  s  c     b       ( 0 )
- 
+
  Assume rowi<rowk.
  */
 
@@ -117,7 +117,7 @@ public:
     int rowk;
     btScalar c;
     btScalar s;
-    
+
     inline GivensRotation(int rowi_in, int rowk_in)
     : rowi(rowi_in)
     , rowk(rowk_in)
@@ -125,21 +125,21 @@ public:
     , s(0)
     {
     }
-    
+
     inline GivensRotation(btScalar a, btScalar b, int rowi_in, int rowk_in)
     : rowi(rowi_in)
     , rowk(rowk_in)
     {
         compute(a, b);
     }
-    
+
     ~GivensRotation() {}
-    
+
     inline void transposeInPlace()
     {
         s = -s;
     }
-    
+
     /**
      Compute c and s from a and b so that
      ( c -s ) ( a )  =  ( * )
@@ -160,7 +160,7 @@ public:
             }
         }
     }
-    
+
     /**
      This function computes c and s so that
      ( c -s ) ( a )  =  ( 0 )
@@ -189,7 +189,7 @@ public:
         A[rowi][rowk] = s;
         A[rowk][rowk] = c;
     }
-    
+
     inline void fill(const btMatrix2x2& R) const
     {
         btMatrix2x2& A = const_cast<btMatrix2x2&>(R);
@@ -198,7 +198,7 @@ public:
         A(rowi,rowk) = s;
         A(rowk,rowk) = c;
     }
-    
+
     /**
      This function does something like
      c -s  0
@@ -224,7 +224,7 @@ public:
             A(rowk,j) = s * tau1 + c * tau2;
         }
     }
-    
+
     /**
      This function does something like
      c  s  0
@@ -250,7 +250,7 @@ public:
             A(j,rowk) = s * tau1 + c * tau2;
         }
     }
-    
+
     /**
      Multiply givens must be for same row and column
      **/
@@ -261,7 +261,7 @@ public:
         c = new_c;
         s = new_s;
     }
-    
+
     /**
      Multiply givens must be for same row and column
      **/
@@ -285,7 +285,7 @@ public:
  */
 inline void zeroChase(btMatrix3x3& H, btMatrix3x3& U, btMatrix3x3& V)
 {
-    
+
     /**
      Reduce H to of form
      x x +
@@ -306,13 +306,13 @@ inline void zeroChase(btMatrix3x3& H, btMatrix3x3& U, btMatrix3x3& V)
         r2.compute(H[0][0] * H[0][1] + H[1][0] * H[1][1], H[0][0] * H[0][2] + H[1][0] * H[1][2]);
     else
         r2.compute(H[0][1], H[0][2]);
-    
+
     r1.rowRotation(H);
-    
+
     /* GivensRotation<T> r2(H(0, 1), H(0, 2), 1, 2); */
     r2.columnRotation(H);
     r2.columnRotation(V);
-    
+
     /**
      Reduce H to of form
      x x 0
@@ -321,7 +321,7 @@ inline void zeroChase(btMatrix3x3& H, btMatrix3x3& U, btMatrix3x3& V)
      */
     GivensRotation r3(H[1][1], H[2][1], 1, 2);
     r3.rowRotation(H);
-    
+
     // Save this till end for better cache coherency
     // r1.rowRotation(u_transpose);
     // r3.rowRotation(u_transpose);
@@ -343,14 +343,14 @@ inline void makeUpperBidiag(btMatrix3x3& H, btMatrix3x3& U, btMatrix3x3& V)
 {
     U.setIdentity();
     V.setIdentity();
-    
+
     /**
      Reduce H to of form
      x x x
      x x x
      0 x x
      */
-    
+
     GivensRotation r(H[1][0], H[2][0], 1, 2);
     r.rowRotation(H);
     // r.rowRotation(u_transpose);
@@ -373,40 +373,40 @@ inline void makeLambdaShape(btMatrix3x3& H, btMatrix3x3& U, btMatrix3x3& V)
 {
     U.setIdentity();
     V.setIdentity();
-    
+
     /**
      Reduce H to of form
      *                    x x 0
      *                    x x x
      *                    x x x
      */
-    
+
     GivensRotation r1(H[0][1], H[0][2], 1, 2);
     r1.columnRotation(H);
     r1.columnRotation(V);
-    
+
     /**
      Reduce H to of form
      *                    x x 0
      *                    x x 0
      *                    x x x
      */
-    
+
     r1.computeUnconventional(H[1][2], H[2][2]);
     r1.rowRotation(H);
     r1.columnRotation(U);
-    
+
     /**
      Reduce H to of form
      *                    x x 0
      *                    x x 0
      *                    x 0 x
      */
-    
+
     GivensRotation r2(H[2][0], H[2][1], 0, 1);
     r2.columnRotation(H);
     r2.columnRotation(V);
-    
+
     /**
      Reduce H to of form
      *                    x 0 0
@@ -423,7 +423,7 @@ inline void makeLambdaShape(btMatrix3x3& H, btMatrix3x3& U, btMatrix3x3& V)
  \param[in] A matrix.
  \param[out] R Robustly a rotation matrix.
  \param[out] S_Sym Symmetric. Whole matrix is stored
- 
+
  Polar guarantees negative sign is on the small magnitude singular value.
  S is guaranteed to be the closest one to identity.
  R is guaranteed to be the closest rotation to A.
@@ -436,7 +436,7 @@ inline void polarDecomposition(const btMatrix2x2& A,
     btScalar denominator = btSqrt(a*a+b*b);
     R.c = (btScalar)1;
     R.s = (btScalar)0;
-    if (denominator > SIMD_EPSILON) { 
+    if (denominator > SIMD_EPSILON) {
         /*
          No need to use a tolerance here because x(0) and x(1) always have
          smaller magnitude then denominator, therefore overflow never happens.
@@ -524,7 +524,7 @@ inline void singularValueDecomposition(
         sigma(1,1) = z;
       	}
     }
-    
+
     // Sorting
     // Polar already guarantees negative sign is on the small magnitude singular value.
     if (sigma(0,0) < sigma(1,1)) {
@@ -556,7 +556,7 @@ inline void singularValueDecomposition(
     GivensRotation gv(0, 1);
     GivensRotation gu(0, 1);
     singularValueDecomposition(A, gu, Sigma, gv);
-    
+
     gu.fill(U);
     gv.fill(V);
 }
@@ -567,7 +567,7 @@ inline void singularValueDecomposition(
  b1     a2
  based on the wilkinsonShift formula
  mu = c + d - sign (d) \ sqrt (d*d + b*b), where d = (a-c)/2
- 
+
  */
 inline btScalar wilkinsonShift(const btScalar a1, const btScalar b1, const btScalar a2)
 {
@@ -595,7 +595,7 @@ inline void process(btMatrix3x3& B, btMatrix3x3& U, btVector3& sigma, btMatrix3x
     GivensRotation u(0, 1);
     GivensRotation v(0, 1);
     sigma[other] = B[other][other];
-    
+
     btMatrix2x2 B_sub, sigma_sub;
     if (t == 0)
     {
@@ -677,26 +677,26 @@ inline void sort(btMatrix3x3& U, btVector3& sigma, btMatrix3x3& V, int t)
             }
             return;
         }
-        
+
         //fix sign of sigma for both cases
         if (sigma[2] < 0) {
             flipSign(1, U, sigma);
             flipSign(2, U, sigma);
         }
-        
+
         //swap sigma(1) and sigma(2) for both cases
         std::swap(sigma[1], sigma[2]);
         // swap the col 1 and col 2 for U,V
         swapCol(U,1,2);
         swapCol(V,1,2);
-        
+
         // Case: |sigma(2)| >= sigma(0) > |simga(1)|
         if (sigma[1] > sigma[0]) {
             std::swap(sigma[0], sigma[1]);
             swapCol(U,0,1);
             swapCol(V,0,1);
         }
-        
+
         // Case: sigma(0) >= |sigma(2)| > |simga(1)|
         else {
             flipSign(2, U);
@@ -713,25 +713,25 @@ inline void sort(btMatrix3x3& U, btVector3& sigma, btMatrix3x3& V, int t)
             }
             return;
         }
-        
+
         //swap sigma(0) and sigma(1) for both cases
         std::swap(sigma[0], sigma[1]);
         swapCol(U, 0, 1);
         swapCol(V, 0, 1);
-        
+
         // Case: sigma(1) > |sigma(2)| >= |sigma(0)|
         if (btFabs(sigma[1]) < btFabs(sigma[2])) {
             std::swap(sigma[1], sigma[2]);
             swapCol(U, 1, 2);
             swapCol(V, 1, 2);
         }
-        
+
         // Case: sigma(1) >= |sigma(0)| > |sigma(2)|
         else {
             flipSign(1, U);
             flipSign(1, V);
         }
-        
+
         // fix sign for both cases
         if (sigma[1] < 0) {
             flipSign(1, U, sigma);
@@ -757,13 +757,13 @@ inline int singularValueDecomposition(const btMatrix3x3& A,
     btMatrix3x3 B = A;
     U.setIdentity();
     V.setIdentity();
-    
+
     makeUpperBidiag(B, U, V);
-    
+
     int count = 0;
     btScalar mu = (btScalar)0;
     GivensRotation r(0, 1);
-    
+
     btScalar alpha_1 = B[0][0];
     btScalar beta_1 = B[0][1];
     btScalar alpha_2 = B[1][1];
@@ -775,24 +775,24 @@ inline int singularValueDecomposition(const btMatrix3x3& A,
     if (val > SIMD_EPSILON)
     {
 	    tol *= btMax((btScalar)0.5 * btSqrt(val), (btScalar)1);
-		}    
+		}
     /**
      Do implicit shift QR until A^T A is block diagonal
      */
     int max_count = 100;
-    
+
     while (btFabs(beta_2) > tol && btFabs(beta_1) > tol
            && btFabs(alpha_1) > tol && btFabs(alpha_2) > tol
            && btFabs(alpha_3) > tol
            && count < max_count) {
         mu = wilkinsonShift(alpha_2 * alpha_2 + beta_1 * beta_1, gamma_2, alpha_3 * alpha_3 + beta_2 * beta_2);
-        
+
         r.compute(alpha_1 * alpha_1 - mu, gamma_1);
         r.columnRotation(B);
-        
+
         r.columnRotation(V);
         zeroChase(B, U, V);
-        
+
         alpha_1 = B[0][0];
         beta_1 = B[0][1];
         alpha_2 = B[1][1];
@@ -806,7 +806,7 @@ inline int singularValueDecomposition(const btMatrix3x3& A,
      Handle the cases of one of the alphas and betas being 0
      Sorted by ease of handling and then frequency
      of occurrence
-     
+
      If B is of form
      x x 0
      0 x 0
@@ -843,7 +843,7 @@ inline int singularValueDecomposition(const btMatrix3x3& A,
         r1.computeUnconventional(B[1][2], B[2][2]);
         r1.rowRotation(B);
         r1.columnRotation(U);
-        
+
         process<0>(B, U, sigma, V);
         sort(U, sigma, V, 0);
     }
@@ -874,7 +874,7 @@ inline int singularValueDecomposition(const btMatrix3x3& A,
         r2.compute(B[0][0], B[0][2]);
         r2.columnRotation(B);
         r2.columnRotation(V);
-        
+
         process<0>(B, U, sigma, V);
         sort(U, sigma, V, 0);
     }
@@ -895,7 +895,7 @@ inline int singularValueDecomposition(const btMatrix3x3& A,
         r1.computeUnconventional(B[0][1], B[1][1]);
         r1.rowRotation(B);
         r1.columnRotation(U);
-        
+
         /**
          Reduce B to
          0 0 0
@@ -906,11 +906,11 @@ inline int singularValueDecomposition(const btMatrix3x3& A,
         r2.computeUnconventional(B[0][2], B[2][2]);
         r2.rowRotation(B);
         r2.columnRotation(U);
-        
+
         process<1>(B, U, sigma, V);
         sort(U, sigma, V, 1);
     }
-    
+
     return count;
 }
 #endif /* btImplicitQRSVD_h */

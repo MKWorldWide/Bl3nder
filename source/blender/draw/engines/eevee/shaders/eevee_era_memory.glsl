@@ -20,27 +20,27 @@ void main()
 {
   /* Get screen coordinates */
   vec2 uv = gl_FragCoord.xy / vec2(textureSize(spectral_tx, 0));
-  
+
   /* Sample spectral texture */
   vec4 spectral = texture(spectral_tx, uv);
-  
+
   /* Calculate memory echo pattern */
   float time = float(drw_frame) * 0.02;
   vec2 echo_uv = uv + vec2(
     sin(time + spectral.r * 10.0) * 0.01,
     cos(time + spectral.g * 10.0) * 0.01
   );
-  
+
   /* Sample echo from spectral texture */
   vec4 echo = texture(spectral_tx, echo_uv);
-  
+
   /* Blend with original spectral */
   vec4 memory = mix(spectral, echo, memory_echo_strength);
-  
+
   /* Add temporal persistence */
   float persistence = 0.95;
   memory = mix(memory, texture(memory_tx, uv), persistence);
-  
+
   /* Output memory color */
   memory_out = memory;
-} 
+}

@@ -16,8 +16,5 @@ index 0d8885e..42aa5ad 100644
 +    .size ___kmp_unnamed_critical_addr,8
 +#  endif
  #endif /* KMP_ARCH_PPC64 || KMP_ARCH_AARCH64 */
- 
+
  #if KMP_OS_LINUX
-
-
-

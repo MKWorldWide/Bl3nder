@@ -74,10 +74,10 @@ public:
 
 	/**
 	* Creates a new FFTPlan object with a custom size.
-	* \param n The size of the FFT plan. Values that are a power of two are faster. 
+	* \param n The size of the FFT plan. Values that are a power of two are faster.
 	*		The useful range usually is between 2048 and 8192, but bigger values can be useful
-	*		in certain situations (when using the StreamBuffer class per example). 
-	*		Generally, low values use more CPU power and are a bit faster than large ones, 
+	*		in certain situations (when using the StreamBuffer class per example).
+	*		Generally, low values use more CPU power and are a bit faster than large ones,
 	*		there is also a huge decrease in efficiency when n is lower than 2048.
 	* \param measureTime The aproximate amount of seconds that FFTW will spend searching for the optimal plan,
 	*		which means faster FFTs while using this plan. If measureTime is negative, it will take all the time it needs.

@@ -2,7 +2,7 @@
 +++ ./test/v3ext.c	2022-10-18 13:58:05.000000000 +0200
 @@ -8,6 +8,7 @@
   */
- 
+
  #include <stdio.h>
 +#include <string.h>
  #include <openssl/x509.h>

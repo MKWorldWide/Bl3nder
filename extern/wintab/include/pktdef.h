@@ -77,7 +77,7 @@ Example #2. -- multiple formats
 	lcCURLY.lcPktMode = CURLYPACKETMODE;
 
 Example #3. -- extension packet data "XFOO".
-	
+
 #include <wintab.h>
 #define PACKETDATA	PK_X | PK_Y | PK_BUTTONS	/@ x, y, buttons @/
 #define PACKETMODE	PK_BUTTONS					/@ buttons relative mode @/
@@ -143,7 +143,7 @@ extern "C" {
 #define __MODE		(__PFX(PACKETMODE))
 #define __EXT(x)	__SFX2(__PFX(PACKET),x)
 
-	
+
 typedef struct __TAG {
 	#if (__DATA & PK_CONTEXT)
 		HCTX			pkContext;

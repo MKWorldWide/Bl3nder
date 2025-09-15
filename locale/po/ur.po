@@ -140639,4 +140639,3 @@ msgstr "ﮧﯾﻭﺍﺯ ﺎﮐ ﮮﺮﮩﭼ ﮦﺩﺎﯾﺯ ﮯﺳ ﮦﺩﺎﯾ�
 
 msgid "Ignore Sharpness"
 msgstr "ﺖﺳﺎﻔﻧ ﺎﻧﺮﮐ ﺯﺍﺪﻧﺍ ﺮﻈﻧ"
-

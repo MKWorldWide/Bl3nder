@@ -41,7 +41,7 @@ index ffa407d53d..8a7cb7065c 100755
 -                             require_pkg_config libvorbisenc vorbisenc vorbis/vorbisenc.h vorbis_encode_init
 +enabled libvorbis         && require libvorbis vorbis/codec.h vorbis_info_init -lvorbis -logg -lvorbisfile &&
 +                             require libvorbisenc vorbis/vorbisenc.h vorbis_encode_init -lvorbis -lvorbisenc -logg -lvorbisfile
- 
+
  enabled libvpx            && {
      enabled libvpx_vp8_decoder && {
 @@ -7040,13 +7039,13 @@ enabled libvvenc          && require_pkg_config libvvenc "libvvenc >= 1.6.1" "vv

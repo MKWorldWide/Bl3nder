@@ -14,7 +14,7 @@ index 4cfc16c03e..25b7d194db 100644
 --- a/googletest/include/gtest/internal/gtest-port.h
 +++ b/googletest/include/gtest/internal/gtest-port.h
 @@ -282,10 +282,14 @@
- 
+
  // Detect C++ feature test macros as gracefully as possible.
  // MSVC >= 19.15, Clang >= 3.4.1, and GCC >= 4.1.2 support feature test macros.
 -#if GTEST_INTERNAL_CPLUSPLUS_LANG >= 202002L && \
@@ -31,4 +31,3 @@ index 4cfc16c03e..25b7d194db 100644
 +#else
  #include <ciso646>  // Pre-C++20
  #endif
- 

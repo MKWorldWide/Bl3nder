@@ -414,8 +414,8 @@ void btCollisionWorld::rayTestSingleInternal(const btTransform& rayFromTrans, co
 				rcb.m_hitFraction = resultCallback.m_closestHitFraction;
 				triangleMesh->performRaycast(&rcb, rayFromLocalScaled, rayToLocalScaled);
 			}
-			else if (((resultCallback.m_flags&btTriangleRaycastCallback::kF_DisableHeightfieldAccelerator)==0) 
-				&& collisionShape->getShapeType() == TERRAIN_SHAPE_PROXYTYPE 
+			else if (((resultCallback.m_flags&btTriangleRaycastCallback::kF_DisableHeightfieldAccelerator)==0)
+				&& collisionShape->getShapeType() == TERRAIN_SHAPE_PROXYTYPE
 				)
 			{
 				///optimized version for btHeightfieldTerrainShape

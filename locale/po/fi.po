@@ -17840,4 +17840,3 @@ msgstr "Työkalu"
 
 msgid "Surface Normal"
 msgstr "Pinnan normaali"
-

@@ -9,15 +9,15 @@
 #  ifndef CERES_EXPORT
 #    ifdef ceres_EXPORTS
         /* We are building this library */
-#      define CERES_EXPORT 
+#      define CERES_EXPORT
 #    else
         /* We are using this library */
-#      define CERES_EXPORT 
+#      define CERES_EXPORT
 #    endif
 #  endif
 
 #  ifndef CERES_NO_EXPORT
-#    define CERES_NO_EXPORT 
+#    define CERES_NO_EXPORT
 #  endif
 #endif
 

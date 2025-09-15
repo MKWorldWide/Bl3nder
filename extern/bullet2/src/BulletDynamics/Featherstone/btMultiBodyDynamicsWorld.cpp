@@ -4,8 +4,8 @@ Copyright (c) 2013 Erwin Coumans  http://bulletphysics.org
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
-Permission is granted to anyone to use this software for any purpose, 
-including commercial applications, and to alter it and redistribute it freely, 
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
 subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
@@ -37,7 +37,7 @@ void btMultiBodyDynamicsWorld::predictUnconstraintMotion(btScalar timeStep)
 {
     btDiscreteDynamicsWorld::predictUnconstraintMotion(timeStep);
     predictMultiBodyTransforms(timeStep);
-    
+
 }
 void btMultiBodyDynamicsWorld::calculateSimulationIslands()
 {
@@ -235,9 +235,9 @@ void btMultiBodyDynamicsWorld::solveInternalConstraints(btContactSolverInfo& sol
         for (int i = 0; i < this->m_multiBodies.size(); i++)
         {
             btMultiBody* bod = m_multiBodies[i];
-            
+
             bool isSleeping = false;
-            
+
             if (bod->getBaseCollider() && bod->getBaseCollider()->getActivationState() == ISLAND_SLEEPING)
             {
                 isSleeping = true;
@@ -247,14 +247,14 @@ void btMultiBodyDynamicsWorld::solveInternalConstraints(btContactSolverInfo& sol
                 if (bod->getLink(b).m_collider && bod->getLink(b).m_collider->getActivationState() == ISLAND_SLEEPING)
                     isSleeping = true;
             }
-            
+
             if (!isSleeping)
             {
                 //useless? they get resized in stepVelocities once again (AND DIFFERENTLY)
                 m_scratch_r.resize(bod->getNumLinks() + 1);  //multidof? ("Y"s use it and it is used to store qdd)
                 m_scratch_v.resize(bod->getNumLinks() + 1);
                 m_scratch_m.resize(bod->getNumLinks() + 1);
-                
+
                 if (bod->internalNeedsJointFeedback())
                 {
                     if (!bod->isUsingRK4Integration())
@@ -281,11 +281,11 @@ void btMultiBodyDynamicsWorld::solveInternalConstraints(btContactSolverInfo& sol
 void btMultiBodyDynamicsWorld::solveExternalForces(btContactSolverInfo& solverInfo)
 {
     forwardKinematics();
-    
+
     BT_PROFILE("solveConstraints");
-    
+
     clearMultiBodyConstraintForces();
-    
+
     m_sortedConstraints.resize(m_constraints.size());
     int i;
     for (i = 0; i < getNumConstraints(); i++)
@@ -294,28 +294,28 @@ void btMultiBodyDynamicsWorld::solveExternalForces(btContactSolverInfo& solverIn
     }
     m_sortedConstraints.quickSort(btSortConstraintOnIslandPredicate2());
     btTypedConstraint** constraintsPtr = getNumConstraints() ? &m_sortedConstraints[0] : 0;
-    
+
     m_sortedMultiBodyConstraints.resize(m_multiBodyConstraints.size());
     for (i = 0; i < m_multiBodyConstraints.size(); i++)
     {
         m_sortedMultiBodyConstraints[i] = m_multiBodyConstraints[i];
     }
     m_sortedMultiBodyConstraints.quickSort(btSortMultiBodyConstraintOnIslandPredicate());
-    
+
     btMultiBodyConstraint** sortedMultiBodyConstraints = m_sortedMultiBodyConstraints.size() ? &m_sortedMultiBodyConstraints[0] : 0;
-    
+
     m_solverMultiBodyIslandCallback->setup(&solverInfo, constraintsPtr, m_sortedConstraints.size(), sortedMultiBodyConstraints, m_sortedMultiBodyConstraints.size(), getDebugDrawer());
     m_constraintSolver->prepareSolve(getCollisionWorld()->getNumCollisionObjects(), getCollisionWorld()->getDispatcher()->getNumManifolds());
-    
+
 #ifndef BT_USE_VIRTUAL_CLEARFORCES_AND_GRAVITY
     {
         BT_PROFILE("btMultiBody addForce");
         for (int i = 0; i < this->m_multiBodies.size(); i++)
         {
             btMultiBody* bod = m_multiBodies[i];
-            
+
             bool isSleeping = false;
-            
+
             if (bod->getBaseCollider() && bod->getBaseCollider()->getActivationState() == ISLAND_SLEEPING)
             {
                 isSleeping = true;
@@ -325,16 +325,16 @@ void btMultiBodyDynamicsWorld::solveExternalForces(btContactSolverInfo& solverIn
                 if (bod->getLink(b).m_collider && bod->getLink(b).m_collider->getActivationState() == ISLAND_SLEEPING)
                     isSleeping = true;
             }
-            
+
             if (!isSleeping)
             {
                 //useless? they get resized in stepVelocities once again (AND DIFFERENTLY)
                 m_scratch_r.resize(bod->getNumLinks() + 1);  //multidof? ("Y"s use it and it is used to store qdd)
                 m_scratch_v.resize(bod->getNumLinks() + 1);
                 m_scratch_m.resize(bod->getNumLinks() + 1);
-                
+
                 bod->addBaseForce(m_gravity * bod->getBaseMass());
-                
+
                 for (int j = 0; j < bod->getNumLinks(); ++j)
                 {
                     bod->addLinkForce(j, m_gravity * bod->getLinkMass(j));
@@ -343,15 +343,15 @@ void btMultiBodyDynamicsWorld::solveExternalForces(btContactSolverInfo& solverIn
         }
     }
 #endif  //BT_USE_VIRTUAL_CLEARFORCES_AND_GRAVITY
-    
+
     {
         BT_PROFILE("btMultiBody stepVelocities");
         for (int i = 0; i < this->m_multiBodies.size(); i++)
         {
             btMultiBody* bod = m_multiBodies[i];
-            
+
             bool isSleeping = false;
-            
+
             if (bod->getBaseCollider() && bod->getBaseCollider()->getActivationState() == ISLAND_SLEEPING)
             {
                 isSleeping = true;
@@ -361,7 +361,7 @@ void btMultiBodyDynamicsWorld::solveExternalForces(btContactSolverInfo& solverIn
                 if (bod->getLink(b).m_collider && bod->getLink(b).m_collider->getActivationState() == ISLAND_SLEEPING)
                     isSleeping = true;
             }
-            
+
             if (!isSleeping)
             {
                 //useless? they get resized in stepVelocities once again (AND DIFFERENTLY)
@@ -408,7 +408,7 @@ void btMultiBodyDynamicsWorld::solveExternalForces(btContactSolverInfo& solverIn
                         btScalar* scratch_qdd3 = pMem;
                         pMem += numDofs;
                         btAssert((pMem - (2 * numPosVars + 8 * numDofs)) == &scratch_r2[0]);
-                        
+
                         /////
                         //copy q0 to scratch_q0 and qd0 to scratch_qd0
                         scratch_q0[0] = bod->getWorldToBaseRot().x();
@@ -432,7 +432,7 @@ void btMultiBodyDynamicsWorld::solveExternalForces(btContactSolverInfo& solverIn
                         {
                             btMultiBody* bod;
                             btScalar *scratch_qx, *scratch_q0;
-                            
+
                             void operator()()
                             {
                                 for (int dof = 0; dof < bod->getNumPosVars() + 7; ++dof)
@@ -447,7 +447,7 @@ void btMultiBodyDynamicsWorld::solveExternalForces(btContactSolverInfo& solverIn
                                 for (int i = 0; i < size; ++i)
                                     pVal[i] = pCurVal[i] + dt * pDer[i];
                             }
-                            
+
                         } pEulerIntegrate;
                         //
                         struct
@@ -455,7 +455,7 @@ void btMultiBodyDynamicsWorld::solveExternalForces(btContactSolverInfo& solverIn
                             void operator()(btMultiBody* pBody, const btScalar* pData)
                             {
                                 btScalar* pVel = const_cast<btScalar*>(pBody->getVelocityVector());
-                                
+
                                 for (int i = 0; i < pBody->getNumDofs() + 6; ++i)
                                     pVel[i] = pData[i];
                             }
@@ -470,7 +470,7 @@ void btMultiBodyDynamicsWorld::solveExternalForces(btContactSolverInfo& solverIn
                             }
                         } pCopy;
                         //
-                        
+
                         btScalar h = solverInfo.m_timeStep;
 #define output &m_scratch_r[bod->getNumDofs()]
                         //calc qdd0 from: q0 & qd0
@@ -514,7 +514,7 @@ void btMultiBodyDynamicsWorld::solveExternalForces(btContactSolverInfo& solverIn
                                                                                   isConstraintPass,getSolverInfo().m_jointFeedbackInWorldSpace,
                                                                                   getSolverInfo().m_jointFeedbackInJointFrame);
                         pCopy(output, scratch_qdd3, 0, numDofs);
-                        
+
                         //
                         //calc q = q0 + h/6(qd0 + 2*(qd1 + qd2) + qd3)
                         //calc qd = qd0 + h/6(qdd0 + 2*(qdd1 + qdd2) + qdd3)
@@ -537,14 +537,14 @@ void btMultiBodyDynamicsWorld::solveExternalForces(btContactSolverInfo& solverIn
                         {
                             btScalar* pRealBuf = const_cast<btScalar*>(bod->getVelocityVector());
                             pRealBuf += 6 + bod->getNumDofs() + bod->getNumDofs() * bod->getNumDofs();
-                            
+
                             for (int i = 0; i < numDofs; ++i)
                                 pRealBuf[i] = delta_q[i];
-                            
+
                             //bod->stepPositionsMultiDof(1, 0, &delta_q[0]);
                             bod->setPosUpdated(true);
                         }
-                        
+
                         //ugly hack which resets the cached data to t0 (needed for constraint solver)
                         {
                             for (int link = 0; link < bod->getNumLinks(); ++link)
@@ -555,7 +555,7 @@ void btMultiBodyDynamicsWorld::solveExternalForces(btContactSolverInfo& solverIn
                         }
                     }
                 }
-                
+
 #ifndef BT_USE_VIRTUAL_CLEARFORCES_AND_GRAVITY
                 bod->clearForcesAndTorques();
 #endif         //BT_USE_VIRTUAL_CLEARFORCES_AND_GRAVITY
@@ -624,7 +624,7 @@ void btMultiBodyDynamicsWorld::predictMultiBodyTransforms(btScalar timeStep)
 {
     BT_PROFILE("btMultiBody stepPositions");
     //integrate and update the Featherstone hierarchies
-    
+
     for (int b = 0; b < m_multiBodies.size(); b++)
     {
         btMultiBody* bod = m_multiBodies[b];
@@ -638,7 +638,7 @@ void btMultiBodyDynamicsWorld::predictMultiBodyTransforms(btScalar timeStep)
             if (bod->getLink(b).m_collider && bod->getLink(b).m_collider->getActivationState() == ISLAND_SLEEPING)
                 isSleeping = true;
         }
-        
+
         if (!isSleeping)
         {
             int nLinks = bod->getNumLinks();
